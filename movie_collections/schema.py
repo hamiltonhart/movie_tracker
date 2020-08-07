@@ -15,7 +15,7 @@ class MovieCollectionType(DjangoObjectType):
 
 class Query(graphene.ObjectType):
     movie_collections = graphene.List(MovieCollectionType)
-    movie_collecion = graphene.Field(
+    movie_collection = graphene.Field(
         MovieCollectionType, id=graphene.Int(required=True))
 
     def resolve_movie_collections(self, info):
@@ -41,14 +41,14 @@ class CreateMovieCollection(graphene.Mutation):
     def mutate(self, info, title):
         user = info.context.user
         if user.is_anonymous:
-            raise GraphQLError("Login to create a Todo List.")
-        movie_collecion = MovieCollection(title=title, created_by=user)
-        movie_collecion.save()
-        return CreateMovieCollection(movie_collecion=movie_collecion)
+            raise GraphQLError("Login to create a Collection.")
+        movie_collection = MovieCollection(title=title, created_by=user)
+        movie_collection.save()
+        return CreateMovieCollection(movie_collection=movie_collection)
 
 
 class UpdateMovieCollection(graphene.Mutation):
-    movie_collecion = graphene.Field(MovieCollectionType)
+    movie_collection = graphene.Field(MovieCollectionType)
 
     class Arguments:
         id = graphene.Int(required=True)
@@ -57,14 +57,14 @@ class UpdateMovieCollection(graphene.Mutation):
     @login_required
     def mutate(self, info, id, title):
         try:
-            movie_collecion = MovieCollection.objects.get(id=id)
+            movie_collection = MovieCollection.objects.get(id=id)
         except:
             raise GraphQLError("A valid Collection ID was not provided.")
 
-        movie_collecion.title = title
+        movie_collection.title = title
 
-        movie_collecion.save()
-        return UpdateMovieCollection(movie_collecion=movie_collecion)
+        movie_collection.save()
+        return UpdateMovieCollection(movie_collection=movie_collection)
 
 
 class DeleteMovieCollection(graphene.Mutation):
@@ -76,15 +76,15 @@ class DeleteMovieCollection(graphene.Mutation):
     @login_required
     def mutate(self, info, id):
         try:
-            movie_collecion = MovieCollection.objects.get(id=id)
+            movie_collection = MovieCollection.objects.get(id=id)
         except:
-            raise GraphQLError("A valid Todo List ID was not provided.")
+            raise GraphQLError("A valid Collection ID was not provided.")
 
-        movie_collecion.delete()
+        movie_collection.delete()
         return DeleteMovieCollection(id=id)
 
 
 class Mutation(graphene.ObjectType):
-    create_movie_collecion = CreateMovieCollection.Field()
-    update_movie_collecion = UpdateMovieCollection.Field()
-    delete_movie_collecion = DeleteMovieCollection.Field()
+    create_movie_collection = CreateMovieCollection.Field()
+    update_movie_collection = UpdateMovieCollection.Field()
+    delete_movie_collection = DeleteMovieCollection.Field()

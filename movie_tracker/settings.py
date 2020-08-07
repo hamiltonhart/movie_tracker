@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'movie',
     'collection_item',
 
-    # THIRD PART
+    # THIRD PARTY
+    "graphene_django",
     'django_extensions'
 ]
 
@@ -61,11 +62,13 @@ MIDDLEWARE = [
 ]
 
 GRAPHENE = {
-    'SCHEMA': 'project_folder.schema.schema',
+    'SCHEMA': 'movie_tracker.schema.schema',
     'MIDDLEWARE': [
         'graphql_jwt.middleware.JSONWebTokenMiddleware',
     ],
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000"

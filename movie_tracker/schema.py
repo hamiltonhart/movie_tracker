@@ -3,18 +3,29 @@ import graphql_jwt
 from graphene_django import DjangoObjectType
 
 # import app schemas
-# import myapp.schema
+import movie.schema
+import movie_collections.schema
+import collection_item.schema
+import users.schema
 
 # Add each schema for each app to the Query class and Mutation class respectively
-# class Query(
-#     myapp.schema.Query,
-#     graphene.ObjectType
-# ):
-#     pass
+
+
+class Query(
+    movie.schema.Query,
+    movie_collections.schema.Query,
+    collection_item.schema.Query,
+    users.schema.Query,
+    graphene.ObjectType
+):
+    pass
 
 
 class Mutation(
-    myapp.schema.Mutation,
+    movie.schema.Mutation,
+    movie_collections.schema.Mutation,
+    collection_item.schema.Mutation,
+    users.schema.Mutation,
     graphene.ObjectType
 ):
     # These are part of django-graphql-jwt and allow for authentication
