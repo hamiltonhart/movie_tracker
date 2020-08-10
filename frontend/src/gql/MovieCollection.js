@@ -37,15 +37,16 @@ export const CREATE_COLLECTION = gql`
       movieCollection {
         id
         title
+        movies {
+          rating
+          comments
+          movie {
+            id
+            tmdbId
+            summary
+          }
+        }
       }
-    }
-  }
-`;
-
-export const DELETE_COLLECTION = gql`
-  mutation deleteMovieCollection($id: Int!) {
-    deleteMovieCollection(id: $id) {
-      id
     }
   }
 `;
@@ -66,6 +67,14 @@ export const UPDATE_COLLECTION = gql`
           }
         }
       }
+    }
+  }
+`;
+
+export const DELETE_COLLECTION = gql`
+  mutation deleteMovieCollection($id: Int!) {
+    deleteMovieCollection(id: $id) {
+      id
     }
   }
 `;
