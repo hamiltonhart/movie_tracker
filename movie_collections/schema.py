@@ -52,7 +52,7 @@ class UpdateMovieCollection(graphene.Mutation):
 
     class Arguments:
         id = graphene.Int(required=True)
-        title = graphene.String(required=True)
+        title = graphene.String()
 
     @login_required
     def mutate(self, info, id, title):
