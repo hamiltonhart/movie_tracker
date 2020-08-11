@@ -1,2 +1,3 @@
 export * from "./AuthGQL";
-export * from "./MovieCollection";
+export * from "./MovieCollectionGQL";
+export * from "./CollectionItemGQL";

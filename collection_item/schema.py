@@ -37,15 +37,19 @@ class CreateCollectionItem(graphene.Mutation):
 
     class Arguments:
         movie_collection_id = graphene.Int(required=True)
-        movie_id = graphene.Int(required=True)
+        tmdb_id = graphene.Int(required=True)
+        title = graphene.String()
+        summary = graphene.String()
+        pic_path = graphene.String()
         comments = graphene.String()
         rating = graphene.Int()
 
     @login_required
-    def mutate(self, info, movie_collection_id, movie_id, comments, rating):
+    def mutate(self, info, movie_collection_id, tmdb_id, title, summary, pic_path=None, comments=None, rating=None):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie Collection Item.")
+
         try:
             movie_collection = MovieCollection.objects.get(
                 id=movie_collection_id)
@@ -54,10 +58,20 @@ class CreateCollectionItem(graphene.Mutation):
                 f"{movie_collection_id} is not a valid Movie Collection ID")
 
         try:
-            movie = Movie.objects.get(id=movie_id)
+            movie = Movie.objects.get(tmdb_id=tmdb_id)
         except:
-            raise GraphQLError(
-                f"{movie_id} is not a valid Movie ID")
+            if not title:
+                raise GraphQLError(
+                    "You must provide a title to add a movie to a collection.")
+            elif not summary:
+                raise GraphQLError(
+                    "You must provide a summary to add a movie to a collection.")
+            else:
+                movie = Movie(
+                    tmdb_id=tmdb_id, title=title, summary=summary)
+                if pic_path:
+                    movie.pic_path = pic_path
+                movie.save()
 
         collection_item = CollectionItem(
             movie_collection=movie_collection, movie=movie)
@@ -74,13 +88,11 @@ class UpdateCollectionItem(graphene.Mutation):
 
     class Arguments:
         id = graphene.Int(required=True)
-        movie_collection_id = graphene.Int()
-        movie_id = graphene.Int()
         comments = graphene.String()
         rating = graphene.Int()
 
     @login_required
-    def mutate(self, info, id, movie_collection_id, movie_id, comments, rating):
+    def mutate(self, info, id, comments, rating):
         try:
             collection_item = CollectionItem.objects.get(id=id)
         except:
@@ -91,21 +103,6 @@ class UpdateCollectionItem(graphene.Mutation):
             collection_item.comments = comments
         if rating:
             collection_item.rating = rating
-        if movie_collection_id:
-            try:
-                movie_collection = MovieCollection.objects.get(
-                    id=movie_collection_id)
-                collection_item.movie_collection = movie_collection
-            except:
-                raise GraphQLError(
-                    f"{movie_collection_id} is not a valid Movie Collection ID")
-        if movie_id:
-            try:
-                movie = Movie.objects.get(id=movie_id)
-                collection_item.movie = movie
-            except:
-                raise GraphQLError(
-                    f"{movie_id} is not a valid Movie ID")
 
         collection_item.save()
         return UpdateCollectionItem(collection_item=collection_item)

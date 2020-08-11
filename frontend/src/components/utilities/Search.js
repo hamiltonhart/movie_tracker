@@ -32,6 +32,7 @@ const Search = () => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"
+          placeholder="Search Movies"
           value={searchInput}
           onChange={(e) => handleSearchInput(e)}
         />

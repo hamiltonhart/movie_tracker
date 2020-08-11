@@ -35,7 +35,7 @@ class CreateMovie(graphene.Mutation):
     class Arguments:
         tmdb_id = graphene.Int(required=True)
         title = graphene.String(required=True)
-        summary = graphene.Int(required=True)
+        summary = graphene.String(required=True)
 
     # The @login_required decorator does just what it says, requires a user to be logged in before they can execute the mutation. Can also be added to Queries if desired.
     @login_required

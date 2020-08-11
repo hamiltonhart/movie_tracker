@@ -10,6 +10,8 @@ const MovieSearchListItem = (movie) => {
         {movie.movie.release_date &&
           `(${movie.movie.release_date.slice(0, 4)})`}
       </h2>
+      <p>{`Movie ID ${movie.movie.id}`}</p>
+      <p>{`Summary: ${movie.movie.overview}`}</p>
       <img
         src={`${POSTER_PATH}${movie.movie.poster_path}`}
         alt={movie.movie.title}
