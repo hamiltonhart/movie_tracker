@@ -25,7 +25,7 @@ export const CreateMovieCollection = () => {
 
   return (
     <div>
-      <h3>Create A Collection</h3>
+      <h2>Create A Collection</h2>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"
