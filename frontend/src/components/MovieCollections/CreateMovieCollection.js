@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { CREATE_COLLECTION } from "../../gql/MovieCollectionGQL";
+import {
+  CREATE_COLLECTION,
+  MOVIE_COLLECTIONS,
+} from "../../gql/MovieCollectionGQL";
 
 export const CreateMovieCollection = () => {
   const [title, setTitle] = useState("");
@@ -9,7 +12,15 @@ export const CreateMovieCollection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createMovieCollection({ variables: { title } });
+    createMovieCollection({
+      variables: { title },
+      refetchQueries: [{ query: MOVIE_COLLECTIONS }],
+      onCompleted: handleCompleted(),
+    });
+  };
+
+  const handleCompleted = () => {
+    setTitle("");
   };
 
   return (
