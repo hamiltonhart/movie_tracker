@@ -38,14 +38,16 @@ class CreateCollectionItem(graphene.Mutation):
     class Arguments:
         movie_collection_id = graphene.Int(required=True)
         tmdb_id = graphene.Int(required=True)
-        title = graphene.String()
-        summary = graphene.String()
+        title = graphene.String(required=True)
+        summary = graphene.String(required=True)
+        imdb_id = graphene.String()
+        release_year = graphene.Int()
         pic_path = graphene.String()
         comments = graphene.String()
         rating = graphene.Int()
 
     @login_required
-    def mutate(self, info, movie_collection_id, tmdb_id, title, summary, pic_path=None, comments=None, rating=None):
+    def mutate(self, info, movie_collection_id, tmdb_id, title, summary, imdb_id=None, release_year=None, pic_path=None, comments=None, rating=None):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie Collection Item.")
@@ -71,6 +73,10 @@ class CreateCollectionItem(graphene.Mutation):
                     tmdb_id=tmdb_id, title=title, summary=summary)
                 if pic_path:
                     movie.pic_path = pic_path
+                if imdb_id:
+                    movie.imdb_id = imdb_id
+                if release_year:
+                    movie.release = release_year
                 movie.save()
 
         collection_item = CollectionItem(

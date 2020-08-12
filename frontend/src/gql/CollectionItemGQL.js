@@ -6,8 +6,10 @@ export const CREATE_COLLECTION_ITEM = gql`
   mutation createCollectionItem(
     $movieCollectionId: Int!
     $tmdbId: Int!
-    $title: String
-    $summary: String
+    $title: String!
+    $summary: String!
+    $imdbId: String
+    $releaseYear: Int
     $picPath: String
     $comments: String
     $rating: Int
@@ -17,6 +19,8 @@ export const CREATE_COLLECTION_ITEM = gql`
       tmdbId: $tmdbId
       title: $title
       summary: $summary
+      imdbId: $imdbId
+      releaseYear: $releaseYear
       picPath: $picPath
       comments: $comments
       rating: $rating
@@ -28,6 +32,8 @@ export const CREATE_COLLECTION_ITEM = gql`
           tmdbId
           title
           summary
+          imdbId
+          releaseYear
           picPath
         }
         comments
@@ -47,6 +53,8 @@ export const UPDATE_COLLECTION_ITEM = gql`
           tmdbId
           title
           summary
+          imdbId
+          releaseYear
           picPath
         }
         comments

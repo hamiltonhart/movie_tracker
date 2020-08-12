@@ -4,6 +4,7 @@ import {
   CREATE_COLLECTION,
   MOVIE_COLLECTIONS,
 } from "../../gql/MovieCollectionGQL";
+import { Error } from "../global";
 
 export const CreateMovieCollection = () => {
   const [title, setTitle] = useState("");
@@ -34,6 +35,7 @@ export const CreateMovieCollection = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
         <input type="submit" value="Create Collection" />
+        {error && <Error message={error.message} />}
       </form>
     </div>
   );
