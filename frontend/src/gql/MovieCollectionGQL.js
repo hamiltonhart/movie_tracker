@@ -17,10 +17,12 @@ export const MOVIE_COLLECTION = gql`
       id
       title
       movies {
+        id
         rating
         comments
         movie {
           id
+          title
           tmdbId
           summary
         }

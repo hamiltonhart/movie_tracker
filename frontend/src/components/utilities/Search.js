@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MovieSearchList from "../movies/MovieSearchList";
 
-const Search = () => {
+const Search = ({ collectionId }) => {
   const [searchInput, setSearchInput] = useState("");
   const [movieList, setMovieList] = useState(null);
 
@@ -22,11 +22,6 @@ const Search = () => {
     }
   };
 
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-  //     console.log(searchInput);
-  //   };
-
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -39,7 +34,7 @@ const Search = () => {
         <input type="submit" value="Search" />
       </form>
       {movieList ? (
-        <MovieList movieList={movieList} />
+        <MovieList movieList={movieList} collectionId={collectionId} />
       ) : (
         <h3>Enter Search Above</h3>
       )}
