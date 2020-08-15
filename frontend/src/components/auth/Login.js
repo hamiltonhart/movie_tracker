@@ -12,6 +12,10 @@ import { useMutation, useApolloClient } from "@apollo/react-hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     marginLeft: theme.spacing(2),
@@ -20,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
+    minWidth: "400px",
     maxWidth: "500px",
   },
   heading: {
@@ -29,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     "& > *": {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
   },
 }));
@@ -59,30 +64,40 @@ export const Login = () => {
 
   const classes = useStyles();
   return (
-    <Paper className={classes.root}>
-      <Typography variant="h3" align="center">
-        Sign In
-      </Typography>
-      <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-        <TextField
-          type="text"
-          color="primary"
-          label="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></TextField>
-        <TextField
-          type="password"
-          color="primary"
-          label="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        ></TextField>
-        <Button variant="contained" size="large" color="primary" type="submit">
-          Sign In
-        </Button>
-      </form>
-      {error && <p>{error.message}</p>}
-    </Paper>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Typography variant="h3" align="center">
+          Hi, Darling!
+        </Typography>
+        <Typography variant="body1" align="center">
+          (Just making sure it's you.)
+        </Typography>
+        <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+          <TextField
+            type="text"
+            color="primary"
+            label="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          ></TextField>
+          <TextField
+            type="password"
+            color="primary"
+            label="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          ></TextField>
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            type="submit"
+          >
+            See My Movies
+          </Button>
+        </form>
+        {error && <p>{error.message}</p>}
+      </Paper>
+    </div>
   );
 };

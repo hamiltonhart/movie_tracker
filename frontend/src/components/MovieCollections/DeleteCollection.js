@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 
 import { DELETE_COLLECTION, MOVIE_COLLECTIONS } from "../../gql";
-import { Error } from "../global";
+import { Error } from "../Global";
 
 export const DeleteCollection = ({ id }) => {
   const [deleteMovieCollection, { error }] = useMutation(DELETE_COLLECTION);

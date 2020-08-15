@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+body {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e1e1e1;
+}
+
+a:visited {
+  color: inherit;
+}

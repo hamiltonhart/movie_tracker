@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
 import { CREATE_COLLECTION_ITEM } from "../../gql";
-import { Error } from "../global";
+import { Error } from "../Global";
 
 export const CreateCollectionItem = ({
   movieCollectionId,

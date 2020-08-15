@@ -1,13 +1,31 @@
 import React from "react";
-import { Link } from "@reach/router";
-import { CollectionList } from "../components/MovieCollections";
-import { Login } from "../components/auth";
+import {
+  CollectionList,
+  CreateMovieCollection,
+} from "../components/MovieCollections";
+
+import { useToggle } from "../components/utilities";
+
+import { makeStyles, Button } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+}));
 
 export const HomePage = () => {
+  const { isShowing, toggle } = useToggle();
+
+  const classes = useStyles();
   return (
-    <div>
-      <Login />
-      <h1>Home Page</h1>
+    <div className={classes.root}>
+      <Button variant="outlined" size="large" color="primary" onClick={toggle}>
+        Create A Collection
+      </Button>
+      <CreateMovieCollection isShowing={isShowing} toggle={toggle} />
       <CollectionList />
     </div>
   );
