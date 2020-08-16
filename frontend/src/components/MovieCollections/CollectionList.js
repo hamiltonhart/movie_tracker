@@ -6,12 +6,13 @@ import { makeStyles } from "@material-ui/core";
 
 import { Error, Loading } from "../Global";
 import { CollectionListItem } from "./CollectionListItem";
-import { DeleteCollection } from "./DeleteCollection";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
+    padding: theme.spacing(1),
   },
 }));
 
@@ -26,14 +27,11 @@ export const CollectionList = () => {
       {data && (
         <>
           {data.movieCollections.map((collection) => (
-            <>
-              <CollectionListItem
-                key={collection.id}
-                id={collection.id}
-                title={collection.title}
-              />
-              <DeleteCollection id={collection.id} />
-            </>
+            <CollectionListItem
+              key={collection.id}
+              id={collection.id}
+              title={collection.title}
+            />
           ))}
         </>
       )}

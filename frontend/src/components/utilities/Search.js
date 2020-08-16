@@ -1,7 +1,25 @@
 import React, { useState } from "react";
+
+import { makeStyles, TextField, Button, Typography } from "@material-ui/core";
+
 import MovieSearchList from "../movies/MovieSearchList";
 
-const Search = ({ collectionId }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {},
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  searchButton: {
+    marginTop: theme.spacing(1),
+  },
+}));
+
+export const Search = ({ collectionId, toggle }) => {
   const [searchInput, setSearchInput] = useState("");
   const [movieList, setMovieList] = useState(null);
 
@@ -22,28 +40,47 @@ const Search = ({ collectionId }) => {
     }
   };
 
+  const classes = useStyles();
+
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
+      <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+        <TextField
           type="text"
-          placeholder="Search Movies"
+          placeholder="Movie Title"
+          autoFocus
+          fullWidth
           value={searchInput}
           onChange={(e) => handleSearchInput(e)}
         />
-        <input type="submit" value="Search" />
+        <Button
+          as="input"
+          type="submit"
+          className={classes.searchButton}
+          variant="outlined"
+          color="primary"
+          fullWidth
+        >
+          Find Movie
+        </Button>
       </form>
-      {movieList ? (
-        <MovieList movieList={movieList} collectionId={collectionId} />
-      ) : (
-        <h3>Enter Search Above</h3>
+      {movieList && (
+        <MovieList
+          movieList={movieList}
+          collectionId={collectionId}
+          toggle={toggle}
+        />
       )}
     </div>
   );
 };
 
-const MovieList = (movieList) => {
-  return <MovieSearchList movieList={movieList.movieList} />;
+const MovieList = ({ movieList, collectionId, toggle }) => {
+  return (
+    <MovieSearchList
+      collectionId={collectionId}
+      movieList={movieList}
+      toggle={toggle}
+    />
+  );
 };
-
-export default Search;

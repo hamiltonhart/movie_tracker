@@ -1,11 +1,16 @@
 import React from "react";
 import MovieSearchListItem from "./MovieSearchListItem";
 
-const MovieSearchList = (movieList) => {
+const MovieSearchList = ({ collectionId, movieList, toggle }) => {
   return (
     <div>
-      {movieList.movieList.map((movie) => (
-        <MovieSearchListItem key={movie.id} movie={movie} />
+      {movieList.map((movie) => (
+        <MovieSearchListItem
+          key={movie.id}
+          collectionId={collectionId}
+          movie={movie}
+          toggle={toggle}
+        />
       ))}
     </div>
   );

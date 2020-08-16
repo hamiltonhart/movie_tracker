@@ -22,9 +22,12 @@ export const MOVIE_COLLECTION = gql`
         comments
         movie {
           id
-          title
           tmdbId
+          title
           summary
+          imdbId
+          releaseYear
+          picPath
         }
       }
     }

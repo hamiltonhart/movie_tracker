@@ -76,7 +76,7 @@ class CreateCollectionItem(graphene.Mutation):
                 if imdb_id:
                     movie.imdb_id = imdb_id
                 if release_year:
-                    movie.release = release_year
+                    movie.release_year = release_year
                 movie.save()
 
         collection_item = CollectionItem(

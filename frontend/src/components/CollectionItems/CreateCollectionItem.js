@@ -1,8 +1,21 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-import { CREATE_COLLECTION_ITEM } from "../../gql";
+import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
+
+import { makeStyles, Button } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: theme.spacing(3),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  button: {},
+}));
 
 export const CreateCollectionItem = ({
   movieCollectionId,
@@ -12,6 +25,7 @@ export const CreateCollectionItem = ({
   imdbId,
   releaseYear,
   picPath,
+  toggle,
 }) => {
   const [comments, setComments] = useState("");
   const [rating, setRating] = useState(0);
@@ -30,11 +44,29 @@ export const CreateCollectionItem = ({
         comments,
         rating,
       },
+      refetchQueries: [
+        { query: MOVIE_COLLECTION, variables: { id: movieCollectionId } },
+      ],
+      onCompleted: handleCompleted(),
     });
   };
+
+  const handleCompleted = () => {
+    toggle();
+  };
+  const classes = useStyles();
+
   return (
-    <div>
-      <button onClick={() => handleClick()}>Add to Collection</button>
+    <div className={classes.root}>
+      <Button
+        className={classes.button}
+        color="secondary"
+        variant="contained"
+        fullWidth
+        onClick={() => handleClick()}
+      >
+        Add
+      </Button>
       {error && <Error message={error.message} />}
     </div>
   );
