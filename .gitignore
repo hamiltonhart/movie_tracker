@@ -14,7 +14,7 @@ venv/
 
 # don't track node_modules because we'll be using yarn install and it will create this
 
-node_modules
+node_modules/
 
 # On our project configuration, the output of the collectstatic will be stored in
 # staticfiles directory. We are ignoring files inside staticfiles but we'll track this # folder itself so that collectstatic can work on Heroku
