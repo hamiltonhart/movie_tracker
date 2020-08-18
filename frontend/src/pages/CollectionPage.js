@@ -35,7 +35,7 @@ export const CollectionPage = () => {
       {error && <Error message={error.message} />}
       {data && (
         <>
-          <Typography variant="h5">{data.movieCollection.title}</Typography>
+          <Typography variant="h4">{data.movieCollection.title}</Typography>
           <div className={classes.newCollectionToggle}>
             <Button onClick={toggle} variant="outlined">
               {isShowing ? "Cancel" : "Add Movie"}

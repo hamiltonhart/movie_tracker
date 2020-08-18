@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    minWidth: "400px",
-    maxWidth: "500px",
+    minWidth: "95%",
+    maxWidth: "95%",
   },
   heading: {
     textTransform: "uppercase",
@@ -70,7 +70,7 @@ export const Login = () => {
           Hi, Darling!
         </Typography>
         <Typography variant="body1" align="center">
-          (Just making sure it's you.)
+          Just making sure it's you ;)
         </Typography>
         <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
           <TextField
@@ -93,7 +93,7 @@ export const Login = () => {
             color="primary"
             type="submit"
           >
-            See My Movies
+            See My Movies!
           </Button>
         </form>
         {error && <p>{error.message}</p>}

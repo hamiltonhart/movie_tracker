@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(3),
   },
+  heading: {
+    color: theme.palette.primary.veryLight,
+  },
 }));
 
 export const Heading = () => {
@@ -18,7 +21,9 @@ export const Heading = () => {
   return (
     <div className={classes.root}>
       <Link to="/">
-        <Typography variant="h4">BMDb</Typography>
+        <Typography className={classes.heading} variant="h4">
+          BMDb
+        </Typography>
       </Link>
     </div>
   );
