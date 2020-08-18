@@ -4,7 +4,6 @@ import { useToggle } from "../utilities";
 import { DELETE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import {
   makeStyles,
-  TextField,
   Button,
   Modal,
   Paper,

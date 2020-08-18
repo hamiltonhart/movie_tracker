@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { makeStyles, TextField, Button, Typography } from "@material-ui/core";
+import { makeStyles, TextField, Button } from "@material-ui/core";
 
 import MovieSearchList from "../movies/MovieSearchList";
 

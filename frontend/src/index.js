@@ -10,7 +10,6 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./utilities";
-import { render } from "@testing-library/react";
 import { PrimaryLayout } from "./components/Global";
 import { Login } from "./components/auth/Login";
 
