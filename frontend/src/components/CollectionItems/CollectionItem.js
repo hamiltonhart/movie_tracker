@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     paddingBottom: theme.spacing(2),
     marginBottom: theme.spacing(2),
+    boxShadow: theme.shadows[6],
   },
   imageTitle: {
     display: "flex",
@@ -48,9 +49,7 @@ export const CollectionItem = ({ item, collectionId }) => {
         />
         <div className={classes.title}>
           <Typography variant="h6">{`${item.movie.title}`} </Typography>
-          <Typography variant="subheading 2">
-            {item.movie.releaseYear}
-          </Typography>
+          <Typography variant="subtitle1">{item.movie.releaseYear}</Typography>
           <div className={classes.buttonContainer}>
             <DeleteCollectionItem
               id={item.id}

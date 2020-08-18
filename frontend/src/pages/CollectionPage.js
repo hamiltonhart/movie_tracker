@@ -7,13 +7,15 @@ import { makeStyles, Typography, Button } from "@material-ui/core";
 
 import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
-
+import { EditCollectionModal } from "../components/MovieCollections";
 import { useToggle, Search } from "../components/utilities";
 
 const useStyles = makeStyles((theme) => ({
-  newCollectionToggle: {
+  pageHeading: { fontWeight: 600 },
+  buttons: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    marginTop: theme.spacing(3),
     paddingTop: theme.spacing(1),
   },
   collectionItemList: {
@@ -26,7 +28,8 @@ export const CollectionPage = () => {
   const { data, loading, error } = useQuery(MOVIE_COLLECTION, {
     variables: { id: params.collectionId },
   });
-  const { isShowing, toggle } = useToggle();
+  const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
+  const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
   const classes = useStyles();
   return (
@@ -35,14 +38,23 @@ export const CollectionPage = () => {
       {error && <Error message={error.message} />}
       {data && (
         <>
-          <Typography variant="h4">{data.movieCollection.title}</Typography>
-          <div className={classes.newCollectionToggle}>
-            <Button onClick={toggle} variant="outlined">
-              {isShowing ? "Cancel" : "Add Movie"}
+          <Typography
+            className={classes.pageHeading}
+            align="center"
+            variant="h4"
+          >
+            {data.movieCollection.title}
+          </Typography>
+          <div className={classes.buttons}>
+            <Button onClick={toggleEdit} variant="outlined">
+              Edit
+            </Button>
+            <Button onClick={toggleAdd} variant="contained" color="primary">
+              {isShowingAdd ? "Cancel" : "Add Movie"}
             </Button>
           </div>
-          {isShowing ? (
-            <Search collectionId={params.collectionId} toggle={toggle} />
+          {isShowingAdd ? (
+            <Search collectionId={params.collectionId} toggle={toggleAdd} />
           ) : (
             <div className={classes.collectionItemList}>
               <CollectionItemsList
@@ -51,6 +63,12 @@ export const CollectionPage = () => {
               />
             </div>
           )}
+          <EditCollectionModal
+            isShowing={isShowingEdit}
+            toggle={toggleEdit}
+            id={data.movieCollection.id}
+            collectionTitle={data.movieCollection.title}
+          />
         </>
       )}
     </div>
