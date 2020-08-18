@@ -43,7 +43,7 @@ export const DeleteMovieCollection = ({ isShowing, toggle, id }) => {
 
   return (
     <>
-      <Typography variant="h5">Edit Collection?</Typography>
+      <Typography variant="h5">Delete Collection?</Typography>
       <div className={classes.buttons}>
         <Button
           variant="contained"
