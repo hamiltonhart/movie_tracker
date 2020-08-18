@@ -66,10 +66,8 @@ export const UPDATE_COLLECTION_ITEM = gql`
 
 export const DELETE_COLLECTION_ITEM = gql`
   mutation deleteCollectionItem($id: Int!) {
-    updateCollectionItem(id: $id) {
-      collectionItem {
-        id
-      }
+    deleteCollectionItem(id: $id) {
+      id
     }
   }
 `;

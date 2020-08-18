@@ -45,7 +45,10 @@ export const CollectionPage = () => {
             <Search collectionId={params.collectionId} toggle={toggle} />
           ) : (
             <div className={classes.collectionItemList}>
-              <CollectionItemsList items={data.movieCollection.movies} />
+              <CollectionItemsList
+                items={data.movieCollection.movies}
+                collectionId={params.collectionId}
+              />
             </div>
           )}
         </>
