@@ -78,6 +78,7 @@ export const CreateMovieCollection = ({ isShowing, toggle }) => {
               label="New Collection Name"
               variant="outlined"
               fullWidth
+              autoFocus
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
