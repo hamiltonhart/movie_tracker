@@ -25,7 +25,7 @@ class Query(graphene.ObjectType):
         try:
             return MovieCollection.objects.get(id=id)
         except:
-            return GraphQLError("A valid Collection ID was not provided.")
+            return GraphQLError(f"{id} is not a valid collection ID")
 
 
 # Mutations

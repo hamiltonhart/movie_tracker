@@ -14,5 +14,8 @@ class CollectionItem(models.Model):
     comments = models.TextField(null=True)
     rating = models.IntegerField(null=True)
 
+    class Meta:
+        ordering = ['movie__title']
+
     def __str__(self):
         return self.movie.title
