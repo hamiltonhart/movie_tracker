@@ -15,13 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
   imageTitle: {
     display: "flex",
-    marginBottom: theme.spacing(1),
   },
-  title: {
+  image: {
+    alignSelf: "start",
+  },
+  titleHeading: {
     display: "flex",
     flexDirection: "column",
     flex: "1",
     marginLeft: theme.spacing(1),
+  },
+  title: {
+    lineHeight: "1",
   },
   buttonContainer: {
     display: "flex",
@@ -44,11 +49,14 @@ export const CollectionItem = ({ item, collectionId }) => {
     <Paper className={classes.root}>
       <div className={classes.imageTitle}>
         <img
+          className={classes.image}
           src={`${POSTER_PATH}${item.movie.picPath}`}
           alt={item.movie.title}
         />
-        <div className={classes.title}>
-          <Typography variant="h6">{`${item.movie.title}`} </Typography>
+        <div className={classes.titleHeading}>
+          <Typography className={classes.title} variant="h6">
+            {`${item.movie.title}`}{" "}
+          </Typography>
           <Typography variant="subtitle1">{item.movie.releaseYear}</Typography>
           <div className={classes.buttonContainer}>
             <DeleteCollectionItem
@@ -56,21 +64,16 @@ export const CollectionItem = ({ item, collectionId }) => {
               title={item.movie.title}
               collectionId={collectionId}
             />
+            <Button
+              as="a"
+              href={`${TMDB_PATH}${item.movie.tmdbId}`}
+              target="_blank"
+              variant="contained"
+              fullWidth
+            >
+              More Info
+            </Button>
           </div>
-        </div>
-      </div>
-      <div>
-        {/* <Typography variant="body1">{`${item.movie.summary}`}</Typography> */}
-        <div className={classes.buttonContainer}>
-          <Button
-            as="a"
-            href={`${TMDB_PATH}${item.movie.tmdbId}`}
-            target="_blank"
-            variant="contained"
-            fullWidth
-          >
-            More Info
-          </Button>
         </div>
       </div>
     </Paper>
