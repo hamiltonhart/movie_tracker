@@ -57,7 +57,7 @@ export const Search = ({ collectionId, toggle }) => {
           as="input"
           type="submit"
           className={classes.searchButton}
-          variant="outlined"
+          variant="contained"
           color="primary"
           fullWidth
         >
