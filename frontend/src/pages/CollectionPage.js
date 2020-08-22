@@ -46,7 +46,7 @@ export const CollectionPage = () => {
             {data.movieCollection.title}
           </Typography>
           <div className={classes.buttons}>
-            <Button onClick={toggleEdit} variant="outlined">
+            <Button onClick={toggleEdit} color="primary" variant="outlined">
               Edit
             </Button>
             <Button onClick={toggleAdd} variant="contained" color="primary">

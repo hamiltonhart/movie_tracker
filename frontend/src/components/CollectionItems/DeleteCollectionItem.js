@@ -72,7 +72,7 @@ export const DeleteCollectionItem = ({ id, title, collectionId }) => {
   const classes = useStyles();
   return (
     <>
-      <Button variant="outlined" color="secondary" fullWidth onClick={toggle}>
+      <Button color="secondary" fullWidth onClick={toggle}>
         Remove
       </Button>
       {isShowing && (

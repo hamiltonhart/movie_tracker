@@ -31,12 +31,9 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
     marginTop: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
     "& > *": {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(1),
     },
   },
 }));
@@ -59,20 +56,21 @@ export const CollectionItem = ({ item, collectionId }) => {
           </Typography>
           <Typography variant="subtitle1">{item.movie.releaseYear}</Typography>
           <div className={classes.buttonContainer}>
+            <Button
+              as="a"
+              href={`${TMDB_PATH}${item.movie.tmdbId}`}
+              target="_blank"
+              color="primary"
+              variant="outlined"
+              fullWidth
+            >
+              More Info
+            </Button>
             <DeleteCollectionItem
               id={item.id}
               title={item.movie.title}
               collectionId={collectionId}
             />
-            <Button
-              as="a"
-              href={`${TMDB_PATH}${item.movie.tmdbId}`}
-              target="_blank"
-              variant="contained"
-              fullWidth
-            >
-              More Info
-            </Button>
           </div>
         </div>
       </div>
