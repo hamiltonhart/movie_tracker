@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    backgroundColor: theme.palette.primary.light,
+  },
+  title: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -19,7 +21,9 @@ export const CollectionListItem = ({ id, title }) => {
   const classes = useStyles();
   return (
     <Paper component={Link} to={`collections/${id}`} className={classes.root}>
-      <Typography variant="h5">{title}</Typography>
+      <Typography className={classes.title} variant="h5">
+        {title}
+      </Typography>
     </Paper>
   );
 };
