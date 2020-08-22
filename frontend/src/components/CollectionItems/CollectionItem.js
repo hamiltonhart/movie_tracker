@@ -79,7 +79,9 @@ export const CollectionItem = ({ item, collectionId }) => {
           <div>
             <div className={classes.summary}>
               <Typography variant="body1">
-                {`${item.movie.summary.slice(0, 145)} ...`}
+                {`${item.movie.summary.slice(0, 145)}${
+                  item.movie.summary.length > 125 ? "..." : ""
+                }`}
               </Typography>
             </div>
           </div>
