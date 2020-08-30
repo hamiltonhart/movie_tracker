@@ -15,8 +15,9 @@ import { Login } from "./components/auth/Login";
 
 const cache = new InMemoryCache();
 
-const uri = "http://localhost:8000/graphql/";
+// const uri = "http://localhost:8000/graphql/";
 // const uri = "https://brandi-movie-tracker.herokuapp.com/graphql/";
+const uri = "https://bmdb-dev.herokuapp.com/graphql/";
 
 export const client = new ApolloClient({
   cache,
