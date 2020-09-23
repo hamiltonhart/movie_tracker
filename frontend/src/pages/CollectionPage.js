@@ -9,6 +9,7 @@ import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
 import { EditCollectionModal } from "../components/MovieCollections";
 import { useToggle, Search } from "../components/utilities";
+import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
 
 const useStyles = makeStyles((theme) => ({
   pageHeading: { fontWeight: 600 },
@@ -63,7 +64,13 @@ export const CollectionPage = () => {
             </Button>
           </div>
           {isShowingAdd ? (
-            <Search collectionId={params.collectionId} toggle={toggleAdd} />
+            <>
+              <Search collectionId={params.collectionId} toggle={toggleAdd} />
+              <CreateCollectionItemManual
+                movieCollectionId={params.collectionId}
+                toggle={toggleAdd}
+              />
+            </>
           ) : (
             <div className={classes.collectionItemList}>
               <CollectionItemsList

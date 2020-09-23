@@ -5,9 +5,9 @@ import { gql } from "apollo-boost";
 export const CREATE_COLLECTION_ITEM = gql`
   mutation createCollectionItem(
     $movieCollectionId: Int!
-    $tmdbId: Int!
+    $tmdbId: Int
     $title: String!
-    $summary: String!
+    $summary: String
     $imdbId: String
     $releaseYear: Int
     $picPath: String

@@ -33,19 +33,23 @@ class CreateMovie(graphene.Mutation):
     movie = graphene.Field(MovieType)
 
     class Arguments:
-        tmdb_id = graphene.Int(required=True)
+        tmdb_id = graphene.Int()
         title = graphene.String(required=True)
-        summary = graphene.String(required=True)
+        summary = graphene.String()
         imdb_id = graphene.String()
         release_year = graphene.Int()
 
     # The @login_required decorator does just what it says, requires a user to be logged in before they can execute the mutation. Can also be added to Queries if desired.
     @login_required
-    def mutate(self, info, tmdb_id, title, summary, imdb_id=None, release_year=None):
+    def mutate(self, info, title, tmdb_id=None, summary=None, imdb_id=None, release_year=None):
         user = info.context.user
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie.")
-        movie = Movie(tmdb_id=tmdb_id, title=title, summary=summary)
+        movie = Movie(title=title)
+        if tmdb_id:
+            movie.tmdb_id = tmdb_id
+        if summary:
+            movie.summary = summary
         if imdb_id:
             movie.imdb_id = imdb_id
         if release_year:
@@ -60,7 +64,7 @@ class UpdateMovie(graphene.Mutation):
     class Arguments:
         id = graphene.Int(required=True)
         title = graphene.String(required=True)
-        title = graphene.String(required=True)
+        tmdb_id = graphene.String(required=True)
         summary = graphene.Int(required=True)
 
     @login_required
