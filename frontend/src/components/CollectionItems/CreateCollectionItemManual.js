@@ -42,7 +42,7 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         movieCollectionId,
         title,
         summary,
-        releaseYear,
+        releaseYear: releaseYear ? releaseYear : 0,
       },
       refetchQueries: [
         { query: MOVIE_COLLECTION, variables: { id: movieCollectionId } },
@@ -76,7 +76,6 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
           fullWidth
           value={releaseYear}
           onChange={(e) => setReleaseYear(e.target.value)}
-          required
         />
         <TextField
           type="text"
@@ -87,7 +86,6 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
           rows={5}
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
-          required
         />
 
         <Button

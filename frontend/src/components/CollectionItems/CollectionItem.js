@@ -3,7 +3,7 @@ import React from "react";
 import { DeleteCollectionItem } from "./DeleteCollectionItem";
 
 import { makeStyles, Typography, Paper, Button } from "@material-ui/core";
-import { ScalarLeafsRule } from "graphql";
+import imageNotAvailable from "../../images/NoImageAvailable.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +73,11 @@ export const CollectionItem = ({ item, collectionId }) => {
         <div className={classes.imageTitle}>
           <img
             className={classes.image}
-            src={`${POSTER_PATH}${item.movie.picPath}`}
+            src={
+              item.movie.picPath
+                ? `${POSTER_PATH}${item.movie.picPath}`
+                : imageNotAvailable
+            }
             alt={item.movie.title}
           />
           <div>
