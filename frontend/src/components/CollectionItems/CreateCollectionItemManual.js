@@ -67,14 +67,14 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         />
         <TextField
           type="text"
-          placeholder="Release Year (4 Digits)"
+          placeholder="Release Year (Required, 4 Digits)"
           fullWidth
           value={releaseYear}
           onChange={(e) => setReleaseYear(e.target.value)}
         />
         <TextField
           type="text"
-          placeholder="Summary"
+          placeholder="Summary (Required)"
           variant="outlined"
           multiline
           fullWidth
@@ -89,7 +89,13 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
           size="large"
           color="secondary"
           variant="contained"
-          disabled={!title}
+          disabled={
+            !title ||
+            !releaseYear ||
+            releaseYear.length !== 4 ||
+            isNaN(releaseYear) ||
+            !summary
+          }
           fullWidth
         >
           Add
