@@ -31,11 +31,6 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
 
   const [createCollectionItem, { error }] = useMutation(CREATE_COLLECTION_ITEM);
   const handleSubmit = (e) => {
-    console.log(movieCollectionId);
-    console.log(title);
-    console.log(releaseYear);
-    console.log(summary);
-
     e.preventDefault();
     createCollectionItem({
       variables: {

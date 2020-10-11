@@ -49,6 +49,7 @@ class CreateCollectionItem(graphene.Mutation):
     @login_required
     def mutate(self, info, movie_collection_id, title, tmdb_id=None, summary=None, imdb_id=None, release_year=None, pic_path=None, comments=None, rating=None):
         user = info.context.user
+        needs_new_movie = False
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie Collection Item.")
 
@@ -59,9 +60,22 @@ class CreateCollectionItem(graphene.Mutation):
             raise GraphQLError(
                 f"{movie_collection_id} is not a valid Movie Collection ID")
 
-        try:
-            movie = Movie.objects.get(tmdb_id=tmdb_id)
-        except:
+        if tmdb_id != None:
+            try:
+                movie = Movie.objects.get(tmdb_id=tmdb_id)
+            except:
+                needs_new_movie = True
+        elif tmdb_id == None:
+            try:
+                temp_movie = Movie.objects.get(title=title)
+                if temp_movie.release_year == release_year:
+                    movie = temp_movie
+                else:
+                    needs_new_movie = True
+            except:
+                needs_new_movie = True
+
+        if needs_new_movie:
             if not title:
                 raise GraphQLError(
                     "You must provide a title to add a movie to a collection.")
