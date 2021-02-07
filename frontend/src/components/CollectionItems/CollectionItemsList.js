@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { CollectionItem } from "./CollectionItem";
+import { movieSortingABC } from "../../utilities";
 
 import { makeStyles, TextField } from "@material-ui/core";
 
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const CollectionItemsList = ({ items, collectionId }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [listItems, setListItems] = useState(items);
+  const [listItems, setListItems] = useState(movieSortingABC(items));
 
   const handleSearch = (e) => {
     const searchArray = new Array();
