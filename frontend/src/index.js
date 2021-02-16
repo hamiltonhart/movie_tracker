@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "dotenv/config";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -15,8 +16,10 @@ import { Login } from "./components/auth/Login";
 
 const cache = new InMemoryCache();
 
-// const uri = "http://localhost:8000/graphql/";
-const uri = "https://brandi-movie-tracker.herokuapp.com/graphql/";
+const uri =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8000/graphql/"
+    : "https://brandi-movie-tracker.herokuapp.com/graphql/";
 
 export const client = new ApolloClient({
   cache,
