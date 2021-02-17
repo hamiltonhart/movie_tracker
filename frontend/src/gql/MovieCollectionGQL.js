@@ -24,6 +24,7 @@ export const MOVIE_COLLECTION = gql`
           id
           tmdbId
           title
+          titlePrefix
           summary
           imdbId
           releaseYear

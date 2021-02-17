@@ -6,6 +6,18 @@ from graphql_jwt.decorators import login_required
 from .models import Movie
 
 
+def findPrefix(movie):
+    if movie.title.lower().startswith("the "):
+        movie.title = movie.title[4:]
+        movie.title_prefix = "The"
+    elif movie.title.lower().startswith("a "):
+        movie.title = movie.title[2:]
+        movie.title_prefix = "A"
+    else:
+        movie.title_prefix = None
+    return movie
+
+
 # Queries
 
 class MovieType(DjangoObjectType):
@@ -54,6 +66,7 @@ class CreateMovie(graphene.Mutation):
             movie.imdb_id = imdb_id
         if release_year:
             movie.release = release_year
+        movie = findPrefix(movie)
         movie.save()
         return CreateMovie(movie=movie)
 
@@ -76,6 +89,7 @@ class UpdateMovie(graphene.Mutation):
 
         if title:
             movie.title = title
+            movie = findPrefix(movie)
         if tmdb_id:
             movie.tmdb_id = tmdb_id
         if summary:

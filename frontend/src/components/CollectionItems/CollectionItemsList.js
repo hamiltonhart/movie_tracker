@@ -19,7 +19,10 @@ export const CollectionItemsList = ({ items, collectionId }) => {
     const searchArray = new Array();
     const tempSearchTerm = e.target.value;
     items.map((item) => {
-      item.movie.title.toLowerCase().includes(tempSearchTerm.toLowerCase()) &&
+      const compTitle = item.movie.titlePrefix
+        ? `${item.movie.titlePrefix} ${item.movie.title}`
+        : item.movie.title;
+      compTitle.toLowerCase().includes(tempSearchTerm.toLowerCase()) &&
         searchArray.push(item);
     });
     setSearchTerm(tempSearchTerm);

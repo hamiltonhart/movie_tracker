@@ -62,7 +62,9 @@ export const CollectionItem = ({ item, collectionId }) => {
     <Paper className={classes.root}>
       <div className={classes.titleHeading}>
         <Typography className={classes.title} variant="h6">
-          {`${item.movie.title}`}{" "}
+          {item.movie.titlePrefix
+            ? `${item.movie.titlePrefix} ${item.movie.title}`
+            : `${item.movie.title}`}{" "}
         </Typography>
         <Typography
           className={classes.date}

@@ -31,6 +31,7 @@ export const CREATE_COLLECTION_ITEM = gql`
           id
           tmdbId
           title
+          titlePrefix
           summary
           imdbId
           releaseYear
@@ -52,6 +53,7 @@ export const UPDATE_COLLECTION_ITEM = gql`
           id
           tmdbId
           title
+          titlePrefix
           summary
           imdbId
           releaseYear
