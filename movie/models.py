@@ -16,11 +16,17 @@ class Movie(models.Model):
         else:
             return self.title
 
-    def save(self, *args, **kwargs):
-        if self.title.lower().startswith("the "):
-            self.title = self.title[4:]
-            self.title_prefix = "The"
-        elif self.title.lower().startswith("a "):
-            self.title = self.title[2:]
-            self.title_prefix = "A"
+    def save(self, title_updated=False, *args, **kwargs):
+        if title_updated:
+            if self.title.lower().startswith("the "):
+                self.title = self.title[4:]
+                self.title_prefix = "The"
+            elif self.title.lower().startswith("a "):
+                self.title = self.title[2:]
+                self.title_prefix = "A"
+            else:
+                self.title_prefix = None
         super(Movie, self).save(*args, **kwargs)
+
+    def find_prefix(self):
+        self.save(title_updated=True)

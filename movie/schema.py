@@ -5,6 +5,8 @@ from graphql_jwt.decorators import login_required
 
 from .models import Movie
 
+import sys
+
 
 def findPrefix(movie):
     if movie.title.lower().startswith("the "):
@@ -58,6 +60,7 @@ class CreateMovie(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie.")
         movie = Movie(title=title)
+
         if tmdb_id:
             movie.tmdb_id = tmdb_id
         if summary:
@@ -66,8 +69,8 @@ class CreateMovie(graphene.Mutation):
             movie.imdb_id = imdb_id
         if release_year:
             movie.release = release_year
-        movie = findPrefix(movie)
-        movie.save()
+
+        movie.save(title_updated=True)
         return CreateMovie(movie=movie)
 
 
@@ -87,15 +90,16 @@ class UpdateMovie(graphene.Mutation):
         except:
             raise GraphQLError("A valid Movie ID was not provided.")
 
+        title_updated = False
+
         if title:
             movie.title = title
-            movie = findPrefix(movie)
+            title_updated = True
         if tmdb_id:
             movie.tmdb_id = tmdb_id
         if summary:
             movie.summary = summary
-
-        movie.save()
+        movie.save(title_updated=title_updated)
         return UpdateMovie(movie=movie)
 
 
