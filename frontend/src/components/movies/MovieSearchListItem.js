@@ -2,6 +2,7 @@ import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
 import { makeStyles, Typography, Paper, Button } from "@material-ui/core";
+import { SecondaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,17 +54,14 @@ const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
             }
             toggle={toggle}
           />
-          <div className={classes.buttonContainer}>
-            <Button
-              as="a"
-              href={`${TMDB_PATH}${movie.id}`}
-              target="_blank"
-              variant="outlined"
-              fullWidth
-            >
-              More Info
-            </Button>
-          </div>
+          <SecondaryButton
+            as="a"
+            href={`${TMDB_PATH}${movie.id}`}
+            target="_blank"
+            fullwidth
+          >
+            More Info
+          </SecondaryButton>
         </div>
       </div>
       <div>

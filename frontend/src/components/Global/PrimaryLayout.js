@@ -4,7 +4,9 @@ import { Heading } from "./Heading";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    backgroundColor: "white",
+  },
   childrenDiv: {
     padding: theme.spacing(2),
   },

@@ -7,6 +7,7 @@ import {
 import { useToggle } from "../components/utilities";
 
 import { makeStyles, Button } from "@material-ui/core";
+import { SecondaryButton } from "../components/styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +23,7 @@ export const HomePage = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Button variant="outlined" size="large" color="primary" onClick={toggle}>
-        Create A Collection
-      </Button>
+      <SecondaryButton onClick={toggle}>Start A New List</SecondaryButton>
       <CreateMovieCollection isShowing={isShowing} toggle={toggle} />
       <CollectionList />
     </div>

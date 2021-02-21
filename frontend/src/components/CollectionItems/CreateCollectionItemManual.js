@@ -4,7 +4,8 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
-import { makeStyles, Button, TextField, Typography } from "@material-ui/core";
+import { makeStyles, TextField, Typography } from "@material-ui/core";
+import { SecondaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,9 +54,7 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6" align="center">
-        Or add it here
-      </Typography>
+      <p>Or add it here</p>
       <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
         <TextField
           type="text"
@@ -83,12 +82,8 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
           onChange={(e) => setSummary(e.target.value)}
         />
 
-        <Button
+        <SecondaryButton
           type="submit"
-          className={classes.button}
-          size="large"
-          color="secondary"
-          variant="contained"
           disabled={
             !title ||
             !releaseYear ||
@@ -96,10 +91,10 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
             isNaN(releaseYear) ||
             !summary
           }
-          fullWidth
+          fullwidth
         >
           Add
-        </Button>
+        </SecondaryButton>
       </form>
       {error && <Error message={error.message} />}
     </div>

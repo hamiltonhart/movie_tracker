@@ -2,13 +2,8 @@ import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { useToggle } from "../utilities";
 import { DELETE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
-import {
-  makeStyles,
-  Button,
-  Modal,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
+import { makeStyles, Modal, Paper } from "@material-ui/core";
 import { Error } from "../Global";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +49,13 @@ export const DeleteCollectionItem = ({ id, title, collectionId }) => {
   const [deleteCollectionItem, { error }] = useMutation(DELETE_COLLECTION_ITEM);
   const { isShowing, toggle } = useToggle();
 
-  const handleDelete = () => {
+  const handleRemoveClick = (e) => {
+    e.stopPropagation();
+    toggle();
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
     console.log("Delete this.");
     deleteCollectionItem({
       variables: { id },
@@ -72,31 +73,24 @@ export const DeleteCollectionItem = ({ id, title, collectionId }) => {
   const classes = useStyles();
   return (
     <>
-      <Button color="secondary" fullWidth onClick={toggle}>
+      <NoBorderButton onClick={(e) => handleRemoveClick(e)}>
         Remove
-      </Button>
+      </NoBorderButton>
       {isShowing && (
         <div className={classes.root}>
           <Modal className={classes.modal} open={isShowing}>
             <Paper className={classes.paper}>
-              <Typography align="center" variant="h6">
-                {`Delete ${title}?`}
-              </Typography>
-              <Typography align="center" variant="h5">
-                Are you sure?
-              </Typography>
+              <p>Are you sure?</p>
               <div className={classes.buttonContainer}>
-                <Button
+                <PrimaryButton
                   size="large"
                   variant="contained"
                   color="primary"
-                  onClick={(e) => handleDelete()}
+                  onClick={(e) => handleDelete(e)}
                 >
                   I'm sure. Delete!
-                </Button>
-                <Button variant="outlined" onClick={toggle}>
-                  No. Keep It
-                </Button>
+                </PrimaryButton>
+                <NoBorderButton onClick={toggle}>No. Keep It</NoBorderButton>
               </div>
               {error && <Error message={error.message} />}
             </Paper>

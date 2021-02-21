@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { makeStyles, TextField, Button } from "@material-ui/core";
 
 import MovieSearchList from "../movies/MovieSearchList";
+import { PrimaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -53,16 +54,7 @@ export const Search = ({ collectionId, toggle }) => {
           value={searchInput}
           onChange={(e) => handleSearchInput(e)}
         />
-        <Button
-          as="input"
-          type="submit"
-          className={classes.searchButton}
-          variant="contained"
-          color="primary"
-          fullWidth
-        >
-          Find Movie
-        </Button>
+        <PrimaryButton as="input" type="submit" fullwidth value="Find Movie" />
       </form>
       {movieList && (
         <MovieList

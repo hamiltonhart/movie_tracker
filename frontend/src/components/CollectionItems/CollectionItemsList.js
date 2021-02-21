@@ -16,7 +16,7 @@ export const CollectionItemsList = ({ items, collectionId }) => {
   const [listItems, setListItems] = useState(movieSortingABC(items));
 
   const handleSearch = (e) => {
-    const searchArray = new Array();
+    const searchArray = [];
     const tempSearchTerm = e.target.value;
     items.map((item) => {
       const compTitle = item.movie.titlePrefix

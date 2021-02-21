@@ -6,7 +6,8 @@ import {
 } from "../../gql/MovieCollectionGQL";
 import { Error } from "../Global";
 
-import { makeStyles, TextField, Button, Typography } from "@material-ui/core";
+import { makeStyles, TextField, Typography } from "@material-ui/core";
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -70,20 +71,10 @@ export const UpdateMovieCollection = ({
           onChange={(e) => setTitle(e.target.value)}
         />
         <div className={classes.buttons}>
-          <Button variant="outlined" size="large" onClick={handleCancel}>
-            Cancel
-          </Button>
-          <Button
-            as="input"
-            type="submit"
-            size="large"
-            variant="contained"
-            color="primary"
-          >
-            Save
-          </Button>
+          <NoBorderButton onClick={handleCancel}>Cancel</NoBorderButton>
+          <PrimaryButton as="input" type="submit" value="Save" />
         </div>
-        <Button onClick={toggleDelete}>Delete</Button>
+        <NoBorderButton onClick={toggleDelete}>Delete</NoBorderButton>
         {error && <Error message={error.message} />}
       </form>
     </>

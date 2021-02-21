@@ -8,6 +8,7 @@ import {
 import { Error } from "../Global";
 
 import { makeStyles, Button, Typography } from "@material-ui/core";
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -45,21 +46,8 @@ export const DeleteMovieCollection = ({ isShowing, toggle, id }) => {
     <>
       <Typography variant="h5">Delete Collection?</Typography>
       <div className={classes.buttons}>
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          onClick={handleCancel}
-        >
-          NO! Go Back!
-        </Button>
-        <Button
-          size="large"
-          variant="outlined"
-          onClick={(e) => handleDelete(e)}
-        >
-          Delete
-        </Button>
+        <PrimaryButton onClick={handleCancel}>NO! Go Back!</PrimaryButton>
+        <NoBorderButton onClick={(e) => handleDelete(e)}>Delete</NoBorderButton>
         {error && <Error message={error.message} />}
       </div>
     </>

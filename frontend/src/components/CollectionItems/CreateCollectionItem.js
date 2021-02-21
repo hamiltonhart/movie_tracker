@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 
 import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+import { PrimaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,9 +28,6 @@ export const CreateCollectionItem = ({
   picPath,
   toggle,
 }) => {
-  const [comments, setComments] = useState("");
-  const [rating, setRating] = useState(0);
-
   const [createCollectionItem, { error }] = useMutation(CREATE_COLLECTION_ITEM);
   const handleClick = () => {
     createCollectionItem({
@@ -41,8 +39,6 @@ export const CreateCollectionItem = ({
         imdbId,
         releaseYear,
         picPath,
-        comments,
-        rating,
       },
       refetchQueries: [
         { query: MOVIE_COLLECTION, variables: { id: movieCollectionId } },
@@ -57,17 +53,11 @@ export const CreateCollectionItem = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Button
-        className={classes.button}
-        color="secondary"
-        variant="contained"
-        fullWidth
-        onClick={() => handleClick()}
-      >
+    <>
+      <PrimaryButton fullwidth onClick={() => handleClick()}>
         Add
-      </Button>
+      </PrimaryButton>
       {error && <Error message={error.message} />}
-    </div>
+    </>
   );
 };

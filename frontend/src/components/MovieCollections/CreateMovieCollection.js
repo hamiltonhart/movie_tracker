@@ -9,11 +9,11 @@ import { Error } from "../Global";
 import {
   makeStyles,
   TextField,
-  Button,
   Modal,
   Paper,
   Typography,
 } from "@material-ui/core";
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,16 +82,10 @@ export const CreateMovieCollection = ({ isShowing, toggle }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <Button
-              as="input"
-              type="submit"
-              size="large"
-              variant="contained"
-              color="primary"
-            >
+            <PrimaryButton type="submit" fullwidth>
               Create Collection
-            </Button>
-            <Button onClick={toggle}>Cancel</Button>
+            </PrimaryButton>
+            <NoBorderButton onClick={toggle}>Cancel</NoBorderButton>
             {error && <Error message={error.message} />}
           </form>
         </Paper>

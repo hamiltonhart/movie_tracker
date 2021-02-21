@@ -2,114 +2,71 @@ import React from "react";
 
 import { DeleteCollectionItem } from "./DeleteCollectionItem";
 
-import { makeStyles, Typography, Paper, Button } from "@material-ui/core";
+import { Card } from "../styles/Card";
+import { CardMoviePoster } from "../styles/CardMoviePoster";
+import { CardMovieText } from "../styles/CardMovieText";
+import { CardMovieButtons } from "../styles/CardMovieButtons";
+import { PrimaryButton } from "../styles/Buttons";
+import { CardMovieContent } from "../styles/CardMovieContent";
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    boxShadow: theme.shadows[6],
-  },
-  titleHeading: {
-    // display: "flex",
-    // alignItems: "center",
-    "& > *": {
-      display: "inline",
-    },
-  },
-  date: {
-    marginLeft: theme.spacing(1),
-  },
-  imageTitle: {
-    display: "flex",
-  },
-  image: {
-    alignSelf: "center",
-    maxHeight: "130px",
-  },
-  body: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    flex: "1",
-    paddingTop: theme.spacing(1),
-  },
-  title: {
-    lineHeight: "1",
-  },
-  summary: {
-    // maxHeight: "120px",
-    overflow: "hidden",
-    whiteSpace: "normal",
-    textOverflow: "ellipsis",
-    marginLeft: theme.spacing(1),
-  },
-  buttonContainer: {
-    display: "flex",
-    marginTop: theme.spacing(1),
-  },
-}));
+import { useToggle } from "../utilities";
 
 export const CollectionItem = ({ item, collectionId }) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
-  const classes = useStyles();
+
+  const { isShowing, toggle } = useToggle();
+
   return (
-    <Paper className={classes.root}>
-      <div className={classes.titleHeading}>
-        <Typography className={classes.title} variant="h6">
-          {item.movie.titlePrefix
-            ? `${item.movie.titlePrefix} ${item.movie.title}`
-            : `${item.movie.title}`}{" "}
-        </Typography>
-        <Typography
-          className={classes.date}
-          variant="subtitle1"
-        >{`(${item.movie.releaseYear})`}</Typography>
-      </div>
-      <div className={classes.body}>
-        <div className={classes.imageTitle}>
-          <img
-            className={classes.image}
-            src={
-              item.movie.picPath
-                ? `${POSTER_PATH}${item.movie.picPath}`
-                : imageNotAvailable
-            }
-            alt={item.movie.title}
-          />
-          <div>
-            <div className={classes.summary}>
-              <Typography variant="body1">
-                {`${item.movie.summary.slice(0, 145)}${
-                  item.movie.summary.length > 125 ? "..." : ""
-                }`}
-              </Typography>
-            </div>
+    // <Paper className={classes.root}>
+    <Card onClick={toggle} expanded={isShowing}>
+      <CardMovieContent>
+        <CardMoviePoster
+          src={
+            item.movie.picPath
+              ? `${POSTER_PATH}${item.movie.picPath}`
+              : imageNotAvailable
+          }
+          alt={item.movie.title}
+          squared={isShowing}
+        />
+        <CardMovieText>
+          <div className="movieTitle">
+            <h3>
+              {item.movie.titlePrefix
+                ? `${item.movie.titlePrefix} ${item.movie.title}`
+                : `${item.movie.title}`}{" "}
+            </h3>
+            <p className="movieDate">{`(${item.movie.releaseYear})`}</p>
           </div>
-        </div>
-        <div className={classes.buttonContainer}>
-          <DeleteCollectionItem
-            id={item.id}
-            title={item.movie.title}
-            collectionId={collectionId}
-          />
-          <Button
-            as="a"
-            href={`${TMDB_PATH}${item.movie.tmdbId}`}
-            target="_blank"
-            color="primary"
-            variant="outlined"
-            fullWidth
-          >
-            More Info
-          </Button>
-        </div>
-      </div>
-    </Paper>
+          <div>
+            <p>
+              {`${item.movie.summary.slice(0, 180)}${
+                item.movie.summary.length > 125 ? "..." : ""
+              }`}
+            </p>
+          </div>
+        </CardMovieText>
+      </CardMovieContent>
+      {isShowing && (
+        <CardMovieButtons>
+          <div>
+            <DeleteCollectionItem
+              id={item.id}
+              title={item.movie.title}
+              collectionId={collectionId}
+            />
+            <PrimaryButton
+              as="a"
+              href={`${TMDB_PATH}${item.movie.tmdbId}`}
+              target="_blank"
+            >
+              More Info
+            </PrimaryButton>
+          </div>
+        </CardMovieButtons>
+      )}
+    </Card>
+    // </Paper>
   );
 };
