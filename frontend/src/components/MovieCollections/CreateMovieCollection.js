@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
+import { FormStyle, TextInputStyle } from "../styles/Forms";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,16 +35,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "85%",
     maxWidth: "85%",
     padding: theme.spacing(3),
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minWidth: "100%",
-    "& > *": {
-      marginTop: theme.spacing(2),
-    },
   },
 }));
 
@@ -73,11 +64,9 @@ export const CreateMovieCollection = ({ isShowing, toggle }) => {
       <Modal className={classes.modal} open={isShowing}>
         <Paper className={classes.paper}>
           <Typography variant="h5">New Collection</Typography>
-          <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-            <TextField
-              label="New Collection Name"
-              variant="outlined"
-              fullWidth
+          <FormStyle className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+            <TextInputStyle
+              fullwidth
               autoFocus
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -85,9 +74,11 @@ export const CreateMovieCollection = ({ isShowing, toggle }) => {
             <PrimaryButton type="submit" fullwidth>
               Create Collection
             </PrimaryButton>
-            <NoBorderButton onClick={toggle}>Cancel</NoBorderButton>
+            <NoBorderButton onClick={toggle} fullwidth>
+              Cancel
+            </NoBorderButton>
             {error && <Error message={error.message} />}
-          </form>
+          </FormStyle>
         </Paper>
       </Modal>
     </div>

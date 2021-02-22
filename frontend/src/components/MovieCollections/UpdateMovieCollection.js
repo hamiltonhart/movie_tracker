@@ -8,24 +8,9 @@ import { Error } from "../Global";
 
 import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
+import { FormStyle, TextInputStyle } from "../styles/Forms";
 
-const useStyles = makeStyles((theme) => ({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minWidth: "100%",
-    "& > *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "space-around",
-    width: "100%",
-  },
-}));
+const useStyles = makeStyles((theme) => ({}));
 
 export const UpdateMovieCollection = ({
   toggle,
@@ -61,22 +46,24 @@ export const UpdateMovieCollection = ({
   return (
     <>
       <Typography variant="h5">Edit Collection</Typography>
-      <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-        <TextField
-          label="Collection Name"
-          variant="outlined"
-          fullWidth
+      <FormStyle className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+        <TextInputStyle
+          fullwidth
           autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <div className={classes.buttons}>
-          <NoBorderButton onClick={handleCancel}>Cancel</NoBorderButton>
-          <PrimaryButton as="input" type="submit" value="Save" />
-        </div>
-        <NoBorderButton onClick={toggleDelete}>Delete</NoBorderButton>
+
+        <PrimaryButton as="input" type="submit" fullwidth value="Save" />
+        <NoBorderButton fullwidth onClick={handleCancel}>
+          Cancel
+        </NoBorderButton>
+
+        <NoBorderButton fullwidth onClick={toggleDelete}>
+          Delete
+        </NoBorderButton>
         {error && <Error message={error.message} />}
-      </form>
+      </FormStyle>
     </>
   );
 };

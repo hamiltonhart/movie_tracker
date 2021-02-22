@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "@reach/router";
 import { useQuery } from "@apollo/react-hooks";
 import { MOVIE_COLLECTION } from "../gql";
 
-import { makeStyles, Typography, Button } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 
 import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
 import { EditCollectionModal } from "../components/MovieCollections";
 import { useToggle, Search } from "../components/utilities";
 import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
-import { PrimaryButton, SecondaryButton } from "../components/styles/Buttons";
+import {
+  NoBorderButton,
+  PrimaryButton,
+  SecondaryButton,
+} from "../components/styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({
   pageHeading: { fontWeight: 600 },
@@ -27,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const CollectionPage = () => {
   const params = useParams();
-  const [rerenderParent, setRerenderParent] = useState(Math.random());
   const { data, loading, error } = useQuery(MOVIE_COLLECTION, {
     variables: { id: params.collectionId },
   });
@@ -35,10 +38,6 @@ export const CollectionPage = () => {
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
   const classes = useStyles();
-
-  const rerenderMovieList = () => {
-    setRerenderParent(Math.random());
-  };
 
   return (
     <div>
@@ -54,12 +53,14 @@ export const CollectionPage = () => {
             {data.movieCollection.title}
           </Typography>
           <div className={classes.buttons}>
-            <SecondaryButton onClick={toggleEdit} disabled={isShowingAdd}>
-              Edit
-            </SecondaryButton>
-            <PrimaryButton onClick={toggleAdd}>
-              {isShowingAdd ? "Cancel" : "Add Movie"}
-            </PrimaryButton>
+            {!isShowingAdd && (
+              <>
+                <NoBorderButton onClick={toggleEdit} disabled={isShowingAdd}>
+                  Edit
+                </NoBorderButton>
+                <PrimaryButton onClick={toggleAdd}>Add Movie</PrimaryButton>
+              </>
+            )}
           </div>
           {isShowingAdd ? (
             <>
@@ -74,7 +75,6 @@ export const CollectionPage = () => {
               <CollectionItemsList
                 items={data.movieCollection.movies}
                 collectionId={params.collectionId}
-                rerenderMovieList={rerenderMovieList}
               />
             </div>
           )}

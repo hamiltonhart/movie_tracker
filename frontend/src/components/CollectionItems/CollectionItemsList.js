@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { CollectionItem } from "./CollectionItem";
 import { movieSortingABC } from "../../utilities";
 
-import { makeStyles, TextField } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  searchField: {
-    marginBottom: theme.spacing(2),
-  },
-}));
+import { TextInputStyle } from "../styles/Forms";
 
 export const CollectionItemsList = ({ items, collectionId }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,17 +22,12 @@ export const CollectionItemsList = ({ items, collectionId }) => {
     setListItems(searchArray);
   };
 
-  const classes = useStyles();
-
   return (
     <div>
-      <TextField
-        className={classes.searchField}
-        fullWidth
-        variant="outlined"
+      <TextInputStyle
         value={searchTerm}
         onChange={(e) => handleSearch(e)}
-        placeholder="Search Collection"
+        placeholder="Search List"
       />
       {listItems.map((item) => (
         <CollectionItem key={item.id} item={item} collectionId={collectionId} />

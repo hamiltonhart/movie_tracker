@@ -4,19 +4,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
-import { makeStyles } from "@material-ui/core";
 import { PrimaryButton } from "../styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: theme.spacing(3),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-  button: {},
-}));
 
 export const CreateCollectionItem = ({
   movieCollectionId,
@@ -50,7 +38,6 @@ export const CreateCollectionItem = ({
   const handleCompleted = () => {
     toggle();
   };
-  const classes = useStyles();
 
   return (
     <>

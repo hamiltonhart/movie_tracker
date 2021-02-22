@@ -4,26 +4,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
-import { makeStyles, TextField, Typography } from "@material-ui/core";
-import { SecondaryButton } from "../styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    marginTop: theme.spacing(3),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-  form: {
-    "& > *": {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
-    },
-  },
-  button: {},
-}));
+import { makeStyles, TextField } from "@material-ui/core";
+import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
+import { FormStyle, TextareaInputStyle, TextInputStyle } from "../styles/Forms";
+import { FlexContainer } from "../styles/Containers";
+import { SimplePStyle } from "../styles/Typography";
 
 export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
   const [title, setTitle] = useState("");
@@ -50,34 +35,34 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
   const handleCompleted = () => {
     toggle();
   };
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <p>Or add it here</p>
-      <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-        <TextField
-          type="text"
+    <FlexContainer flexDirection="column" topBorder>
+      <SimplePStyle textAlign="center" fontSize="2rem">
+        Can't find what you're looking for?
+      </SimplePStyle>
+      <SimplePStyle textAlign="center" fontSize="2rem">
+        Add it here!
+      </SimplePStyle>
+      <FormStyle onSubmit={(e) => handleSubmit(e)}>
+        <TextInputStyle
           placeholder="Title (Required)"
           fullWidth
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        <TextField
-          type="text"
+        <TextInputStyle
           placeholder="Release Year (Required, 4 Digits)"
-          fullWidth
+          fullwidth
           value={releaseYear}
           onChange={(e) => setReleaseYear(e.target.value)}
         />
-        <TextField
-          type="text"
+        <TextareaInputStyle
           placeholder="Summary (Required)"
+          rows="5"
           variant="outlined"
-          multiline
-          fullWidth
-          rows={5}
+          fullwidth
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
         />
@@ -95,8 +80,11 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         >
           Add
         </SecondaryButton>
-      </form>
+        <NoBorderButton fullwidth onClick={toggle}>
+          Cancel
+        </NoBorderButton>
+      </FormStyle>
       {error && <Error message={error.message} />}
-    </div>
+    </FlexContainer>
   );
 };

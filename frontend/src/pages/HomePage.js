@@ -6,7 +6,7 @@ import {
 
 import { useToggle } from "../components/utilities";
 
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { SecondaryButton } from "../components/styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({

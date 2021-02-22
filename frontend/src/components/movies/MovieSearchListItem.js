@@ -1,7 +1,7 @@
 import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
-import { makeStyles, Typography, Paper, Button } from "@material-ui/core";
+import { makeStyles, Typography, Paper } from "@material-ui/core";
 import { SecondaryButton } from "../styles/Buttons";
 
 const useStyles = makeStyles((theme) => ({

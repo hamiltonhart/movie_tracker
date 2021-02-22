@@ -1,24 +1,9 @@
 import React, { useState } from "react";
 
-import { makeStyles, TextField, Button } from "@material-ui/core";
+import { FormStyle, TextInputStyle } from "../styles/Forms";
 
 import MovieSearchList from "../movies/MovieSearchList";
-import { PrimaryButton } from "../styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-  searchButton: {
-    marginTop: theme.spacing(1),
-  },
-}));
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 
 export const Search = ({ collectionId, toggle }) => {
   const [searchInput, setSearchInput] = useState("");
@@ -41,21 +26,20 @@ export const Search = ({ collectionId, toggle }) => {
     }
   };
 
-  const classes = useStyles();
-
   return (
     <div>
-      <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-        <TextField
-          type="text"
-          placeholder="Movie Title"
+      <FormStyle onSubmit={(e) => handleSubmit(e)}>
+        <TextInputStyle
+          placeholder="Search for a Movie Title"
           autoFocus
-          fullWidth
           value={searchInput}
           onChange={(e) => handleSearchInput(e)}
         />
         <PrimaryButton as="input" type="submit" fullwidth value="Find Movie" />
-      </form>
+        <NoBorderButton fullwidth onClick={toggle}>
+          Cancel
+        </NoBorderButton>
+      </FormStyle>
       {movieList && (
         <MovieList
           movieList={movieList}

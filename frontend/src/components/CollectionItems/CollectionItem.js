@@ -2,14 +2,21 @@ import React from "react";
 
 import { DeleteCollectionItem } from "./DeleteCollectionItem";
 
-import { Card } from "../styles/Card";
 import { CardMoviePoster } from "../styles/CardMoviePoster";
-import { CardMovieText } from "../styles/CardMovieText";
-import { CardMovieButtons } from "../styles/CardMovieButtons";
-import { PrimaryButton } from "../styles/Buttons";
-import { CardMovieContent } from "../styles/CardMovieContent";
+import {
+  CardMovieContentContainerStyle,
+  CardMovieInfoContainerStyle,
+  PrimaryCardButtonContainerStyle,
+} from "../styles/Containers";
+import { SecondaryButton } from "../styles/Buttons";
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
 import { useToggle } from "../utilities";
+import {
+  CardHeadingStyle,
+  CardMovieDateStyle,
+  CardMovieSummaryStyle,
+} from "../styles/Typography";
+import { CardStyle, CardMoreInfoContainerStyle } from "../styles/Containers";
 
 export const CollectionItem = ({ item, collectionId }) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
@@ -19,8 +26,8 @@ export const CollectionItem = ({ item, collectionId }) => {
 
   return (
     // <Paper className={classes.root}>
-    <Card onClick={toggle} expanded={isShowing}>
-      <CardMovieContent>
+    <CardStyle onClick={toggle} expanded={isShowing}>
+      <CardMovieContentContainerStyle>
         <CardMoviePoster
           src={
             item.movie.picPath
@@ -30,43 +37,39 @@ export const CollectionItem = ({ item, collectionId }) => {
           alt={item.movie.title}
           squared={isShowing}
         />
-        <CardMovieText>
-          <div className="movieTitle">
-            <h3>
+        <CardMovieInfoContainerStyle>
+          <div>
+            <CardHeadingStyle>
               {item.movie.titlePrefix
                 ? `${item.movie.titlePrefix} ${item.movie.title}`
                 : `${item.movie.title}`}{" "}
-            </h3>
-            <p className="movieDate">{`(${item.movie.releaseYear})`}</p>
+            </CardHeadingStyle>
+            <CardMovieDateStyle className="movieDate">{`(${item.movie.releaseYear})`}</CardMovieDateStyle>
           </div>
-          <div>
-            <p>
-              {`${item.movie.summary.slice(0, 180)}${
-                item.movie.summary.length > 125 ? "..." : ""
-              }`}
-            </p>
-          </div>
-        </CardMovieText>
-      </CardMovieContent>
+          <PrimaryCardButtonContainerStyle>
+            <SecondaryButton
+              as="a"
+              href={`${TMDB_PATH}${item.movie.tmdbId}`}
+              target="_blank"
+            >
+              More Info
+            </SecondaryButton>
+          </PrimaryCardButtonContainerStyle>
+        </CardMovieInfoContainerStyle>
+      </CardMovieContentContainerStyle>
       {isShowing && (
-        <CardMovieButtons>
+        <CardMoreInfoContainerStyle>
+          <CardMovieSummaryStyle>{item.movie.summary}</CardMovieSummaryStyle>
           <div>
             <DeleteCollectionItem
               id={item.id}
               title={item.movie.title}
               collectionId={collectionId}
             />
-            <PrimaryButton
-              as="a"
-              href={`${TMDB_PATH}${item.movie.tmdbId}`}
-              target="_blank"
-            >
-              More Info
-            </PrimaryButton>
           </div>
-        </CardMovieButtons>
+        </CardMoreInfoContainerStyle>
       )}
-    </Card>
+    </CardStyle>
     // </Paper>
   );
 };
