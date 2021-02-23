@@ -1,73 +1,75 @@
 import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
-import { makeStyles, Typography, Paper } from "@material-ui/core";
-import { SecondaryButton } from "../styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  imageTitle: {
-    display: "flex",
-    marginBottom: theme.spacing(2),
-  },
-  title: {
-    display: "flex",
-    flexDirection: "column",
-    flex: "1",
-    marginLeft: theme.spacing(1),
-  },
-  buttonContainer: {
-    marginTop: theme.spacing(2),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-}));
+import { NoBorderButton } from "../styles/Buttons";
+import {
+  CardMoreInfoContainerStyle,
+  CardMovieContentContainerStyle,
+  CardMovieInfoContainerStyle,
+  CardStyle,
+  PrimaryCardButtonContainerStyle,
+} from "../styles/Containers";
+import { CardMoviePoster } from "../styles/CardMoviePoster";
+import {
+  CardHeadingStyle,
+  CardMovieDateStyle,
+  CardMovieSummaryStyle,
+} from "../styles/Typography";
+import { useToggle } from "../utilities";
 
 const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
-  const classes = useStyles();
-  return (
-    <Paper className={classes.root}>
-      <div className={classes.imageTitle}>
-        <img src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
-        <div className={classes.title}>
-          <Typography variant="h6">{`${movie.title}`} </Typography>
-          <Typography variant="h6">
-            {movie.release_date && `(${movie.release_date.slice(0, 4)})`}
-          </Typography>
 
-          <CreateCollectionItem
-            movieCollectionId={collectionId}
-            title={movie.title}
-            tmdbId={movie.id}
-            summary={movie.overview}
-            picPath={movie.poster_path}
-            releaseYear={
-              movie.release_date ? movie.release_date.slice(0, 4) : 0
-            }
-            toggle={toggle}
-          />
-          <SecondaryButton
-            as="a"
-            href={`${TMDB_PATH}${movie.id}`}
-            target="_blank"
-            fullwidth
-          >
-            More Info
-          </SecondaryButton>
-        </div>
-      </div>
-      <div>
-        <Typography variant="body1">{`${movie.overview}`}</Typography>
-      </div>
-    </Paper>
+  const { toggle: toggleMoreInfo, isShowing: isShowingMoreInfo } = useToggle();
+
+  return (
+    <CardStyle expanded={isShowingMoreInfo}>
+      <CardMovieContentContainerStyle>
+        <CardMoviePoster
+          src={`${POSTER_PATH}${movie.poster_path}`}
+          alt={movie.title}
+          squared={isShowingMoreInfo}
+          onClick={toggleMoreInfo}
+        />
+        <CardMovieInfoContainerStyle>
+          <div>
+            <CardHeadingStyle>{`${movie.title}`} </CardHeadingStyle>
+            <CardMovieDateStyle>
+              {movie.release_date && `(${movie.release_date.slice(0, 4)})`}
+            </CardMovieDateStyle>
+          </div>
+          <PrimaryCardButtonContainerStyle>
+            <CreateCollectionItem
+              movieCollectionId={collectionId}
+              title={movie.title}
+              tmdbId={movie.id}
+              summary={movie.overview}
+              picPath={movie.poster_path}
+              releaseYear={
+                movie.release_date ? movie.release_date.slice(0, 4) : 0
+              }
+              toggle={toggle}
+            />
+          </PrimaryCardButtonContainerStyle>
+        </CardMovieInfoContainerStyle>
+      </CardMovieContentContainerStyle>
+      {isShowingMoreInfo && (
+        <CardMoreInfoContainerStyle>
+          <CardMovieSummaryStyle>{`${movie.overview}`}</CardMovieSummaryStyle>
+          <div>
+            <NoBorderButton
+              as="a"
+              href={`${TMDB_PATH}${movie.id}`}
+              target="_blank"
+              fullwidth
+            >
+              More Info
+            </NoBorderButton>
+          </div>
+        </CardMoreInfoContainerStyle>
+      )}
+    </CardStyle>
   );
 };
 

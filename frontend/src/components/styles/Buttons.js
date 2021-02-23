@@ -11,13 +11,16 @@ export const Button = styled.button`
 `;
 
 export const PrimaryButton = styled(Button)`
-  background-color: var(--primary);
-  color: var(--primaryContrast);
+  background-color: ${(props) =>
+    props.delete ? `var(--red)` : `var(--primary)`};
+  color: ${(props) =>
+    props.delete ? `var(--redContrast)` : `var(--primaryContrast)`};
 `;
 
 export const SecondaryButton = styled(Button)`
-  background-color: var(--primaryContrast);
-  color: var(--primary);
+  background-color: ${(props) =>
+    props.delete ? `var(--redContrast)` : `var(--primaryContrast)`};
+  color: ${(props) => (props.delete ? `var(--red)` : `var(--primary)`)};
 `;
 
 export const NoBorderButton = styled(Button)`

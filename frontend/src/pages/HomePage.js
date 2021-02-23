@@ -6,26 +6,20 @@ import {
 
 import { useToggle } from "../components/utilities";
 
-import { makeStyles } from "@material-ui/core";
 import { SecondaryButton } from "../components/styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-  },
-}));
+import { FlexContainer } from "../components/styles/Containers";
 
 export const HomePage = () => {
   const { isShowing, toggle } = useToggle();
 
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <SecondaryButton onClick={toggle}>Start A New List</SecondaryButton>
-      <CreateMovieCollection isShowing={isShowing} toggle={toggle} />
+    <FlexContainer flexDirection="column">
+      {!isShowing ? (
+        <SecondaryButton onClick={toggle}>Start A New List</SecondaryButton>
+      ) : (
+        <CreateMovieCollection toggle={toggle} />
+      )}
       <CollectionList />
-    </div>
+    </FlexContainer>
   );
 };

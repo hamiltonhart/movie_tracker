@@ -7,7 +7,7 @@ export const FormStyle = styled.form`
   align-items: "center";
   margin-top: 1.6rem;
   margin-bottom: 1.6rem;
-  & * {
+  & > * {
     margin-bottom: ${(props) =>
       props.itemSpacing ? props.itemSpacing : `1.6rem`};
   }

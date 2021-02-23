@@ -4,7 +4,6 @@ import { useMutation } from "@apollo/react-hooks";
 import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
-import { makeStyles, TextField } from "@material-ui/core";
 import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
 import { FormStyle, TextareaInputStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";

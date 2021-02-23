@@ -6,39 +6,11 @@ import {
 } from "../../gql/MovieCollectionGQL";
 import { Error } from "../Global";
 
-import {
-  makeStyles,
-  TextField,
-  Modal,
-  Paper,
-  Typography,
-} from "@material-ui/core";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 import { FormStyle, TextInputStyle } from "../styles/Forms";
+import { FlexContainer } from "../styles/Containers";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minWidth: "85%",
-    maxWidth: "85%",
-    padding: theme.spacing(3),
-  },
-}));
-
-export const CreateMovieCollection = ({ isShowing, toggle }) => {
+export const CreateMovieCollection = ({ toggle }) => {
   const [title, setTitle] = useState("");
 
   const [createMovieCollection, { error }] = useMutation(CREATE_COLLECTION);
@@ -57,30 +29,23 @@ export const CreateMovieCollection = ({ isShowing, toggle }) => {
     toggle();
   };
 
-  const classes = useStyles();
-
   return (
-    <div className={classes.root}>
-      <Modal className={classes.modal} open={isShowing}>
-        <Paper className={classes.paper}>
-          <Typography variant="h5">New Collection</Typography>
-          <FormStyle className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-            <TextInputStyle
-              fullwidth
-              autoFocus
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <PrimaryButton type="submit" fullwidth>
-              Create Collection
-            </PrimaryButton>
-            <NoBorderButton onClick={toggle} fullwidth>
-              Cancel
-            </NoBorderButton>
-            {error && <Error message={error.message} />}
-          </FormStyle>
-        </Paper>
-      </Modal>
-    </div>
+    <FormStyle onSubmit={(e) => handleSubmit(e)}>
+      <TextInputStyle
+        fullwidth
+        autoFocus
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <FlexContainer justifyContent="space-around">
+        <NoBorderButton onClick={toggle} fullwidth>
+          Cancel
+        </NoBorderButton>
+        <PrimaryButton type="submit" fullwidth>
+          Create
+        </PrimaryButton>
+        {error && <Error message={error.message} />}
+      </FlexContainer>
+    </FormStyle>
   );
 };

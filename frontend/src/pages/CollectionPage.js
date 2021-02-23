@@ -3,31 +3,14 @@ import { useParams } from "@reach/router";
 import { useQuery } from "@apollo/react-hooks";
 import { MOVIE_COLLECTION } from "../gql";
 
-import { makeStyles, Typography } from "@material-ui/core";
-
 import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
 import { EditCollectionModal } from "../components/MovieCollections";
 import { useToggle, Search } from "../components/utilities";
 import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
-import {
-  NoBorderButton,
-  PrimaryButton,
-  SecondaryButton,
-} from "../components/styles/Buttons";
-
-const useStyles = makeStyles((theme) => ({
-  pageHeading: { fontWeight: 600 },
-  buttons: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: theme.spacing(3),
-    paddingTop: theme.spacing(1),
-  },
-  collectionItemList: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
+import { PageHeadingStyle } from "../components/styles/Typography";
+import { FlexContainer } from "../components/styles/Containers";
 
 export const CollectionPage = () => {
   const params = useParams();
@@ -37,31 +20,34 @@ export const CollectionPage = () => {
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
-  const classes = useStyles();
-
   return (
     <div>
       {loading && <Loading />}
       {error && <Error message={error.message} />}
       {data && (
         <>
-          <Typography
-            className={classes.pageHeading}
-            align="center"
-            variant="h4"
-          >
-            {data.movieCollection.title}
-          </Typography>
-          <div className={classes.buttons}>
-            {!isShowingAdd && (
+          {isShowingEdit ? (
+            <EditCollectionModal
+              isShowing={isShowingEdit}
+              toggle={toggleEdit}
+              id={data.movieCollection.id}
+              collectionTitle={data.movieCollection.title}
+            />
+          ) : (
+            <PageHeadingStyle align="center">
+              {data.movieCollection.title}
+            </PageHeadingStyle>
+          )}
+          {!isShowingEdit && !isShowingAdd && (
+            <FlexContainer justifyContent="space-between">
               <>
                 <NoBorderButton onClick={toggleEdit} disabled={isShowingAdd}>
                   Edit
                 </NoBorderButton>
                 <PrimaryButton onClick={toggleAdd}>Add Movie</PrimaryButton>
               </>
-            )}
-          </div>
+            </FlexContainer>
+          )}
           {isShowingAdd ? (
             <>
               <Search collectionId={params.collectionId} toggle={toggleAdd} />
@@ -71,19 +57,13 @@ export const CollectionPage = () => {
               />
             </>
           ) : (
-            <div className={classes.collectionItemList}>
+            <div>
               <CollectionItemsList
                 items={data.movieCollection.movies}
                 collectionId={params.collectionId}
               />
             </div>
           )}
-          <EditCollectionModal
-            isShowing={isShowingEdit}
-            toggle={toggleEdit}
-            id={data.movieCollection.id}
-            collectionTitle={data.movieCollection.title}
-          />
         </>
       )}
     </div>

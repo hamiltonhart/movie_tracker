@@ -25,8 +25,7 @@ export const CollectionItem = ({ item, collectionId }) => {
   const { isShowing, toggle } = useToggle();
 
   return (
-    // <Paper className={classes.root}>
-    <CardStyle onClick={toggle} expanded={isShowing}>
+    <CardStyle expanded={isShowing}>
       <CardMovieContentContainerStyle>
         <CardMoviePoster
           src={
@@ -36,6 +35,7 @@ export const CollectionItem = ({ item, collectionId }) => {
           }
           alt={item.movie.title}
           squared={isShowing}
+          onClick={toggle}
         />
         <CardMovieInfoContainerStyle>
           <div>
@@ -70,6 +70,5 @@ export const CollectionItem = ({ item, collectionId }) => {
         </CardMoreInfoContainerStyle>
       )}
     </CardStyle>
-    // </Paper>
   );
 };

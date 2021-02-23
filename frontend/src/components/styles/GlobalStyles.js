@@ -9,6 +9,8 @@ export const GlobalStyle = createGlobalStyle`
         --grey: var(--gray);
         --lightGray: #F0F4F8;
         --lightGrey: var(--lightGray);
+        --red: #A61B1B;
+        --redContrast: #FFEEEE;
         --maxWidth: 1000px;
         --bs: 0 1px 10px 5px rgba(217, 226, 236, 1);
         box-sizing: border-box;
@@ -35,8 +37,10 @@ export const GlobalStyle = createGlobalStyle`
     }
 
 
-    a {
+    a,
+    a:visited {
         text-decoration: none;
+        color: var(--black);
     }
 
     a:hover {
@@ -58,5 +62,6 @@ export const GlobalStyle = createGlobalStyle`
 
     p {
       font-size: 1.6rem;
+      line-height: 1.6;
     }
 `;

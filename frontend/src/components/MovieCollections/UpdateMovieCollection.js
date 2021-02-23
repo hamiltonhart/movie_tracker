@@ -6,11 +6,10 @@ import {
 } from "../../gql/MovieCollectionGQL";
 import { Error } from "../Global";
 
-import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 import { FormStyle, TextInputStyle } from "../styles/Forms";
-
-const useStyles = makeStyles((theme) => ({}));
+import { FlexContainer } from "../styles/Containers";
+import { DeleteCollection } from "./DeleteCollection";
 
 export const UpdateMovieCollection = ({
   toggle,
@@ -41,12 +40,9 @@ export const UpdateMovieCollection = ({
     toggle();
   };
 
-  const classes = useStyles();
-
   return (
     <>
-      <Typography variant="h5">Edit Collection</Typography>
-      <FormStyle className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+      <FormStyle onSubmit={(e) => handleSubmit(e)}>
         <TextInputStyle
           fullwidth
           autoFocus
@@ -54,14 +50,22 @@ export const UpdateMovieCollection = ({
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <PrimaryButton as="input" type="submit" fullwidth value="Save" />
-        <NoBorderButton fullwidth onClick={handleCancel}>
-          Cancel
-        </NoBorderButton>
+        <PrimaryButton
+          as="input"
+          type="submit"
+          size="large"
+          fullwidth
+          value="Update"
+        />
+        <FlexContainer>
+          <DeleteCollection fullwidth onClick={toggleDelete}>
+            Delete
+          </DeleteCollection>
 
-        <NoBorderButton fullwidth onClick={toggleDelete}>
-          Delete
-        </NoBorderButton>
+          <NoBorderButton fullwidth onClick={handleCancel}>
+            Cancel
+          </NoBorderButton>
+        </FlexContainer>
         {error && <Error message={error.message} />}
       </FormStyle>
     </>
