@@ -32,15 +32,19 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         padding: 0;
-        margin: 0;
+        margin: left-auto;
+        margin-right: auto;
         font-size: 1.5rem;
     }
 
 
     a,
-    a:visited {
+    a:visited,
+    a:focus,
+    a:hover {
         text-decoration: none;
         color: var(--black);
+        text
     }
 
     a:hover {

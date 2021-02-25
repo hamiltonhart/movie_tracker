@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const SiteHeading = styled.p`
+  color: var(--primaryContrast);
+  font-size: 3.2rem;
+`;
+
 export const SimplePStyle = styled.p`
   text-align: ${(props) => (props.textAlign ? props.textAlign : "left")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : `1.6rem`)};

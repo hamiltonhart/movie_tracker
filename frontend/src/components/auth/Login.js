@@ -1,44 +1,13 @@
 import React, { useState } from "react";
-import {
-  makeStyles,
-  Paper,
-  Typography,
-  TextField,
-  Button,
-} from "@material-ui/core";
+
+import { GlobalStyle } from "../styles/GlobalStyles";
+import { FormStyle, PasswordInputStyle, TextInputStyle } from "../styles/Forms";
+import { PrimaryButton } from "../styles/Buttons";
+import { FlexContainer } from "../styles/Containers";
 
 import { LOGIN } from "../../gql";
 import { useMutation, useApolloClient } from "@apollo/react-hooks";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    minWidth: "95%",
-    maxWidth: "95%",
-  },
-  heading: {
-    textTransform: "uppercase",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    "& > *": {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
-    },
-  },
-}));
+import { PageHeadingStyle, SimplePStyle } from "../styles/Typography";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -62,42 +31,35 @@ export const Login = () => {
     setPassword("");
   };
 
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Typography variant="h3" align="center">
-          Hi, Darling!
-        </Typography>
-        <Typography variant="body1" align="center">
+    <>
+      <GlobalStyle />
+      <FlexContainer flexDirection="column">
+        <PageHeadingStyle>Hi, Darling!</PageHeadingStyle>
+        <SimplePStyle variant="body1" textAlign="center">
           Just making sure it's you ;)
-        </Typography>
-        <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
-          <TextField
-            type="text"
-            color="primary"
-            label="Username"
+        </SimplePStyle>
+        <FormStyle onSubmit={(e) => handleSubmit(e)}>
+          <TextInputStyle
+            placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          ></TextField>
-          <TextField
+          />
+          <PasswordInputStyle
+            placeholder="Password"
             type="password"
-            color="primary"
-            label="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></TextField>
-          <Button
-            variant="contained"
-            size="large"
-            color="primary"
+          />
+          <PrimaryButton
+            as="input"
             type="submit"
-          >
-            See My Movies!
-          </Button>
-        </form>
+            fullwidth
+            value="Let me in!"
+          />
+        </FormStyle>
         {error && <p>{error.message}</p>}
-      </Paper>
-    </div>
+      </FlexContainer>
+    </>
   );
 };
