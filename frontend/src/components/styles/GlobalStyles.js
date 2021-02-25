@@ -9,6 +9,8 @@ export const GlobalStyle = createGlobalStyle`
         --grey: var(--gray);
         --lightGray: #F0F4F8;
         --lightGrey: var(--lightGray);
+        --darkGray: #486581;
+        --darkGrey: var(--darkGray);
         --red: #A61B1B;
         --redContrast: #FFEEEE;
         --maxWidth: 1000px;
@@ -44,11 +46,6 @@ export const GlobalStyle = createGlobalStyle`
     a:hover {
         text-decoration: none;
         color: var(--black);
-        text
-    }
-
-    a:hover {
-        text-decoration: underline;
     }
 
     button {

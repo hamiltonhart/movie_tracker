@@ -9,8 +9,6 @@ import { ApolloProvider, useQuery } from "@apollo/react-hooks";
 import ApolloClient, { gql } from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
-import { ThemeProvider } from "@material-ui/core";
-import { theme } from "./utilities";
 import { PrimaryLayout } from "./components/Global";
 import { Login } from "./components/auth/Login";
 
@@ -55,11 +53,9 @@ const InitialLogin = () => {
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
-      <PrimaryLayout>
-        <InitialLogin />
-      </PrimaryLayout>
-    </ThemeProvider>
+    <PrimaryLayout>
+      <InitialLogin />
+    </PrimaryLayout>
   </ApolloProvider>,
 
   document.getElementById("root")

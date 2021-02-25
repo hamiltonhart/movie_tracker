@@ -38,7 +38,7 @@ export const CardHeadingStyle = styled.h3`
 
 export const CardMovieDateStyle = styled.p`
   display: inline;
-  color: var(--gray);
+  color: var(--darkGray);
   font-size: 1.6rem;
 `;
 

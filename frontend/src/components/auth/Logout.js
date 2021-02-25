@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { PrimaryButton } from "../styles/Buttons";
 import { useApolloClient } from "@apollo/react-hooks";
 import { navigate } from "@reach/router";
 
@@ -13,8 +13,8 @@ export const Logout = () => {
   };
 
   return (
-    <Button color="secondary" onClick={() => handleLogout()}>
+    <PrimaryButton color="secondary" onClick={() => handleLogout()}>
       Sign Out
-    </Button>
+    </PrimaryButton>
   );
 };
