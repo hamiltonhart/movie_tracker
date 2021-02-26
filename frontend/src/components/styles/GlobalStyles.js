@@ -60,6 +60,7 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+        -webkit-appearance: none;
     }
 
     textarea {
