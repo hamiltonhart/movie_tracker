@@ -45,7 +45,7 @@ export const GlobalStyle = createGlobalStyle`
     a:focus,
     a:hover {
         text-decoration: none;
-        color: var(--black);
+        color: inherit;
     }
 
     button {

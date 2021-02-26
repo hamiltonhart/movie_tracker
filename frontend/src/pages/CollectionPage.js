@@ -39,7 +39,10 @@ export const CollectionPage = () => {
             </PageHeadingStyle>
           )}
           {!isShowingEdit && !isShowingAdd && (
-            <FlexContainer justifyContent="space-between">
+            <FlexContainer
+              justifyContent="space-between"
+              padding="0.8rem 0.8rem 1.6rem 0.8rem"
+            >
               <>
                 <NoBorderButton onClick={toggleEdit} disabled={isShowingAdd}>
                   Edit

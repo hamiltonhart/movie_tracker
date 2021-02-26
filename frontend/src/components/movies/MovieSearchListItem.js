@@ -1,7 +1,7 @@
 import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
-import { NoBorderButton } from "../styles/Buttons";
+import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
 import {
   CardMoreInfoContainerStyle,
   CardMovieContentContainerStyle,
@@ -64,7 +64,7 @@ const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
               target="_blank"
               fullwidth
             >
-              More Info
+              See on TMDb
             </NoBorderButton>
           </div>
         </CardMoreInfoContainerStyle>

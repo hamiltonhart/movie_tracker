@@ -35,7 +35,6 @@ export const CollectionItem = ({ item, collectionId }) => {
           }
           alt={item.movie.title}
           squared={isShowing}
-          onClick={toggle}
         />
         <CardMovieInfoContainerStyle>
           <div>
@@ -47,12 +46,8 @@ export const CollectionItem = ({ item, collectionId }) => {
             <CardMovieDateStyle className="movieDate">{`(${item.movie.releaseYear})`}</CardMovieDateStyle>
           </div>
           <PrimaryCardButtonContainerStyle>
-            <SecondaryButton
-              as="a"
-              href={`${TMDB_PATH}${item.movie.tmdbId}`}
-              target="_blank"
-            >
-              More Info
+            <SecondaryButton onClick={toggle}>
+              {isShowing ? `Show Less` : `Show More`}
             </SecondaryButton>
           </PrimaryCardButtonContainerStyle>
         </CardMovieInfoContainerStyle>
@@ -66,6 +61,13 @@ export const CollectionItem = ({ item, collectionId }) => {
               title={item.movie.title}
               collectionId={collectionId}
             />
+            <SecondaryButton
+              as="a"
+              href={`${TMDB_PATH}${item.movie.tmdbId}`}
+              target="_blank"
+            >
+              See on TMDb
+            </SecondaryButton>
           </div>
         </CardMoreInfoContainerStyle>
       )}

@@ -15,15 +15,26 @@ export const PrimaryButton = styled(Button)`
     props.delete ? `var(--red)` : `var(--primary)`};
   color: ${(props) =>
     props.delete ? `var(--redContrast)` : `var(--primaryContrast)`};
+  &:visited {
+    &:visited {
+      color: var(--primaryContrast);
+    }
+  }
 `;
 
 export const SecondaryButton = styled(Button)`
   background-color: ${(props) =>
     props.delete ? `var(--redContrast)` : `var(--primaryContrast)`};
   color: ${(props) => (props.delete ? `var(--red)` : `var(--primary)`)};
+  &:visited {
+    color: var(--primary);
+  }
 `;
 
 export const NoBorderButton = styled(Button)`
   color: var(--primary);
   background: none;
+  &:visited {
+    color: var(--primary);
+  }
 `;
