@@ -1,7 +1,7 @@
 import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
-import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
+import { NoBorderButton } from "../styles/Buttons";
 import {
   CardMoreInfoContainerStyle,
   CardMovieContentContainerStyle,

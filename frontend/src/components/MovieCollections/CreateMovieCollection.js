@@ -41,7 +41,7 @@ export const CreateMovieCollection = ({ toggle }) => {
         <NoBorderButton onClick={toggle} fullwidth>
           Cancel
         </NoBorderButton>
-        <PrimaryButton type="submit" fullwidth>
+        <PrimaryButton as="input" type="submit" fullwidth>
           Create
         </PrimaryButton>
         {error && <Error message={error.message} />}
