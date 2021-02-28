@@ -13,9 +13,7 @@ export const FormStyle = styled.form`
   }
 `;
 
-export const TextInputStyle = styled.input.attrs({
-  type: "text",
-})`
+export const TextInputStyle = styled.input`
   border: 2px solid var(--lightGray);
   border-radius: var(--cardBorderRadius);
   width: ${(props) => (props.width ? props.width : `100%`)};
@@ -51,4 +49,8 @@ export const TextareaInputStyle = styled.textarea`
   &:focus {
     border: solid 2px var(--primary);
   }
+`;
+
+export const LabelStyle = styled.label`
+  ${(props) => props.hidden && "display: none;"}
 `;

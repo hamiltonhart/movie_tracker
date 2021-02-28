@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { FormStyle, TextInputStyle } from "../styles/Forms";
+import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 
 import MovieSearchList from "../movies/MovieSearchList";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
@@ -29,7 +29,12 @@ export const Search = ({ collectionId, toggle }) => {
   return (
     <div>
       <FormStyle onSubmit={(e) => handleSubmit(e)}>
+        <LabelStyle htmlFor="newMovieSearch" hidden>
+          Movie Title
+        </LabelStyle>
         <TextInputStyle
+          type="search"
+          id="newMovieSearch"
           placeholder="Search for a Movie Title"
           autoFocus
           value={searchInput}

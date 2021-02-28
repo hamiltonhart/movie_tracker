@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CollectionItem } from "./CollectionItem";
 import { movieSortingABC } from "../../utilities";
 
-import { TextInputStyle } from "../styles/Forms";
+import { LabelStyle, TextInputStyle } from "../styles/Forms";
 
 export const CollectionItemsList = ({ items, collectionId }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +24,12 @@ export const CollectionItemsList = ({ items, collectionId }) => {
 
   return (
     <div>
+      <LabelStyle htmlFor="movieListSearchTitle" hidden>
+        Movie Title
+      </LabelStyle>
       <TextInputStyle
+        type="search"
+        id="movieListSearchTitle"
         value={searchTerm}
         onChange={(e) => handleSearch(e)}
         placeholder="Search List"

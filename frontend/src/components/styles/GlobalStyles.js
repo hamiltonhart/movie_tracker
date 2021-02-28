@@ -59,8 +59,8 @@ export const GlobalStyle = createGlobalStyle`
         background-color:transparent;
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
-        box-shadow: none;
         -webkit-appearance: none;
+        box-shadow: none;
     }
 
     textarea {

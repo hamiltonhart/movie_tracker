@@ -7,16 +7,11 @@ import {
 import { Error } from "../Global";
 
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
-import { FormStyle, TextInputStyle } from "../styles/Forms";
+import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";
 import { DeleteCollection } from "./DeleteCollection";
 
-export const UpdateMovieCollection = ({
-  toggle,
-  id,
-  collectionTitle,
-  toggleDelete,
-}) => {
+export const UpdateMovieCollection = ({ toggle, id, collectionTitle }) => {
   const [title, setTitle] = useState(collectionTitle);
 
   const [updateMovieCollection, { error }] = useMutation(UPDATE_COLLECTION);
@@ -43,7 +38,12 @@ export const UpdateMovieCollection = ({
   return (
     <>
       <FormStyle onSubmit={(e) => handleSubmit(e)}>
+        <LabelStyle htmlFor="updateCollectionName" hidden>
+          CollectionName
+        </LabelStyle>
         <TextInputStyle
+          type="text"
+          id="updateCollectionName"
           fullwidth
           autoFocus
           value={title}
@@ -58,7 +58,7 @@ export const UpdateMovieCollection = ({
           value="Update"
         />
         <FlexContainer>
-          <DeleteCollection fullwidth onClick={toggleDelete}>
+          <DeleteCollection fullwidth id={id}>
             Delete
           </DeleteCollection>
 

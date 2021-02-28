@@ -5,7 +5,7 @@ import { MOVIE_COLLECTION } from "../gql";
 
 import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
-import { EditCollectionModal } from "../components/MovieCollections";
+import { EditCollection } from "../components/MovieCollections";
 import { useToggle, Search } from "../components/utilities";
 import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
 import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
@@ -27,7 +27,7 @@ export const CollectionPage = () => {
       {data && (
         <>
           {isShowingEdit ? (
-            <EditCollectionModal
+            <EditCollection
               isShowing={isShowingEdit}
               toggle={toggleEdit}
               id={data.movieCollection.id}

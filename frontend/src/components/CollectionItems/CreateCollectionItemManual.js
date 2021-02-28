@@ -5,7 +5,12 @@ import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
 import { Error } from "../Global";
 
 import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
-import { FormStyle, TextareaInputStyle, TextInputStyle } from "../styles/Forms";
+import {
+  FormStyle,
+  LabelStyle,
+  TextareaInputStyle,
+  TextInputStyle,
+} from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";
 import { SimplePStyle } from "../styles/Typography";
 
@@ -44,20 +49,34 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         Add it here!
       </SimplePStyle>
       <FormStyle onSubmit={(e) => handleSubmit(e)}>
+        <LabelStyle htmlFor="newMovieTitle" hidden>
+          Title
+        </LabelStyle>
         <TextInputStyle
+          type="text"
+          id="newMovieTitle"
           placeholder="Title (Required)"
           fullWidth
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
+        <LabelStyle htmlFor="releaseYear" hidden>
+          Release Year
+        </LabelStyle>
         <TextInputStyle
+          type="text"
+          id="releaseYear"
           placeholder="Release Year (Required, 4 Digits)"
           fullwidth
           value={releaseYear}
           onChange={(e) => setReleaseYear(e.target.value)}
         />
+        <LabelStyle htmlFor="movieSummary" hidden>
+          Summary
+        </LabelStyle>
         <TextareaInputStyle
+          id="movieSummary"
           placeholder="Summary (Required)"
           rows="5"
           variant="outlined"

@@ -7,7 +7,7 @@ import {
 import { Error } from "../Global";
 
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
-import { FormStyle, TextInputStyle } from "../styles/Forms";
+import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";
 
 export const CreateMovieCollection = ({ toggle }) => {
@@ -31,7 +31,12 @@ export const CreateMovieCollection = ({ toggle }) => {
 
   return (
     <FormStyle onSubmit={(e) => handleSubmit(e)}>
+      <LabelStyle htmlFor="collectionName" hidden>
+        Collection Name
+      </LabelStyle>
       <TextInputStyle
+        type="text"
+        id="collectionName"
         fullwidth
         autoFocus
         value={title}
@@ -41,9 +46,7 @@ export const CreateMovieCollection = ({ toggle }) => {
         <NoBorderButton onClick={toggle} fullwidth>
           Cancel
         </NoBorderButton>
-        <PrimaryButton as="input" type="submit" fullwidth>
-          Create
-        </PrimaryButton>
+        <PrimaryButton as="input" type="submit" value="Create" fullwidth />
         {error && <Error message={error.message} />}
       </FlexContainer>
     </FormStyle>

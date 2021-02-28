@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { GlobalStyle } from "../styles/GlobalStyles";
-import { FormStyle, PasswordInputStyle, TextInputStyle } from "../styles/Forms";
+import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 import { PrimaryButton } from "../styles/Buttons";
 import { FlexContainer } from "../styles/Containers";
 
@@ -40,14 +40,23 @@ export const Login = () => {
           Just making sure it's you ;)
         </SimplePStyle>
         <FormStyle onSubmit={(e) => handleSubmit(e)}>
+          <LabelStyle htmlFor="username" hidden>
+            Username
+          </LabelStyle>
           <TextInputStyle
+            type="text"
+            id="username"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <PasswordInputStyle
-            placeholder="Password"
+          <LabelStyle htmlFor="password" hidden>
+            Password
+          </LabelStyle>
+          <TextInputStyle
             type="password"
+            id="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
