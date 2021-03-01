@@ -5,6 +5,6 @@ export const HeadingStyle = styled.header`
   grid-template-columns: auto 1fr;
   background-color: var(--primary);
   color: var(--primaryContrast);
-  padding: 1.6rem;
+  padding: var(--medSpacing);
   box-shadow: var(--bs);
 `;

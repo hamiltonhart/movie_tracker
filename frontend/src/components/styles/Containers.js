@@ -6,7 +6,7 @@ export const FlexContainer = styled.div`
     props.flexDirection ? props.flexDirection : "row"};
   justify-content: ${(props) =>
     props.justifyContent ? props.justifyContent : "center"};
-  padding: ${(props) => (props.padding ? props.padding : "0.8rem")};
+  padding: ${(props) => (props.padding ? props.padding : `var(--smSpacing)`)};
   ${(props) => props.topBorder && `border-top: 2px solid var(--gray);`}
 `;
 
@@ -17,8 +17,8 @@ export const CardStyle = styled.div`
   border-radius: var(--cardBorderRadius);
   box-shadow: var(--bs);
   height: ${(props) => (props.expanded ? `auto` : `var(--cardHeight)`)};
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: var(--xxlSpacing);
+  margin-bottom: var(xxlSpacing);
 `;
 
 export const CardMovieContentContainerStyle = styled.div`
@@ -30,10 +30,10 @@ export const CardMovieContentContainerStyle = styled.div`
 export const CardMovieInfoContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 0.8rem;
-  padding-bottom: 1.6rem;
-  margin-left: 1.6rem;
-  margin-right: 1.6rem;
+  padding-top: var(--xsSpacing);
+  padding-bottom: var(--medSpacing);
+  margin-left: var(--medSpacing);
+  margin-right: var(--medSpacing);
   overflow-y: hidden;
   width: 100%;
   max-height: var(--cardHeight);
@@ -42,7 +42,7 @@ export const CardMovieInfoContainerStyle = styled.div`
 export const PrimaryCardButtonContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1.6rem;
+  margin-top: var(--medSpacing);
   height: 100%;
   justify-content: flex-end;
 `;
@@ -52,6 +52,6 @@ export const CardMoreInfoContainerStyle = styled.div`
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin-bottom: 1.6rem;
+    margin-bottom: var(--medSpacing);
   }
 `;
