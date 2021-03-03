@@ -8,7 +8,7 @@ export const SiteHeading = styled.p`
 export const SimplePStyle = styled.p`
   text-align: ${(props) => (props.textAlign ? props.textAlign : "left")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : `var(--normal)`)};
-  padding: ${(props) => (props.padding ? props.padding : "var(--xsSpacing")};
+  padding: ${(props) => (props.padding ? props.padding : `var(--xsSpacing)`)};
 `;
 
 export const PageHeadingStyle = styled.h1`
