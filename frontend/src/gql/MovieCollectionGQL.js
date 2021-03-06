@@ -18,15 +18,12 @@ export const MOVIE_COLLECTION = gql`
       title
       movies {
         id
-        rating
-        comments
         movie {
           id
           tmdbId
           title
           titlePrefix
           summary
-          imdbId
           releaseYear
           picPath
         }

@@ -8,22 +8,16 @@ export const CREATE_COLLECTION_ITEM = gql`
     $tmdbId: Int
     $title: String!
     $summary: String
-    $imdbId: String
     $releaseYear: Int
     $picPath: String
-    $comments: String
-    $rating: Int
   ) {
     createCollectionItem(
       movieCollectionId: $movieCollectionId
       tmdbId: $tmdbId
       title: $title
       summary: $summary
-      imdbId: $imdbId
       releaseYear: $releaseYear
       picPath: $picPath
-      comments: $comments
-      rating: $rating
     ) {
       collectionItem {
         id
@@ -33,12 +27,9 @@ export const CREATE_COLLECTION_ITEM = gql`
           title
           titlePrefix
           summary
-          imdbId
           releaseYear
           picPath
         }
-        comments
-        rating
       }
     }
   }

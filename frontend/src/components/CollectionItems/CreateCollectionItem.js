@@ -11,12 +11,33 @@ export const CreateCollectionItem = ({
   tmdbId,
   title,
   summary,
-  imdbId,
   releaseYear,
   picPath,
   toggle,
 }) => {
-  const [createCollectionItem, { error }] = useMutation(CREATE_COLLECTION_ITEM);
+  const handleUpdateCache = (cache, { data }) => {
+    const fullQuery = cache.readQuery({
+      query: MOVIE_COLLECTION,
+      variables: { id: movieCollectionId },
+    });
+    let items = fullQuery.movieCollection;
+    const newItem = data.createCollectionItem.collectionItem;
+
+    items.movies = items.movies.concat(newItem);
+
+    cache.writeQuery({
+      query: MOVIE_COLLECTION,
+      variables: { id: movieCollectionId },
+      data: { movieCollection: items },
+    });
+
+    handleCompleted();
+  };
+
+  const [createCollectionItem, { error }] = useMutation(
+    CREATE_COLLECTION_ITEM,
+    { update: handleUpdateCache }
+  );
   const handleClick = () => {
     createCollectionItem({
       variables: {
@@ -24,14 +45,10 @@ export const CreateCollectionItem = ({
         title,
         tmdbId,
         summary,
-        imdbId,
         releaseYear,
         picPath,
       },
-      refetchQueries: [
-        { query: MOVIE_COLLECTION, variables: { id: movieCollectionId } },
-      ],
-      onCompleted: handleCompleted(),
+      // onCompleted: handleCompleted(),
     });
   };
 
