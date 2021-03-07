@@ -15,6 +15,7 @@ export const CreateCollectionItem = ({
   picPath,
   toggle,
 }) => {
+  // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItemManual.
   const handleUpdateCache = (cache, { data }) => {
     const fullQuery = cache.readQuery({
       query: MOVIE_COLLECTION,
@@ -48,7 +49,6 @@ export const CreateCollectionItem = ({
         releaseYear,
         picPath,
       },
-      // onCompleted: handleCompleted(),
     });
   };
 

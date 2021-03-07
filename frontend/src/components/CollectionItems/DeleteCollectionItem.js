@@ -8,24 +8,35 @@ import {
 } from "../styles/Buttons";
 import { Error } from "../Global";
 
-export const DeleteCollectionItem = ({ id, collectionId }) => {
+export const DeleteCollectionItem = ({ id, collectionId, toggle }) => {
+  // Count is for Delete confirmation. See handleDelete.
   const [deleteCount, setDeleteCount] = useState(0);
-  const [deleteCollectionItem, { error }] = useMutation(DELETE_COLLECTION_ITEM);
 
+  const [deleteCollectionItem, { loading, error }] = useMutation(
+    DELETE_COLLECTION_ITEM
+  );
+
+  // Increments the deleteCount state by one if it is less than 2. deleteCollectionItem Mutation is executed on the count of 2 (third click)
   const handleDelete = (e) => {
     if (deleteCount === 2) {
       e.stopPropagation();
       deleteCollectionItem({
         variables: { id },
         refetchQueries: [
-          { query: MOVIE_COLLECTION, variables: { id: collectionId } },
+          {
+            query: MOVIE_COLLECTION,
+            variables: { id: collectionId },
+          },
         ],
+        // This toggle hides the Item from the list. Can remove if the list component rerenders after an update
+        onCompleted: toggle(),
       });
     } else {
       setDeleteCount(deleteCount + 1);
     }
   };
 
+  // Shows a different Delete button when Delete is pressed to allow for confirmation.
   return (
     <>
       {deleteCount === 0 && (
@@ -39,7 +50,11 @@ export const DeleteCollectionItem = ({ id, collectionId }) => {
         </SecondaryButton>
       )}
       {deleteCount === 2 && (
-        <PrimaryButton delete onClick={(e) => handleDelete(e)}>
+        <PrimaryButton
+          delete
+          disabled={loading}
+          onClick={(e) => handleDelete(e)}
+        >
           Get Rid Of It!
         </PrimaryButton>
       )}

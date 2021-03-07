@@ -19,7 +19,32 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
   const [releaseYear, setReleaseYear] = useState("");
   const [summary, setSummary] = useState("");
 
-  const [createCollectionItem, { error }] = useMutation(CREATE_COLLECTION_ITEM);
+  // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItem.
+  const handleUpdateCache = (cache, { data }) => {
+    const fullQuery = cache.readQuery({
+      query: MOVIE_COLLECTION,
+      variables: { id: movieCollectionId },
+    });
+    let items = fullQuery.movieCollection;
+    const newItem = data.createCollectionItem.collectionItem;
+
+    items.movies = items.movies.concat(newItem);
+
+    cache.writeQuery({
+      query: MOVIE_COLLECTION,
+      variables: { id: movieCollectionId },
+      data: { movieCollection: items },
+    });
+
+    handleCompleted();
+  };
+
+  const [createCollectionItem, { error }] = useMutation(
+    CREATE_COLLECTION_ITEM,
+    { update: handleUpdateCache }
+  );
+
+  // Calls the createCollectionItem mutation
   const handleSubmit = (e) => {
     e.preventDefault();
     createCollectionItem({
@@ -29,13 +54,10 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         summary,
         releaseYear: releaseYear ? releaseYear : 0,
       },
-      refetchQueries: [
-        { query: MOVIE_COLLECTION, variables: { id: movieCollectionId } },
-      ],
-      onCompleted: handleCompleted(),
     });
   };
 
+  // Toggles the create component off and shows the CollectionItemList AFTER the update function
   const handleCompleted = () => {
     toggle();
   };
