@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const FlexContainer = styled.div`
   display: flex;
+  position: relative;
   flex-direction: ${(props) =>
     props.flexDirection ? props.flexDirection : "row"};
   justify-content: ${(props) =>
