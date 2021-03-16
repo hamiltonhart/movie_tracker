@@ -1,4 +1,3 @@
-import { ProvidedRequiredArgumentsOnDirectivesRule } from "graphql/validation/rules/ProvidedRequiredArgumentsRule";
 import React from "react";
 import { FlexContainer } from "../styles/Containers";
 import { LoadingStyle } from "../styles/Loading";

@@ -6,6 +6,7 @@ import { CardMoviePoster } from "../styles/CardMoviePoster";
 import {
   CardMovieContentContainerStyle,
   CardMovieInfoContainerStyle,
+  FlexContainer,
   PrimaryCardButtonContainerStyle,
 } from "../styles/Containers";
 import { SecondaryButton } from "../styles/Buttons";
@@ -15,8 +16,10 @@ import {
   CardHeadingStyle,
   CardMovieDateStyle,
   CardMovieSummaryStyle,
+  CardSectionHeadingStyle,
 } from "../styles/Typography";
 import { CardStyle, CardMoreInfoContainerStyle } from "../styles/Containers";
+import { UpdateCollectionItem } from "./UpdateCollectionItem";
 
 export const CollectionItem = ({ item, collectionId }) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
@@ -33,6 +36,7 @@ export const CollectionItem = ({ item, collectionId }) => {
     // Confirms the item should be visible and is not deleted
     isShowingVisible && (
       <>
+        {console.log(item)}
         <CardStyle expanded={isShowingExpanded}>
           <CardMovieContentContainerStyle>
             <CardMoviePoster
@@ -67,6 +71,18 @@ export const CollectionItem = ({ item, collectionId }) => {
               <CardMovieSummaryStyle>
                 {item.movie.summary}
               </CardMovieSummaryStyle>
+              {item.comments && (
+                <>
+                  <CardSectionHeadingStyle>Comments</CardSectionHeadingStyle>
+                  <CardMovieSummaryStyle>{item.comments}</CardMovieSummaryStyle>
+                </>
+              )}
+              <FlexContainer flexDirection="column">
+                <UpdateCollectionItem
+                  id={item.id}
+                  currentComments={item.comments}
+                />
+              </FlexContainer>
               <div>
                 <DeleteCollectionItem
                   id={item.id}

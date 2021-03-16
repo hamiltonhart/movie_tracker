@@ -10,6 +10,7 @@ export const CREATE_COLLECTION_ITEM = gql`
     $summary: String
     $releaseYear: Int
     $picPath: String
+    $comments: String
   ) {
     createCollectionItem(
       movieCollectionId: $movieCollectionId
@@ -18,9 +19,11 @@ export const CREATE_COLLECTION_ITEM = gql`
       summary: $summary
       releaseYear: $releaseYear
       picPath: $picPath
+      comments: $comments
     ) {
       collectionItem {
         id
+        comments
         movie {
           id
           tmdbId
@@ -36,10 +39,11 @@ export const CREATE_COLLECTION_ITEM = gql`
 `;
 
 export const UPDATE_COLLECTION_ITEM = gql`
-  mutation updateCollectionItem($id: Int!, $comments: String, $rating: Int) {
-    updateCollectionItem(id: $id, comments: $comments, rating: $rating) {
+  mutation updateCollectionItem($id: Int!, $comments: String) {
+    updateCollectionItem(id: $id, comments: $comments) {
       collectionItem {
         id
+        comments
         movie {
           id
           tmdbId
@@ -50,8 +54,6 @@ export const UPDATE_COLLECTION_ITEM = gql`
           releaseYear
           picPath
         }
-        comments
-        rating
       }
     }
   }

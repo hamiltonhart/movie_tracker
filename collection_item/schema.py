@@ -116,7 +116,7 @@ class UpdateCollectionItem(graphene.Mutation):
         rating = graphene.Int()
 
     @login_required
-    def mutate(self, info, id, comments, rating):
+    def mutate(self, info, id, comments=None, rating=None):
         try:
             collection_item = CollectionItem.objects.get(id=id)
         except:

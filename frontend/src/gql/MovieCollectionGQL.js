@@ -18,6 +18,7 @@ export const MOVIE_COLLECTION = gql`
       title
       movies {
         id
+        comments
         movie {
           id
           tmdbId
