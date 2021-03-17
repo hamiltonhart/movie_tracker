@@ -45,10 +45,10 @@ export const CardMovieDateStyle = styled.p`
 export const CardMovieSummaryStyle = styled.p`
   font-size: var(--sm);
   overflow-y: hidden;
-  margin: var(--medSpacing);
 `;
 
 export const CardSectionHeadingStyle = styled.h4`
   font-size: var(--normal);
   font-weight: 600px;
+  margin-bottom: var(--smSpacing);
 `;

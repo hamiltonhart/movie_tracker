@@ -11,6 +11,7 @@ import { CreateCollectionItemManual } from "../components/CollectionItems/Create
 import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
 import { PageHeadingStyle } from "../components/styles/Typography";
 import { FlexContainer } from "../components/styles/Containers";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const CollectionPage = () => {
   const params = useParams();
@@ -26,6 +27,7 @@ export const CollectionPage = () => {
       {error && <Error message={error.message} />}
       {data && (
         <>
+          {/* In-place Edit Collection */}
           {isShowingEdit ? (
             <EditCollection
               isShowing={isShowingEdit}
@@ -39,33 +41,35 @@ export const CollectionPage = () => {
             </PageHeadingStyle>
           )}
           {!isShowingEdit && !isShowingAdd && (
-            <FlexContainer
-              justifyContent="space-between"
-              padding="1.6rem 0.8rem 1.6rem 0.8rem"
-            >
-              <>
-                <NoBorderButton onClick={toggleEdit} disabled={isShowingAdd}>
-                  Edit
-                </NoBorderButton>
-                <PrimaryButton onClick={toggleAdd}>Add Movie</PrimaryButton>
-              </>
-            </FlexContainer>
+            <motion.div>
+              <FlexContainer
+                justifyContent="space-between"
+                padding="1.6rem 0.8rem 1.6rem 0.8rem"
+              >
+                <>
+                  <NoBorderButton onClick={toggleEdit} disabled={isShowingAdd}>
+                    Edit
+                  </NoBorderButton>
+                  <PrimaryButton onClick={toggleAdd}>Add Movie</PrimaryButton>
+                </>
+              </FlexContainer>
+              <div>
+                <CollectionItemsList
+                  items={data.movieCollection.movies}
+                  collectionId={params.collectionId}
+                />
+              </div>
+            </motion.div>
           )}
-          {isShowingAdd ? (
-            <>
+
+          {isShowingAdd && (
+            <motion.div>
               <Search collectionId={params.collectionId} toggle={toggleAdd} />
               <CreateCollectionItemManual
                 movieCollectionId={params.collectionId}
                 toggle={toggleAdd}
               />
-            </>
-          ) : (
-            <div>
-              <CollectionItemsList
-                items={data.movieCollection.movies}
-                collectionId={params.collectionId}
-              />
-            </div>
+            </motion.div>
           )}
         </>
       )}

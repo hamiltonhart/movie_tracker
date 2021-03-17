@@ -29,7 +29,7 @@ export const Search = ({ collectionId, toggle }) => {
   return (
     <div>
       <FormStyle onSubmit={(e) => handleSubmit(e)}>
-        <LabelStyle htmlFor="newMovieSearch" hidden>
+        <LabelStyle htmlFor="newMovieSearch" hidden={true}>
           Movie Title
         </LabelStyle>
         <TextInputStyle

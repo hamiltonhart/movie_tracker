@@ -36,7 +36,6 @@ export const CollectionItem = ({ item, collectionId }) => {
     // Confirms the item should be visible and is not deleted
     isShowingVisible && (
       <>
-        {console.log(item)}
         <CardStyle expanded={isShowingExpanded}>
           <CardMovieContentContainerStyle>
             <CardMoviePoster
@@ -68,14 +67,17 @@ export const CollectionItem = ({ item, collectionId }) => {
           {/* Shows when expanded */}
           {isShowingExpanded && (
             <CardMoreInfoContainerStyle>
-              <CardMovieSummaryStyle>
-                {item.movie.summary}
-              </CardMovieSummaryStyle>
+              <FlexContainer flexDirection="column">
+                <CardSectionHeadingStyle>Summary</CardSectionHeadingStyle>
+                <CardMovieSummaryStyle>
+                  {item.movie.summary}
+                </CardMovieSummaryStyle>
+              </FlexContainer>
               {item.comments && (
-                <>
+                <FlexContainer flexDirection="column" topBorder>
                   <CardSectionHeadingStyle>Comments</CardSectionHeadingStyle>
                   <CardMovieSummaryStyle>{item.comments}</CardMovieSummaryStyle>
-                </>
+                </FlexContainer>
               )}
               <FlexContainer flexDirection="column">
                 <UpdateCollectionItem

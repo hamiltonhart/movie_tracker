@@ -10,7 +10,9 @@ export const FlexContainer = styled.div`
   padding: ${(props) => (props.padding ? props.padding : `var(--smSpacing)`)};
   ${(props) => props.topBorder && `border-top: 2px solid var(--gray);`}
   ${(props) =>
-    props.backgroundColor && `background-color: ${props.backgroundColor}`}
+    props.backgroundColor && `background-color: ${props.backgroundColor}`};
+  ${(props) =>
+    props.radius === "normal" && `border-radius: var(--cardBorderRadius)`};
 `;
 
 export const CardStyle = styled.div`

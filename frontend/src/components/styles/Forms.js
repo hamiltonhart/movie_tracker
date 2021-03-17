@@ -39,8 +39,7 @@ export const TextareaInputStyle = styled.textarea`
 `;
 
 export const LabelStyle = styled.label`
-  ${(props) => props.hidden && "display: none;"}
+  ${(props) => (props.hidden ? "display: none;" : "display: inline-block;")}
   margin-left: var(--smSpacing);
   margin-bottom: var(--smSpacing);
-  display: inline-block;
 `;

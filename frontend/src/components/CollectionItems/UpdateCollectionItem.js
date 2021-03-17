@@ -6,6 +6,7 @@ import { FlexContainer } from "../styles/Containers";
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 import { Error } from "../Global";
 import { Modal } from "../Global/Modal";
+import { AnimatePresence } from "framer-motion";
 
 export const UpdateCollectionItem = ({ id, currentComments }) => {
   const [isShowing, setIsShowing] = useState(false);
@@ -26,33 +27,35 @@ export const UpdateCollectionItem = ({ id, currentComments }) => {
       <PrimaryButton onClick={() => setIsShowing(true)} disabled={isShowing}>
         {currentComments ? "Edit Comments" : "Add Comments"}
       </PrimaryButton>
-      {isShowing && (
-        <Modal>
-          <FlexContainer backgroundColor="var(--white)">
-            <FormStyle onSubmit={(e) => handleSubmit(e)}>
-              {error && <Error error={error.message} />}
-              <LabelStyle htmlFor={`${id}-comments`}>Comments</LabelStyle>
-              <TextareaInputStyle
-                id={`${id}-comments`}
-                value={comments}
-                rows="5"
-                onChange={(e) => setComments(e.target.value)}
-              />
-              <FlexContainer>
-                <NoBorderButton onClick={() => setIsShowing(false)}>
-                  Cancel
-                </NoBorderButton>
-                <PrimaryButton
-                  as="input"
-                  type="submit"
-                  value="Update"
-                  disabled={loading}
+      <AnimatePresence>
+        {isShowing && (
+          <Modal>
+            <FlexContainer backgroundColor="var(--white)" radius="normal">
+              <FormStyle onSubmit={(e) => handleSubmit(e)}>
+                {error && <Error error={error.message} />}
+                <LabelStyle htmlFor={`${id}-comments`}>Comments</LabelStyle>
+                <TextareaInputStyle
+                  id={`${id}-comments`}
+                  value={comments}
+                  rows="5"
+                  onChange={(e) => setComments(e.target.value)}
                 />
-              </FlexContainer>
-            </FormStyle>
-          </FlexContainer>
-        </Modal>
-      )}
+                <FlexContainer>
+                  <NoBorderButton onClick={() => setIsShowing(false)}>
+                    Cancel
+                  </NoBorderButton>
+                  <PrimaryButton
+                    as="input"
+                    type="submit"
+                    value="Update"
+                    disabled={loading}
+                  />
+                </FlexContainer>
+              </FormStyle>
+            </FlexContainer>
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   );
 };
