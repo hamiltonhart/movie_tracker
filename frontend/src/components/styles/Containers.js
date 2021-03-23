@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const FlexContainer = styled.div`
@@ -15,15 +16,25 @@ export const FlexContainer = styled.div`
     props.radius === "normal" && `border-radius: var(--cardBorderRadius)`};
 `;
 
+export const GridContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--lgSpacing);
+`;
+
+export const MoviePosterContainer = styled(motion.article)`
+  text-align: center;
+  cursor: pointer;
+`;
+
 export const CardStyle = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
+  position: relative;
   border-radius: var(--cardBorderRadius);
-  box-shadow: var(--bs);
-  height: ${(props) => (props.expanded ? `auto` : `var(--cardHeight)`)};
-  margin-top: var(--xxlSpacing);
-  margin-bottom: var(xxlSpacing);
+  max-height: 90vh;
+  background-color: var(--white);
+  overflow: scroll;
 `;
 
 export const CardMovieContentContainerStyle = styled.div`
@@ -37,6 +48,7 @@ export const CardMovieInfoContainerStyle = styled.div`
   flex-direction: column;
   padding-top: var(--xsSpacing);
   padding-bottom: var(--medSpacing);
+  margin-top: 4.2rem;
   margin-left: var(--medSpacing);
   margin-right: var(--medSpacing);
   overflow-y: hidden;
@@ -52,11 +64,12 @@ export const PrimaryCardButtonContainerStyle = styled.div`
   justify-content: flex-end;
 `;
 
-export const CardMoreInfoContainerStyle = styled.div`
+export const CardMoreInfoContainerStyle = styled(motion.div)`
   div {
     display: flex;
     justify-content: space-around;
     width: 100%;
     margin-bottom: var(--medSpacing);
+    overflow: hidden;
   }
 `;

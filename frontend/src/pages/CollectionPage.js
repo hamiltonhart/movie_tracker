@@ -11,7 +11,6 @@ import { CreateCollectionItemManual } from "../components/CollectionItems/Create
 import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
 import { PageHeadingStyle } from "../components/styles/Typography";
 import { FlexContainer } from "../components/styles/Containers";
-import { AnimatePresence, motion } from "framer-motion";
 
 export const CollectionPage = () => {
   const params = useParams();
@@ -41,7 +40,7 @@ export const CollectionPage = () => {
             </PageHeadingStyle>
           )}
           {!isShowingEdit && !isShowingAdd && (
-            <motion.div>
+            <div>
               <FlexContainer
                 justifyContent="space-between"
                 padding="1.6rem 0.8rem 1.6rem 0.8rem"
@@ -59,17 +58,17 @@ export const CollectionPage = () => {
                   collectionId={params.collectionId}
                 />
               </div>
-            </motion.div>
+            </div>
           )}
 
           {isShowingAdd && (
-            <motion.div>
+            <div>
               <Search collectionId={params.collectionId} toggle={toggleAdd} />
               <CreateCollectionItemManual
                 movieCollectionId={params.collectionId}
                 toggle={toggleAdd}
               />
-            </motion.div>
+            </div>
           )}
         </>
       )}

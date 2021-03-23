@@ -1,7 +1,7 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ModalBackground = styled(motion.div)`
   position: fixed;
@@ -18,11 +18,13 @@ const ModalContainer = styled(motion.div)`
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 20%;
-  width: 100%;
+  top: 5%;
+  /* width: 100%; */
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 1000;
+  margin-left: var(--xsSpacing);
+  margin-right: var(--xsSpacing);
 `;
 
 export const Modal = ({ children }) => {

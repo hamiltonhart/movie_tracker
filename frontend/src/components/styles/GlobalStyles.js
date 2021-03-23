@@ -93,6 +93,9 @@ export const GlobalStyle = createGlobalStyle`
 
     textarea {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        -webkit-appearance: none;
     }
 
     p {

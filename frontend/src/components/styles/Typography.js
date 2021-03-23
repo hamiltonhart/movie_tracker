@@ -36,6 +36,11 @@ export const CardHeadingStyle = styled.h3`
   padding-bottom: var(--xsSpacing);
 `;
 
+export const PosterHeadingStyle = styled(CardHeadingStyle)`
+  font-size: var(--normal);
+  font-weight: 600;
+`;
+
 export const CardMovieDateStyle = styled.p`
   display: inline;
   color: var(--darkGray);

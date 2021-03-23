@@ -3,6 +3,7 @@ import { CollectionItem } from "./CollectionItem";
 import { movieSortingABC } from "../../utilities";
 
 import { LabelStyle, TextInputStyle } from "../styles/Forms";
+import { FlexContainer, GridContainer } from "../styles/Containers";
 
 export const CollectionItemsList = ({ items, collectionId }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,9 +35,17 @@ export const CollectionItemsList = ({ items, collectionId }) => {
         onChange={(e) => handleSearch(e)}
         placeholder="Search List"
       />
-      {listItems.map((item) => (
-        <CollectionItem key={item.id} item={item} collectionId={collectionId} />
-      ))}
+      <FlexContainer style={{ marginTop: "var(--lgSpacing)" }}>
+        <GridContainer>
+          {listItems.map((item) => (
+            <CollectionItem
+              key={item.id}
+              item={item}
+              collectionId={collectionId}
+            />
+          ))}
+        </GridContainer>
+      </FlexContainer>
     </div>
   );
 };

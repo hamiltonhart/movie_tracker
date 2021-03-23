@@ -39,3 +39,15 @@ export const NoBorderButton = styled(Button)`
     color: var(--primary);
   }
 `;
+
+export const CloseButtonStyle = styled.button`
+  display: inline-block;
+  border-radius: 50%;
+  /* padding: var(--xsSpacing); */
+  background-color: var(--lightGray);
+  width: 3.2rem;
+  height: 3.2rem;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+`;

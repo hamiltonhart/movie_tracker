@@ -18,8 +18,8 @@ export const DeleteCollectionItem = ({ id, collectionId, toggle }) => {
 
   // Increments the deleteCount state by one if it is less than 2. deleteCollectionItem Mutation is executed on the count of 2 (third click)
   const handleDelete = (e) => {
+    e.stopPropagation();
     if (deleteCount === 2) {
-      e.stopPropagation();
       deleteCollectionItem({
         variables: { id },
         refetchQueries: [
