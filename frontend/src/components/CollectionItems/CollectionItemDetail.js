@@ -26,7 +26,6 @@ export const CollectionItemDetail = ({ item, collectionId, toggle }) => {
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
 
   return (
-    // Confirms the item should be visible and is not deleted
     <Modal>
       <CardStyle>
         <CardMovieContentContainerStyle>
@@ -50,7 +49,6 @@ export const CollectionItemDetail = ({ item, collectionId, toggle }) => {
             <CloseButton onClick={toggle} />
           </CardMovieInfoContainerStyle>
         </CardMovieContentContainerStyle>
-        {/* Shows when expanded */}
 
         <CardMoreInfoContainerStyle>
           <FlexContainer flexDirection="column">

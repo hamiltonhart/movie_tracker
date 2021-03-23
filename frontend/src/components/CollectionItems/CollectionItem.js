@@ -20,7 +20,6 @@ export const CollectionItem = ({ item, collectionId }) => {
   const { isShowing: isShowingExpanded, toggle: toggleExpanded } = useToggle();
 
   return (
-    // Confirms the item should be visible and is not deleted
     isShowingVisible && (
       <>
         <MoviePosterContainer role="button" onClick={toggleExpanded}>
@@ -39,7 +38,6 @@ export const CollectionItem = ({ item, collectionId }) => {
                 ? `${item.movie.titlePrefix} ${item.movie.title}`
                 : `${item.movie.title}`}{" "}
             </PosterHeadingStyle>
-            {/* <CardMovieDateStyle className="movieDate">{`(${item.movie.releaseYear})`}</CardMovieDateStyle> */}
           </div>
         </MoviePosterContainer>
         <AnimatePresence>
