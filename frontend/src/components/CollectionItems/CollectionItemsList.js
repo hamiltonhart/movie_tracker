@@ -6,6 +6,7 @@ import { LabelStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer, GridContainer } from "../styles/Containers";
 
 export const CollectionItemsList = ({ items, collectionId }) => {
+  const [rerender, setRerender] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [listItems, setListItems] = useState(movieSortingABC(items));
 
@@ -21,6 +22,10 @@ export const CollectionItemsList = ({ items, collectionId }) => {
     });
     setSearchTerm(tempSearchTerm);
     setListItems(searchArray);
+  };
+
+  const handleRerender = () => {
+    setRerender(!rerender);
   };
 
   return (
@@ -42,6 +47,7 @@ export const CollectionItemsList = ({ items, collectionId }) => {
               key={item.id}
               item={item}
               collectionId={collectionId}
+              rerenderList={handleRerender}
             />
           ))}
         </GridContainer>

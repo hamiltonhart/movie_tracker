@@ -16,12 +16,15 @@ class CollectionItemType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    collection_items = graphene.List(CollectionItemType)
+    collection_items = graphene.List(CollectionItemType, collection_id=graphene.Int())
     collection_item = graphene.Field(
         CollectionItemType, id=graphene.Int(required=True))
 
-    def resolve_collection_items(self, info):
-        return CollectionItem.objects.all()
+    def resolve_collection_items(self, info, collection_id=None):
+        if collection_id:
+            return MovieCollection.objects.get(id=collection_id).movies.all()
+        else:
+            return CollectionItem.objects.all()
 
     def resolve_collection_item(self, info, id):
         try:

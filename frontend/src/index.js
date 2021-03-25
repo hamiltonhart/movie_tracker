@@ -12,7 +12,13 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { PrimaryLayout } from "./components/Global";
 import { Login } from "./components/auth/Login";
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    CollectionItems: {
+      keyFields: ["id"],
+    },
+  },
+});
 
 const uri =
   process.env.NODE_ENV === "development"

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "@reach/router";
 import { useQuery } from "@apollo/react-hooks";
-import { MOVIE_COLLECTION } from "../gql";
+import { MOVIE_COLLECTION_AND_ITEMS } from "../gql";
 
 import { Loading, Error } from "../components/Global";
 import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
@@ -14,8 +14,8 @@ import { FlexContainer } from "../components/styles/Containers";
 
 export const CollectionPage = () => {
   const params = useParams();
-  const { data, loading, error } = useQuery(MOVIE_COLLECTION, {
-    variables: { id: params.collectionId },
+  const { data, loading, error } = useQuery(MOVIE_COLLECTION_AND_ITEMS, {
+    variables: { id: params.collectionId, collectionId: params.collectionId },
   });
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
@@ -54,7 +54,7 @@ export const CollectionPage = () => {
               </FlexContainer>
               <div>
                 <CollectionItemsList
-                  items={data.movieCollection.movies}
+                  items={data.collectionItems}
                   collectionId={params.collectionId}
                 />
               </div>

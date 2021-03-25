@@ -9,7 +9,7 @@ import { PosterHeadingStyle } from "../styles/Typography";
 import { CollectionItemDetail } from "./CollectionItemDetail";
 import { AnimatePresence } from "framer-motion";
 
-export const CollectionItem = ({ item, collectionId }) => {
+export const CollectionItem = ({ item, collectionId, rerenderList }) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
 
   // Used to hode the component after Deletion. Used because the Item list isn't rerendering on the cache update
@@ -46,6 +46,7 @@ export const CollectionItem = ({ item, collectionId }) => {
               item={item}
               collectionId={collectionId}
               toggle={toggleExpanded}
+              rerenderList={rerenderList}
             />
           )}
         </AnimatePresence>

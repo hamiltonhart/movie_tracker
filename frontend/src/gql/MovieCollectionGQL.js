@@ -33,6 +33,25 @@ export const MOVIE_COLLECTION = gql`
   }
 `;
 
+export const MOVIE_COLLECTION_AND_ITEMS = gql`
+  query movieCollectionAndItems($id: Int!, $collectionId: Int) {
+    movieCollection(id: $id) {
+      id
+      title
+    }
+    collectionItems(collectionId: $collectionId) {
+      id
+      comments
+      movie {
+        id
+        title
+        titlePrefix
+        picPath
+      }
+    }
+  }
+`;
+
 // Mutations
 
 export const CREATE_COLLECTION = gql`

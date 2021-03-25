@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { DELETE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
+import { DELETE_COLLECTION_ITEM, MOVIE_COLLECTION_AND_ITEMS } from "../../gql";
 import {
   NoBorderButton,
   PrimaryButton,
@@ -8,12 +8,38 @@ import {
 } from "../styles/Buttons";
 import { Error } from "../Global";
 
-export const DeleteCollectionItem = ({ id, collectionId, toggle }) => {
+export const DeleteCollectionItem = ({ id, collectionId, rerenderList }) => {
   // Count is for Delete confirmation. See handleDelete.
   const [deleteCount, setDeleteCount] = useState(0);
 
+  const handleUpdateCache = (cache, { data }) => {
+    const fullQuery = cache.readQuery({
+      query: MOVIE_COLLECTION_AND_ITEMS,
+      variables: { id: collectionId, collectionId: collectionId },
+    });
+
+    const movieCollection = fullQuery.movieCollection;
+    const collectionItems = fullQuery.collectionItems;
+    for (let i = 0; i < collectionItems.length; i++) {
+      if (Number(collectionItems[i].id) === data.deleteCollectionItem.id) {
+        collectionItems.splice(i, 1);
+        break;
+      }
+    }
+
+    cache.writeQuery({
+      query: MOVIE_COLLECTION_AND_ITEMS,
+      variables: { id: collectionId, collectionId: collectionId },
+      data: { movieCollection, collectionItems },
+    });
+  };
+
   const [deleteCollectionItem, { loading, error }] = useMutation(
-    DELETE_COLLECTION_ITEM
+    DELETE_COLLECTION_ITEM,
+    {
+      update: handleUpdateCache,
+      onCompleted: rerenderList,
+    }
   );
 
   // Increments the deleteCount state by one if it is less than 2. deleteCollectionItem Mutation is executed on the count of 2 (third click)
@@ -22,14 +48,12 @@ export const DeleteCollectionItem = ({ id, collectionId, toggle }) => {
     if (deleteCount === 2) {
       deleteCollectionItem({
         variables: { id },
-        refetchQueries: [
-          {
-            query: MOVIE_COLLECTION,
-            variables: { id: collectionId },
-          },
-        ],
-        // This toggle hides the Item from the list. Can remove if the list component rerenders after an update
-        onCompleted: toggle(),
+        // refetchQueries: [
+        //   {
+        //     query: MOVIE_COLLECTION,
+        //     variables: { id: collectionId },
+        //   },
+        // ],
       });
     } else {
       setDeleteCount(deleteCount + 1);
