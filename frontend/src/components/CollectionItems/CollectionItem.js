@@ -1,56 +1,33 @@
 import React from "react";
-
-import { MoviePosterStyle } from "../styles/CardMoviePoster";
-import { MoviePosterContainer } from "../styles/Containers";
-
-import imageNotAvailable from "../../images/NoImageAvailable.svg";
-import { useToggle } from "../utilities";
-import { PosterHeadingStyle } from "../styles/Typography";
-import { CollectionItemDetail } from "./CollectionItemDetail";
 import { AnimatePresence } from "framer-motion";
 
-export const CollectionItem = ({ item, collectionId, rerenderList }) => {
-  const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
+import { useToggle } from "../utilities";
+import { CollectionCard } from "./CollectionCard";
+import { CollectionItemDetail } from "./CollectionItemDetail";
 
-  // Used to hode the component after Deletion. Used because the Item list isn't rerendering on the cache update
-  const { isShowing: isShowingVisible, toggle: toggleVisible } = useToggle(
-    true
-  );
+export const CollectionItem = ({ item, collectionId, rerenderList }) => {
   // Used to toggle the expanded card which shows more information. The poster art changes from rounded to squared when expanded
-  const { isShowing: isShowingExpanded, toggle: toggleExpanded } = useToggle();
+  const { isShowing: isShowingDetail, toggle: toggleDetail } = useToggle();
 
   return (
-    isShowingVisible && (
-      <>
-        <MoviePosterContainer role="button" onClick={toggleExpanded}>
-          <MoviePosterStyle
-            src={
-              item.movie.picPath
-                ? `${POSTER_PATH}${item.movie.picPath}`
-                : imageNotAvailable
-            }
-            alt={item.movie.title}
-          />
+    <>
+      <CollectionCard
+        onClick={toggleDetail}
+        titlePrefix={item.movie.titlePrefix}
+        title={item.movie.title}
+        picPath={item.movie.picPath}
+      />
 
-          <div>
-            <PosterHeadingStyle>
-              {item.movie.titlePrefix
-                ? `${item.movie.titlePrefix} ${item.movie.title}`
-                : `${item.movie.title}`}{" "}
-            </PosterHeadingStyle>
-          </div>
-        </MoviePosterContainer>
-        <AnimatePresence>
-          {isShowingExpanded && (
-            <CollectionItemDetail
-              item={item}
-              collectionId={collectionId}
-              toggle={toggleExpanded}
-              rerenderList={rerenderList}
-            />
-          )}
-        </AnimatePresence>
-      </>
-    )
+      <AnimatePresence>
+        {isShowingDetail && (
+          <CollectionItemDetail
+            item={item}
+            collectionId={collectionId}
+            toggle={toggleDetail}
+            rerenderList={rerenderList}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };

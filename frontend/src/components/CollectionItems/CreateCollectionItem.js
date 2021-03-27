@@ -37,8 +37,6 @@ export const CreateCollectionItem = ({
       variables: { id: movieCollectionId, collectionId: movieCollectionId },
       data: { movieCollection, collectionItems },
     });
-
-    // handleCompleted();
   };
 
   const [createCollectionItem, { error }] = useMutation(

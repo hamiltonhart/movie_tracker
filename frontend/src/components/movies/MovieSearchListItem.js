@@ -1,6 +1,8 @@
 import React from "react";
 import { CreateCollectionItem } from "../CollectionItems";
 
+import { CollectionCard } from "../CollectionItems";
+
 import { NoBorderButton } from "../styles/Buttons";
 import {
   CardMoreInfoContainerStyle,
@@ -24,6 +26,12 @@ const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
   const { toggle: toggleMoreInfo, isShowing: isShowingMoreInfo } = useToggle();
 
   return (
+    // <CollectionCard>
+
+    // </CollectionCard>
+
+    // Nothing below this
+
     <CardStyle expanded={isShowingMoreInfo}>
       <CardMovieContentContainerStyle>
         <CardMoviePoster
