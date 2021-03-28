@@ -1,9 +1,10 @@
 import React from "react";
+import { GridContainer } from "../styles/Containers";
 import MovieSearchListItem from "./MovieSearchListItem";
 
 const MovieSearchList = ({ collectionId, movieList, toggle }) => {
   return (
-    <div>
+    <GridContainer>
       {movieList.map((movie) => (
         <MovieSearchListItem
           key={movie.id}
@@ -12,7 +13,7 @@ const MovieSearchList = ({ collectionId, movieList, toggle }) => {
           toggle={toggle}
         />
       ))}
-    </div>
+    </GridContainer>
   );
 };
 

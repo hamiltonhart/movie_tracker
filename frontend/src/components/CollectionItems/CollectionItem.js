@@ -21,7 +21,7 @@ export const CollectionItem = ({ item, collectionId, rerenderList }) => {
       <AnimatePresence>
         {isShowingDetail && (
           <CollectionItemDetail
-            item={item}
+            itemId={item.id}
             collectionId={collectionId}
             toggle={toggleDetail}
             rerenderList={rerenderList}

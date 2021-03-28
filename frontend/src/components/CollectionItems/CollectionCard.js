@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useToggle } from "../utilities";
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
 import { MoviePosterStyle } from "../styles/CardMoviePoster";
 import { MoviePosterContainer } from "../styles/Containers";

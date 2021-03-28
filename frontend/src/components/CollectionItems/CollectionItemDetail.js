@@ -25,7 +25,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { Error, Loading } from "../Global";
 
 export const CollectionItemDetail = ({
-  item,
+  itemId,
   collectionId,
   toggle,
   rerenderList,
@@ -34,7 +34,7 @@ export const CollectionItemDetail = ({
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
 
   const { data, loading, error } = useQuery(GET_COLLECTION_ITEM, {
-    variables: { id: item.id },
+    variables: { id: itemId },
   });
 
   return (

@@ -57,11 +57,11 @@ export const CreateCollectionItem = ({
   };
 
   return (
-    <>
+    <div style={{ marginBottom: "--var(xsSpacing)" }}>
       <PrimaryButton fullwidth onClick={() => handleClick()}>
         Add
       </PrimaryButton>
       {error && <Error message={error.message} />}
-    </>
+    </div>
   );
 };
