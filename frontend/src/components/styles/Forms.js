@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const FormStyle = styled.form`
+export const FormStyle = styled(motion.form)`
   display: "flex";
   flex-direction: "column";
   justify-content: "center";
   align-items: "center";
-  margin-top: var(--medSpacing);
+  margin-top: ${(props) =>
+    props.marginTop ? `${props.marginTop}` : "var(--medSpacing)"};
   margin-bottom: var(--medSpacing);
   & > * {
     margin-bottom: ${(props) =>

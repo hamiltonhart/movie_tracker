@@ -18,11 +18,14 @@ import {
   CardSectionHeadingStyle,
 } from "../styles/Typography";
 import { CardStyle, CardMoreInfoContainerStyle } from "../styles/Containers";
-import { UpdateCollectionItem } from "./UpdateCollectionItem";
 import { Modal } from "../Global/Modal";
 import { CloseButton } from "../Global/CloseButton";
 import { useQuery } from "@apollo/react-hooks";
 import { Error, Loading } from "../Global";
+import { CollectionItemComments } from "./CollectionItemComments";
+
+import { useToggle } from "../utilities/useToggle";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const CollectionItemDetail = ({
   itemId,
@@ -33,9 +36,25 @@ export const CollectionItemDetail = ({
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
 
+  const {
+    toggle: toggleAddComments,
+    isShowing: isShowingAddComments,
+  } = useToggle();
+
   const { data, loading, error } = useQuery(GET_COLLECTION_ITEM, {
     variables: { id: itemId },
   });
+
+  const variants = {
+    closed: {
+      height: 0,
+      opacity: 0,
+    },
+    open: {
+      height: "auto",
+      opacity: 1,
+    },
+  };
 
   return (
     <Modal>
@@ -73,34 +92,37 @@ export const CollectionItemDetail = ({
                   {data.collectionItem.movie.summary}
                 </CardMovieSummaryStyle>
               </FlexContainer>
-              {data.collectionItem.comments && (
-                <FlexContainer flexDirection="column" topBorder>
-                  <CardSectionHeadingStyle>Comments</CardSectionHeadingStyle>
-                  <CardMovieSummaryStyle>
-                    {data.collectionItem.comments}
-                  </CardMovieSummaryStyle>
-                </FlexContainer>
-              )}
-              <FlexContainer flexDirection="column">
-                <UpdateCollectionItem
-                  id={data.collectionItem.id}
-                  currentComments={data.collectionItem.comments}
+              <FlexContainer flexDirection="column" topBorder>
+                <CollectionItemComments
+                  collectionItemId={data.collectionItem.id}
+                  comments={data.collectionItem.comments}
+                  toggleAddComments={toggleAddComments}
+                  isShowingAddComments={isShowingAddComments}
                 />
               </FlexContainer>
-              <div>
-                <DeleteCollectionItem
-                  id={data.collectionItem.id}
-                  collectionId={collectionId}
-                  rerenderList={rerenderList}
-                />
-                <SecondaryButton
-                  as="a"
-                  href={`${TMDB_PATH}${data.collectionItem.movie.tmdbId}`}
-                  target="_blank"
-                >
-                  See on TMDb
-                </SecondaryButton>
-              </div>
+              <AnimatePresence>
+                {!isShowingAddComments && (
+                  <motion.div
+                    variants={variants}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                  >
+                    <DeleteCollectionItem
+                      id={data.collectionItem.id}
+                      collectionId={collectionId}
+                      rerenderList={rerenderList}
+                    />
+                    <SecondaryButton
+                      as="a"
+                      href={`${TMDB_PATH}${data.collectionItem.movie.tmdbId}`}
+                      target="_blank"
+                    >
+                      See on TMDb
+                    </SecondaryButton>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </CardMoreInfoContainerStyle>
           </>
         )}

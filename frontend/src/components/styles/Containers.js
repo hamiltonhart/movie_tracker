@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const FlexContainer = styled.div`
+export const FlexContainer = styled(motion.div)`
   display: flex;
   position: relative;
   flex-direction: ${(props) =>
@@ -14,6 +14,7 @@ export const FlexContainer = styled.div`
     props.backgroundColor && `background-color: ${props.backgroundColor}`};
   ${(props) =>
     props.radius === "normal" && `border-radius: var(--cardBorderRadius)`};
+  ${(props) => props.overflow && `overflow: ${props.overflow}`};
 `;
 
 export const GridContainer = styled.div`
