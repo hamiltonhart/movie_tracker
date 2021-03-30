@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION } from "../../gql";
+import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION_AND_ITEMS } from "../../gql";
 import { Error } from "../Global";
 
 import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
@@ -19,29 +19,34 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
   const [releaseYear, setReleaseYear] = useState("");
   const [summary, setSummary] = useState("");
 
+  // Toggles the create component off and shows the CollectionItemList AFTER the update function
+  const handleCompleted = () => {
+    toggle();
+  };
+
   // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItem.
   const handleUpdateCache = (cache, { data }) => {
     const fullQuery = cache.readQuery({
-      query: MOVIE_COLLECTION,
-      variables: { id: movieCollectionId },
+      query: MOVIE_COLLECTION_AND_ITEMS,
+      variables: { id: movieCollectionId, collectionId: movieCollectionId },
     });
-    let items = fullQuery.movieCollection;
+
+    const movieCollection = fullQuery.movieCollection;
+    let collectionItems = fullQuery.collectionItems;
     const newItem = data.createCollectionItem.collectionItem;
 
-    items.movies = items.movies.concat(newItem);
+    collectionItems = collectionItems.concat(newItem);
 
     cache.writeQuery({
-      query: MOVIE_COLLECTION,
-      variables: { id: movieCollectionId },
-      data: { movieCollection: items },
+      query: MOVIE_COLLECTION_AND_ITEMS,
+      variables: { id: movieCollectionId, collectionId: movieCollectionId },
+      data: { movieCollection, collectionItems },
     });
-
-    handleCompleted();
   };
 
   const [createCollectionItem, { error }] = useMutation(
     CREATE_COLLECTION_ITEM,
-    { update: handleUpdateCache }
+    { update: handleUpdateCache, onCompleted: handleCompleted }
   );
 
   // Calls the createCollectionItem mutation
@@ -55,11 +60,6 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         releaseYear: releaseYear ? releaseYear : 0,
       },
     });
-  };
-
-  // Toggles the create component off and shows the CollectionItemList AFTER the update function
-  const handleCompleted = () => {
-    toggle();
   };
 
   return (
