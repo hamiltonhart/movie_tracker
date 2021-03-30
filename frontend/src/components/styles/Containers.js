@@ -36,6 +36,7 @@ export const CardStyle = styled.div`
   max-height: 90vh;
   background-color: var(--white);
   overflow: scroll;
+  min-width: 100%;
 `;
 
 export const CardMovieContentContainerStyle = styled.div`
