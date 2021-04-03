@@ -35,6 +35,9 @@ export const SecondaryButton = styled(Button)`
 export const NoBorderButton = styled(Button)`
   color: var(--primary);
   background: none;
+  padding-left: var(--xsSpacing);
+  padding-right: var(--xsSpacing);
+  cursor: pointer;
   &:visited {
     color: var(--primary);
   }

@@ -15,6 +15,7 @@ export const FlexContainer = styled(motion.div)`
   ${(props) =>
     props.radius === "normal" && `border-radius: var(--cardBorderRadius)`};
   ${(props) => props.overflow && `overflow: ${props.overflow}`};
+  ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
 `;
 
 export const GridContainer = styled.div`
@@ -59,19 +60,27 @@ export const CardMovieInfoContainerStyle = styled.div`
 `;
 
 export const PrimaryCardButtonContainerStyle = styled.div`
-  display: flex;
+  display: grid;
   flex-direction: column;
   margin-top: var(--medSpacing);
   height: 100%;
   justify-content: flex-end;
 `;
 
+export const CardButtonBottomStyle = styled(motion.div)`
+  display: grid;
+  grid-template-columns: 31% 31% 31%;
+  grid-gap: var(--xsSpacing);
+  margin-top: var(--medSpacing);
+`;
+
 export const CardMoreInfoContainerStyle = styled(motion.div)`
-  div {
+  margin-bottom: var(--medSpacing);
+  /* div {
     display: flex;
     justify-content: space-around;
     width: 100%;
     margin-bottom: var(--medSpacing);
     overflow: hidden;
-  }
+  } */
 `;

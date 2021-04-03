@@ -6,11 +6,12 @@ import { CollectionContext } from "../../pages/CollectionPage";
 
 import { CardMoviePoster } from "../styles/CardMoviePoster";
 import {
+  CardButtonBottomStyle,
   CardMovieContentContainerStyle,
   CardMovieInfoContainerStyle,
   FlexContainer,
 } from "../styles/Containers";
-import { SecondaryButton } from "../styles/Buttons";
+import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
 import {
   CardHeadingStyle,
@@ -115,7 +116,7 @@ export const CollectionItemDetail = ({
               </FlexContainer>
               <AnimatePresence>
                 {!isShowingAddComments && (
-                  <motion.div
+                  <CardButtonBottomStyle
                     variants={variants}
                     initial="closed"
                     animate="open"
@@ -127,14 +128,17 @@ export const CollectionItemDetail = ({
                       rerenderList={rerenderList}
                       toggleDetail={toggleDetail}
                     />
-                    <SecondaryButton
+                    <NoBorderButton
                       as="a"
                       href={`${TMDB_PATH}${data.collectionItem.movie.tmdbId}`}
                       target="_blank"
                     >
-                      See on TMDb
-                    </SecondaryButton>
-                  </motion.div>
+                      TMDb
+                    </NoBorderButton>
+                    <NoBorderButton onClick={() => console.log("add view")}>
+                      Add View
+                    </NoBorderButton>
+                  </CardButtonBottomStyle>
                 )}
               </AnimatePresence>
             </CardMoreInfoContainerStyle>

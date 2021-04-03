@@ -41,6 +41,7 @@ export const CollectionItemComments = ({
             flexDirection="column"
             padding="0"
             overflow="hidden"
+            marginBottom
           >
             <CardSectionHeadingStyle>Comments</CardSectionHeadingStyle>
             <CardMovieSummaryStyle>{comments}</CardMovieSummaryStyle>

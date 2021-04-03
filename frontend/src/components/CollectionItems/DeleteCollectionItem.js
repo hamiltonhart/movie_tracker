@@ -75,7 +75,7 @@ export const DeleteCollectionItem = ({
       )}
       {deleteCount === 1 && (
         <SecondaryButton delete onClick={(e) => handleDelete(e)}>
-          Are you sure?
+          Really?
         </SecondaryButton>
       )}
       {deleteCount === 2 && (
@@ -84,7 +84,7 @@ export const DeleteCollectionItem = ({
           disabled={loading}
           onClick={(e) => handleDelete(e)}
         >
-          Get Rid Of It!
+          YES!
         </PrimaryButton>
       )}
       {error && <Error message={error.message} />}
