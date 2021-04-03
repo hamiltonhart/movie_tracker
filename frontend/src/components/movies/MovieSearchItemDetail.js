@@ -2,6 +2,7 @@ import React from "react";
 
 import { CardMoviePoster } from "../styles/CardMoviePoster";
 import {
+  CardButtonBottomStyle,
   CardMovieContentContainerStyle,
   CardMovieInfoContainerStyle,
   FlexContainer,
@@ -19,7 +20,7 @@ import { CardStyle, CardMoreInfoContainerStyle } from "../styles/Containers";
 import { Modal } from "../Global/Modal";
 import { CloseButton } from "../Global/CloseButton";
 import { CreateCollectionItem } from "../CollectionItems";
-import { SecondaryButton } from "../styles/Buttons";
+import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
 
 export const MovieSearchItemDetail = ({
   collectionId,
@@ -54,7 +55,7 @@ export const MovieSearchItemDetail = ({
           </CardMovieContentContainerStyle>
 
           <CardMoreInfoContainerStyle>
-            <FlexContainer flexDirection="column">
+            <FlexContainer flexDirection="column" marginBottom>
               <CreateCollectionItem
                 movieCollectionId={collectionId}
                 title={title}
@@ -68,15 +69,16 @@ export const MovieSearchItemDetail = ({
               <CardMovieSummaryStyle>{summary}</CardMovieSummaryStyle>
             </FlexContainer>
 
-            <div>
-              <SecondaryButton
+            <CardButtonBottomStyle>
+              <NoBorderButton
                 as="a"
                 href={`${TMDB_PATH}${tmdbId}`}
                 target="_blank"
+                style={{ gridColumn: "span 3" }}
               >
                 See on TMDb
-              </SecondaryButton>
-            </div>
+              </NoBorderButton>
+            </CardButtonBottomStyle>
           </CardMoreInfoContainerStyle>
         </>
       </CardStyle>

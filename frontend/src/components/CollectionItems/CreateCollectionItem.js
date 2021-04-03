@@ -79,7 +79,7 @@ export const CreateCollectionItem = ({
   };
 
   return (
-    <div style={{ marginBottom: "--var(xsSpacing)" }}>
+    <div style={{ marginBottom: "var(--lgSpacing)" }}>
       <PrimaryButton fullwidth onClick={() => handleClick()}>
         Add
       </PrimaryButton>

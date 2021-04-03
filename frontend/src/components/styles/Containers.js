@@ -16,6 +16,7 @@ export const FlexContainer = styled(motion.div)`
     props.radius === "normal" && `border-radius: var(--cardBorderRadius)`};
   ${(props) => props.overflow && `overflow: ${props.overflow}`};
   ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
+  ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
 `;
 
 export const GridContainer = styled.div`
