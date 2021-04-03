@@ -5,7 +5,7 @@ import { CollectionCard } from "../CollectionItems/CollectionCard";
 import { MovieSearchItemDetail } from "./MovieSearchItemDetail";
 import { useToggle } from "../utilities";
 
-const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
+const MovieSearchListItem = ({ collectionId, movie }) => {
   const { toggle: toggleDetail, isShowing: isShowingDetail } = useToggle();
 
   return (
@@ -26,7 +26,7 @@ const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
             }
             tmdbId={movie.id}
             summary={movie.overview}
-            toggle={toggle}
+            toggle={toggleDetail}
           />
         )}
       </AnimatePresence>

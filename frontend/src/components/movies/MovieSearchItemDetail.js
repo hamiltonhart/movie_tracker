@@ -49,7 +49,7 @@ export const MovieSearchItemDetail = ({
                   {releaseYear}
                 </CardMovieDateStyle>
               </div>
-              <CloseButton onClick={toggle} />
+              <CloseButton toggleDetail={toggle} />
             </CardMovieInfoContainerStyle>
           </CardMovieContentContainerStyle>
 
