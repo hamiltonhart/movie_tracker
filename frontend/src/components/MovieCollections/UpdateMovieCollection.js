@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import {
   UPDATE_COLLECTION,
   MOVIE_COLLECTION,
 } from "../../gql/MovieCollectionGQL";
+import { CollectionContext } from "../../pages/CollectionPage";
 import { Error } from "../Global";
 
 import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
@@ -11,28 +12,32 @@ import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";
 import { DeleteCollection } from "./DeleteCollection";
 
-export const UpdateMovieCollection = ({ toggle, id, collectionTitle }) => {
-  const [title, setTitle] = useState(collectionTitle);
+export const UpdateMovieCollection = () => {
+  const context = useContext(CollectionContext);
+
+  const [title, setTitle] = useState(context.collection.title);
 
   const [updateMovieCollection, { error }] = useMutation(UPDATE_COLLECTION);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateMovieCollection({
-      variables: { id, title },
-      refetchQueries: [{ query: MOVIE_COLLECTION, variables: { id: id } }],
+      variables: { id: context.collection.id, title },
+      refetchQueries: [
+        { query: MOVIE_COLLECTION, variables: { id: context.collection.id } },
+      ],
       onCompleted: handleCompleted(),
     });
   };
 
   const handleCompleted = () => {
     setTitle(title);
-    toggle();
+    context.toggleEdit();
   };
 
   const handleCancel = () => {
-    setTitle(collectionTitle);
-    toggle();
+    setTitle(context.collection.title);
+    context.toggleEdit();
   };
 
   return (
@@ -58,9 +63,7 @@ export const UpdateMovieCollection = ({ toggle, id, collectionTitle }) => {
           value="Update"
         />
         <FlexContainer>
-          <DeleteCollection fullwidth id={id}>
-            Delete
-          </DeleteCollection>
+          <DeleteCollection fullwidth>Delete</DeleteCollection>
 
           <NoBorderButton fullwidth onClick={handleCancel}>
             Cancel

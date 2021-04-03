@@ -8,6 +8,7 @@ export const GET_COLLECTION_ITEM = gql`
       comments
       id
       comments
+      views
       movie {
         id
         tmdbId
@@ -45,6 +46,7 @@ export const CREATE_COLLECTION_ITEM = gql`
       collectionItem {
         id
         comments
+        views
         movie {
           id
           tmdbId
@@ -60,11 +62,12 @@ export const CREATE_COLLECTION_ITEM = gql`
 `;
 
 export const UPDATE_COLLECTION_ITEM = gql`
-  mutation updateCollectionItem($id: Int!, $comments: String) {
-    updateCollectionItem(id: $id, comments: $comments) {
+  mutation updateCollectionItem($id: Int!, $comments: String, $views: Int) {
+    updateCollectionItem(id: $id, comments: $comments, views: $views) {
       collectionItem {
         id
         comments
+        views
         movie {
           id
           tmdbId

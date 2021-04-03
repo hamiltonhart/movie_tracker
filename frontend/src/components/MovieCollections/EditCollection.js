@@ -2,14 +2,10 @@ import React from "react";
 
 import { UpdateMovieCollection } from "./UpdateMovieCollection";
 
-export const EditCollection = ({ toggle, id, collectionTitle }) => {
+export const EditCollection = () => {
   return (
     <div>
-      <UpdateMovieCollection
-        toggle={toggle}
-        id={id}
-        collectionTitle={collectionTitle}
-      />
+      <UpdateMovieCollection />
     </div>
   );
 };

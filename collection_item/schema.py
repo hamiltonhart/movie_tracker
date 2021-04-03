@@ -16,7 +16,8 @@ class CollectionItemType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    collection_items = graphene.List(CollectionItemType, collection_id=graphene.Int())
+    collection_items = graphene.List(
+        CollectionItemType, collection_id=graphene.Int())
     collection_item = graphene.Field(
         CollectionItemType, id=graphene.Int(required=True))
 
@@ -56,6 +57,7 @@ class CreateCollectionItem(graphene.Mutation):
         if user.is_anonymous:
             raise GraphQLError("Login to create a Movie Collection Item.")
 
+        # Gets the Movie Collection that the Collection Item will be added to
         try:
             movie_collection = MovieCollection.objects.get(
                 id=movie_collection_id)
@@ -63,6 +65,8 @@ class CreateCollectionItem(graphene.Mutation):
             raise GraphQLError(
                 f"{movie_collection_id} is not a valid Movie Collection ID")
 
+        # Looks for a Movie with the TMDb ID if one exists or looks for a Movie matching the supplied title and date (for manually added Movies)
+        # Determines if a Movie needs to be created for the CollectionItem to be related to
         if tmdb_id != None:
             try:
                 movie = Movie.objects.get(tmdb_id=tmdb_id)
@@ -78,6 +82,7 @@ class CreateCollectionItem(graphene.Mutation):
             except:
                 needs_new_movie = True
 
+        # If a new Movie is needed, it is created here and assigned to the "movie" variable
         if needs_new_movie:
             if not title:
                 raise GraphQLError(
@@ -100,6 +105,18 @@ class CreateCollectionItem(graphene.Mutation):
                     movie.release_year = release_year
                 movie.save(title_updated=True)
 
+        possible_matches = CollectionItem.objects.filter(
+            movie__release_year=release_year)
+        if len(possible_matches) == 0:
+            pass
+        else:
+            for pm in possible_matches:
+                if pm.movie.full_title == title:
+                    collection_item = pm
+                    collection_item.views += 1
+                    collection_item.save()
+                    return CreateCollectionItem(collection_item=collection_item)
+
         collection_item = CollectionItem(
             movie_collection=movie_collection, movie=movie)
         if comments:
@@ -107,6 +124,7 @@ class CreateCollectionItem(graphene.Mutation):
         if rating:
             collection_item.rating = rating
         collection_item.save()
+
         return CreateCollectionItem(collection_item=collection_item)
 
 
@@ -117,9 +135,10 @@ class UpdateCollectionItem(graphene.Mutation):
         id = graphene.Int(required=True)
         comments = graphene.String()
         rating = graphene.Int()
+        views = graphene.Int()
 
     @login_required
-    def mutate(self, info, id, comments=None, rating=None):
+    def mutate(self, info, id, comments=None, rating=None, views=None):
         try:
             collection_item = CollectionItem.objects.get(id=id)
         except:
@@ -130,6 +149,8 @@ class UpdateCollectionItem(graphene.Mutation):
             collection_item.comments = comments
         if rating:
             collection_item.rating = rating
+        if views:
+            collection_item.views += views
 
         collection_item.save()
         return UpdateCollectionItem(collection_item=collection_item)

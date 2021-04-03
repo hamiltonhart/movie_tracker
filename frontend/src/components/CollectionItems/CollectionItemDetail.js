@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { GET_COLLECTION_ITEM } from "../../gql/CollectionItemGQL";
 import { DeleteCollectionItem } from "./DeleteCollectionItem";
+import { CollectionContext } from "../../pages/CollectionPage";
 
 import { CardMoviePoster } from "../styles/CardMoviePoster";
 import {
@@ -29,10 +30,10 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export const CollectionItemDetail = ({
   itemId,
-  collectionId,
-  toggle,
+  toggleDetail,
   rerenderList,
 }) => {
+  const context = useContext(CollectionContext);
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
   const TMDB_PATH = "https://www.themoviedb.org/movie/";
 
@@ -72,6 +73,18 @@ export const CollectionItemDetail = ({
                 }
                 alt={data.collectionItem.movie.title}
               />
+              <p
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  backgroundColor: "yellow",
+                  padding: "5px",
+                  borderBottomRightRadius: "var(--cardBorderRadius)",
+                }}
+              >
+                {data.collectionItem.views}
+              </p>
               <CardMovieInfoContainerStyle>
                 <div>
                   <CardHeadingStyle>
@@ -81,7 +94,7 @@ export const CollectionItemDetail = ({
                   </CardHeadingStyle>
                   <CardMovieDateStyle className="movieDate">{`(${data.collectionItem.movie.releaseYear})`}</CardMovieDateStyle>
                 </div>
-                <CloseButton onClick={toggle} />
+                <CloseButton toggleDetail={toggleDetail} />
               </CardMovieInfoContainerStyle>
             </CardMovieContentContainerStyle>
 
@@ -110,8 +123,9 @@ export const CollectionItemDetail = ({
                   >
                     <DeleteCollectionItem
                       id={data.collectionItem.id}
-                      collectionId={collectionId}
+                      collectionId={context.collection.id}
                       rerenderList={rerenderList}
+                      toggleDetail={toggleDetail}
                     />
                     <SecondaryButton
                       as="a"

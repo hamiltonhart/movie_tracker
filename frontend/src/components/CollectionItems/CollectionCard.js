@@ -5,14 +5,19 @@ import { MoviePosterStyle } from "../styles/CardMoviePoster";
 import { MoviePosterContainer } from "../styles/Containers";
 import { PosterHeadingStyle } from "../styles/Typography";
 
-export const CollectionCard = ({ onClick, titlePrefix, title, picPath }) => {
+export const CollectionCard = ({
+  toggleDetail,
+  titlePrefix,
+  title,
+  picPath,
+}) => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w154";
 
   // Used to toggle the expanded card which shows more information.
 
   return (
     <>
-      <MoviePosterContainer role="button" onClick={onClick}>
+      <MoviePosterContainer role="button" onClick={toggleDetail}>
         <MoviePosterStyle
           src={picPath ? `${POSTER_PATH}${picPath}` : imageNotAvailable}
           alt={title}

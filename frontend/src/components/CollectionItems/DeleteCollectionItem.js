@@ -8,7 +8,12 @@ import {
 } from "../styles/Buttons";
 import { Error } from "../Global";
 
-export const DeleteCollectionItem = ({ id, collectionId, rerenderList }) => {
+export const DeleteCollectionItem = ({
+  id,
+  collectionId,
+  rerenderList,
+  toggleDetail,
+}) => {
   // Count is for Delete confirmation. See handleDelete.
   const [deleteCount, setDeleteCount] = useState(0);
 

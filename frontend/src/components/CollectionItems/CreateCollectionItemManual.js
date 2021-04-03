@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION_AND_ITEMS } from "../../gql";
+import { CollectionContext } from "../../pages/CollectionPage";
+import {
+  CREATE_COLLECTION_ITEM,
+  MOVIE_COLLECTION_AND_ITEMS,
+  UPDATE_COLLECTION_ITEM,
+} from "../../gql";
 import { Error } from "../Global";
 
 import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
@@ -13,15 +18,18 @@ import {
 } from "../styles/Forms";
 import { FlexContainer } from "../styles/Containers";
 import { SimplePStyle } from "../styles/Typography";
+import { findMatch } from "./utilities/findMatch";
 
-export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
+export const CreateCollectionItemManual = ({ movieCollectionId }) => {
+  const context = useContext(CollectionContext);
+
   const [title, setTitle] = useState("");
   const [releaseYear, setReleaseYear] = useState("");
   const [summary, setSummary] = useState("");
 
   // Toggles the create component off and shows the CollectionItemList AFTER the update function
   const handleCompleted = () => {
-    toggle();
+    context.toggleAdd();
   };
 
   // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItem.
@@ -49,17 +57,31 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
     { update: handleUpdateCache, onCompleted: handleCompleted }
   );
 
+  const [
+    updateCollectionItem,
+    { error: updateError },
+  ] = useMutation(UPDATE_COLLECTION_ITEM, { onCompleted: handleCompleted });
+
   // Calls the createCollectionItem mutation
   const handleSubmit = (e) => {
     e.preventDefault();
-    createCollectionItem({
-      variables: {
-        movieCollectionId,
-        title,
-        summary,
-        releaseYear: releaseYear ? releaseYear : 0,
-      },
+    const matchFound = findMatch({
+      items: context.collectionItems,
+      title,
+      releaseYear,
     });
+    if (matchFound) {
+      updateCollectionItem({ variables: { id: matchFound, views: 1 } });
+    } else {
+      createCollectionItem({
+        variables: {
+          movieCollectionId,
+          title,
+          summary,
+          releaseYear: releaseYear ? releaseYear : 0,
+        },
+      });
+    }
   };
 
   return (
@@ -120,7 +142,7 @@ export const CreateCollectionItemManual = ({ movieCollectionId, toggle }) => {
         >
           Add
         </SecondaryButton>
-        <NoBorderButton fullwidth onClick={toggle}>
+        <NoBorderButton fullwidth onClick={context.toggleAdd}>
           Cancel
         </NoBorderButton>
       </FormStyle>

@@ -30,3 +30,10 @@ class Movie(models.Model):
 
     def find_prefix(self):
         self.save(title_updated=True)
+
+    @property
+    def full_title(self):
+        if self.title_prefix:
+            return f'{self.title_prefix} {self.title}'
+        else:
+            return self.title

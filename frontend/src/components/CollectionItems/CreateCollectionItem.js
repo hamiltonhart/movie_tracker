@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 
-import { CREATE_COLLECTION_ITEM, MOVIE_COLLECTION_AND_ITEMS } from "../../gql";
+import {
+  CREATE_COLLECTION_ITEM,
+  MOVIE_COLLECTION_AND_ITEMS,
+  UPDATE_COLLECTION_ITEM,
+} from "../../gql";
+import { CollectionContext } from "../../pages/CollectionPage";
 import { Error } from "../Global";
 
 import { PrimaryButton } from "../styles/Buttons";
+import { findMatch } from "./utilities/findMatch";
 
 export const CreateCollectionItem = ({
   movieCollectionId,
@@ -13,10 +19,11 @@ export const CreateCollectionItem = ({
   summary,
   releaseYear,
   picPath,
-  toggle,
 }) => {
+  const context = useContext(CollectionContext);
+
   const handleCompleted = () => {
-    toggle();
+    context.toggleAdd();
   };
 
   // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItemManual.
@@ -43,17 +50,32 @@ export const CreateCollectionItem = ({
     CREATE_COLLECTION_ITEM,
     { update: handleUpdateCache, onCompleted: handleCompleted }
   );
+
+  const [
+    updateCollectionItem,
+    { error: updateError },
+  ] = useMutation(UPDATE_COLLECTION_ITEM, { onCompleted: handleCompleted });
+
   const handleClick = () => {
-    createCollectionItem({
-      variables: {
-        movieCollectionId,
-        title,
-        tmdbId,
-        summary,
-        releaseYear,
-        picPath,
-      },
+    const matchFound = findMatch({
+      items: context.collectionItems,
+      title,
+      releaseYear,
     });
+    if (matchFound) {
+      updateCollectionItem({ variables: { id: matchFound, views: 1 } });
+    } else {
+      createCollectionItem({
+        variables: {
+          movieCollectionId,
+          title,
+          tmdbId,
+          summary,
+          releaseYear,
+          picPath,
+        },
+      });
+    }
   };
 
   return (

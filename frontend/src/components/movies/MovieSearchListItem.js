@@ -11,7 +11,7 @@ const MovieSearchListItem = ({ collectionId, movie, toggle }) => {
   return (
     <>
       <CollectionCard
-        onClick={toggleDetail}
+        toggleDetail={toggleDetail}
         title={movie.title}
         picPath={movie.poster_path}
       />

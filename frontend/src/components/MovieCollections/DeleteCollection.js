@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { navigate } from "@reach/router";
 import {
   DELETE_COLLECTION,
   MOVIE_COLLECTIONS,
 } from "../../gql/MovieCollectionGQL";
+import { CollectionContext } from "../../pages/CollectionPage";
 import { Error } from "../Global";
 
 import {
@@ -13,7 +14,9 @@ import {
   PrimaryButton,
 } from "../styles/Buttons";
 
-export const DeleteCollection = ({ id }) => {
+export const DeleteCollection = () => {
+  const context = useContext(CollectionContext);
+
   const [deleteCount, setDeleteCount] = useState(0);
 
   const [deleteMovieCollection, { error }] = useMutation(DELETE_COLLECTION);
@@ -24,7 +27,7 @@ export const DeleteCollection = ({ id }) => {
     } else {
       e.preventDefault();
       deleteMovieCollection({
-        variables: { id },
+        variables: { id: context.collection.id },
         refetchQueries: [{ query: MOVIE_COLLECTIONS }],
         onCompleted: handleCompleted(),
       });

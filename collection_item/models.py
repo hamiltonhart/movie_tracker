@@ -13,6 +13,7 @@ class CollectionItem(models.Model):
     date = models.DateField(default=date.today())
     comments = models.TextField(null=True)
     rating = models.IntegerField(null=True)
+    views = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['movie__title']

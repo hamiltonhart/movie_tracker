@@ -24,7 +24,7 @@ export const MOVIE_COLLECTION = gql`
           tmdbId
           title
           titlePrefix
-          summary
+          fullTitle
           releaseYear
           picPath
         }
@@ -42,10 +42,12 @@ export const MOVIE_COLLECTION_AND_ITEMS = gql`
     collectionItems(collectionId: $collectionId) {
       id
       comments
+      views
       movie {
         id
         title
         titlePrefix
+        releaseYear
         picPath
       }
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { useParams } from "@reach/router";
 import { useQuery } from "@apollo/react-hooks";
 import { MOVIE_COLLECTION_AND_ITEMS } from "../gql";
@@ -12,6 +12,8 @@ import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
 import { PageHeadingStyle } from "../components/styles/Typography";
 import { FlexContainer } from "../components/styles/Containers";
 
+export const CollectionContext = createContext({});
+
 export const CollectionPage = () => {
   const params = useParams();
   const { data, loading, error } = useQuery(MOVIE_COLLECTION_AND_ITEMS, {
@@ -19,6 +21,18 @@ export const CollectionPage = () => {
   });
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
+
+  const context = useContext(CollectionContext);
+
+  context.isShowingAdd = isShowingAdd;
+  context.toggleAdd = toggleAdd;
+  context.isShowingEdit = isShowingEdit;
+  context.toggleEdit = toggleEdit;
+  context.collection = data && data.movieCollection;
+  context.collectionItems = data && data.collectionItems;
+
+  // ToDo: Using Context, handle adding a collectionItem that already exists to Update increment views
+  // ToDo: Add View Increment Update to Card Detail
 
   return (
     <div>
@@ -28,12 +42,7 @@ export const CollectionPage = () => {
         <>
           {/* In-place Edit Collection */}
           {isShowingEdit ? (
-            <EditCollection
-              isShowing={isShowingEdit}
-              toggle={toggleEdit}
-              id={data.movieCollection.id}
-              collectionTitle={data.movieCollection.title}
-            />
+            <EditCollection />
           ) : (
             <PageHeadingStyle align="center">
               {data.movieCollection.title}
@@ -66,7 +75,6 @@ export const CollectionPage = () => {
               <Search collectionId={params.collectionId} toggle={toggleAdd} />
               <CreateCollectionItemManual
                 movieCollectionId={params.collectionId}
-                toggle={toggleAdd}
               />
             </div>
           )}
