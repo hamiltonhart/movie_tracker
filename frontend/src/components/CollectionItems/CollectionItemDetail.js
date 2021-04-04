@@ -11,7 +11,7 @@ import {
   CardMovieInfoContainerStyle,
   FlexContainer,
 } from "../styles/Containers";
-import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
+import { NoBorderButton } from "../styles/Buttons";
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
 import {
   CardHeadingStyle,
@@ -27,7 +27,8 @@ import { Error, Loading } from "../Global";
 import { CollectionItemComments } from "./CollectionItemComments";
 
 import { useToggle } from "../utilities/useToggle";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { CollectionItemUpdateView } from "./CollectionItemUpdateView";
 
 export const CollectionItemDetail = ({
   itemId,
@@ -135,9 +136,10 @@ export const CollectionItemDetail = ({
                     >
                       TMDb
                     </NoBorderButton>
-                    <NoBorderButton onClick={() => console.log("add view")}>
-                      Add View
-                    </NoBorderButton>
+                    <CollectionItemUpdateView
+                      collectionItemId={data.collectionItem.id}
+                      toggleDetail={toggleDetail}
+                    />
                   </CardButtonBottomStyle>
                 )}
               </AnimatePresence>

@@ -16,6 +16,7 @@ export const CollectionItem = ({ item, rerenderList }) => {
         titlePrefix={item.movie.titlePrefix}
         title={item.movie.title}
         picPath={item.movie.picPath}
+        views={item.views}
       />
 
       <AnimatePresence>

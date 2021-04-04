@@ -8,12 +8,7 @@ import {
 } from "../styles/Buttons";
 import { Error } from "../Global";
 
-export const DeleteCollectionItem = ({
-  id,
-  collectionId,
-  rerenderList,
-  toggleDetail,
-}) => {
+export const DeleteCollectionItem = ({ id, collectionId, rerenderList }) => {
   // Count is for Delete confirmation. See handleDelete.
   const [deleteCount, setDeleteCount] = useState(0);
 
@@ -53,12 +48,6 @@ export const DeleteCollectionItem = ({
     if (deleteCount === 2) {
       deleteCollectionItem({
         variables: { id },
-        // refetchQueries: [
-        //   {
-        //     query: MOVIE_COLLECTION,
-        //     variables: { id: collectionId },
-        //   },
-        // ],
       });
     } else {
       setDeleteCount(deleteCount + 1);

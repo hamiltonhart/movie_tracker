@@ -8,6 +8,8 @@ import {
 
 import { UpdateCollectionItem } from "./UpdateCollectionItem";
 
+// If comments for the CollectionItem exist and based on the isShowingAddComments prop passed, either the existing comments are shown or a short form to enter comments is shown.
+// The UpdateCollectionItem component is used to update the comments
 export const CollectionItemComments = ({
   collectionItemId,
   comments,

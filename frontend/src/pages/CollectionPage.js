@@ -19,6 +19,7 @@ export const CollectionPage = () => {
   const { data, loading, error } = useQuery(MOVIE_COLLECTION_AND_ITEMS, {
     variables: { id: params.collectionId, collectionId: params.collectionId },
   });
+
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
@@ -31,16 +32,12 @@ export const CollectionPage = () => {
   context.collection = data && data.movieCollection;
   context.collectionItems = data && data.collectionItems;
 
-  // ToDo: Using Context, handle adding a collectionItem that already exists to Update increment views
-  // ToDo: Add View Increment Update to Card Detail
-
   return (
     <div>
       {loading && <Loading />}
       {error && <Error message={error.message} />}
       {data && (
         <>
-          {/* In-place Edit Collection */}
           {isShowingEdit ? (
             <EditCollection />
           ) : (

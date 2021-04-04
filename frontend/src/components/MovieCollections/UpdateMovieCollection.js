@@ -1,9 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import {
-  UPDATE_COLLECTION,
-  MOVIE_COLLECTION,
-} from "../../gql/MovieCollectionGQL";
+import { UPDATE_COLLECTION } from "../../gql/MovieCollectionGQL";
 import { CollectionContext } from "../../pages/CollectionPage";
 import { Error } from "../Global";
 
@@ -23,20 +20,16 @@ export const UpdateMovieCollection = () => {
     e.preventDefault();
     updateMovieCollection({
       variables: { id: context.collection.id, title },
-      refetchQueries: [
-        { query: MOVIE_COLLECTION, variables: { id: context.collection.id } },
-      ],
       onCompleted: handleCompleted(),
     });
   };
 
+  // The interface for the CollectionList editor is unmounted
   const handleCompleted = () => {
-    setTitle(title);
     context.toggleEdit();
   };
 
   const handleCancel = () => {
-    setTitle(context.collection.title);
     context.toggleEdit();
   };
 

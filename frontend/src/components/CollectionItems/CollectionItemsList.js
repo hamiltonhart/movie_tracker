@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 
 import { CollectionContext } from "../../pages/CollectionPage";
 
@@ -8,14 +8,19 @@ import { movieSortingABC } from "../../utilities";
 import { LabelStyle, TextInputStyle } from "../styles/Forms";
 import { FlexContainer, GridContainer } from "../styles/Containers";
 
+export const CollectionListContext = createContext({});
+
 export const CollectionItemsList = () => {
   const context = useContext(CollectionContext);
+  const listContext = useContext(CollectionListContext);
 
   const [rerender, setRerender] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [listItems, setListItems] = useState(
     movieSortingABC(context.collectionItems)
   );
+
+  listContext.setListItems = setListItems;
 
   const handleSearch = (e) => {
     const searchArray = [];

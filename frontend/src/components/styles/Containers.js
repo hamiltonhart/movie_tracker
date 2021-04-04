@@ -26,6 +26,7 @@ export const GridContainer = styled.div`
 `;
 
 export const MoviePosterContainer = styled(motion.article)`
+  position: relative;
   text-align: center;
   cursor: pointer;
 `;

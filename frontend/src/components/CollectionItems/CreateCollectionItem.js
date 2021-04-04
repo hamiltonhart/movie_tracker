@@ -11,6 +11,7 @@ import { Error } from "../Global";
 
 import { PrimaryButton } from "../styles/Buttons";
 import { findMatch } from "./utilities/findMatch";
+import { movieSortingABC } from "../../utilities";
 
 export const CreateCollectionItem = ({
   movieCollectionId,
@@ -26,7 +27,10 @@ export const CreateCollectionItem = ({
     context.toggleAdd();
   };
 
-  // Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItemManual.
+  /*
+  Handles updating the Apollo cache for the Movie Collection Mutation. Also present in CreateCollectionItemManual.
+  The cache is sorted in alphabetical order in order to properly display.
+  */
   const handleUpdateCache = (cache, { data }) => {
     const fullQuery = cache.readQuery({
       query: MOVIE_COLLECTION_AND_ITEMS,
@@ -38,6 +42,7 @@ export const CreateCollectionItem = ({
     const newItem = data.createCollectionItem.collectionItem;
 
     collectionItems = collectionItems.concat(newItem);
+    collectionItems = movieSortingABC(collectionItems);
 
     cache.writeQuery({
       query: MOVIE_COLLECTION_AND_ITEMS,

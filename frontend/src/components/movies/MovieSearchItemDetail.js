@@ -20,7 +20,7 @@ import { CardStyle, CardMoreInfoContainerStyle } from "../styles/Containers";
 import { Modal } from "../Global/Modal";
 import { CloseButton } from "../Global/CloseButton";
 import { CreateCollectionItem } from "../CollectionItems";
-import { NoBorderButton, SecondaryButton } from "../styles/Buttons";
+import { NoBorderButton } from "../styles/Buttons";
 
 export const MovieSearchItemDetail = ({
   collectionId,

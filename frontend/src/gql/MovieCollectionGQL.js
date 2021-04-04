@@ -24,7 +24,6 @@ export const MOVIE_COLLECTION = gql`
           tmdbId
           title
           titlePrefix
-          fullTitle
           releaseYear
           picPath
         }

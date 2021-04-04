@@ -19,6 +19,7 @@ import {
 import { FlexContainer } from "../styles/Containers";
 import { SimplePStyle } from "../styles/Typography";
 import { findMatch } from "./utilities/findMatch";
+import { movieSortingABC } from "../../utilities";
 
 export const CreateCollectionItemManual = ({ movieCollectionId }) => {
   const context = useContext(CollectionContext);
@@ -44,6 +45,7 @@ export const CreateCollectionItemManual = ({ movieCollectionId }) => {
     const newItem = data.createCollectionItem.collectionItem;
 
     collectionItems = collectionItems.concat(newItem);
+    collectionItems = movieSortingABC(collectionItems);
 
     cache.writeQuery({
       query: MOVIE_COLLECTION_AND_ITEMS,
