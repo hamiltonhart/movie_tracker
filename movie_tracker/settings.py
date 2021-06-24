@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'movie_collections',
     'movie',
     'collection_item',
+    'plant',
+    'plant_item',
+    'image',
 
     # THIRD PARTY
     "graphene_django",
