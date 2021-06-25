@@ -6,7 +6,7 @@ from graphql_jwt.decorators import login_required
 from .models import Plant
 
 
-class PlantType(graphene.DjangoObjecType):
+class PlantType(DjangoObjectType):
     class Meta:
         model = Plant
 
@@ -61,7 +61,7 @@ class UpdatePlant(graphene.Mutation):
         return UpdatePlant(plant=plant)
 
 
-class DeletePlant(graphene.ObjectType):
+class DeletePlant(graphene.Mutation):
     id = graphene.Int()
 
     class Arguments:

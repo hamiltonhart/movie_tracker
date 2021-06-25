@@ -11,6 +11,12 @@ class PlantItemType(DjangoObjectType):
     class Meta:
         model = PlantItem
 
+# Queries
+
+
+class Query(graphene.ObjectType):
+    pass
+
 
 # Mutations
 
@@ -29,8 +35,9 @@ class CreatePlantItem(graphene.Mutation):
         user = info.context.user
 
         # Checks that a user is logged in
-        if user.is_anonymous == False:
-            raise GraphQLError("You must be logged in to add a plant.")
+        if user.is_anonymous:
+            raise GraphQLError(
+                f"You must be logged in to add a plant. User is {user}")
 
         # If a plant_id is provided, gets the Plant with that ID and stores it in current_plant
         if plant_id:
