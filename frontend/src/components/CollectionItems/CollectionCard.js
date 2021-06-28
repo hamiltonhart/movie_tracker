@@ -2,7 +2,7 @@ import React from "react";
 
 import imageNotAvailable from "../../images/NoImageAvailable.svg";
 import { MoviePosterStyle } from "../styles/CardMoviePoster";
-import { MoviePosterContainer } from "../styles/Containers";
+import { MoviePosterContainer, MoviePosterSpan } from "../styles/Containers";
 import { PosterHeadingStyle } from "../styles/Typography";
 
 export const CollectionCard = ({
@@ -18,11 +18,14 @@ export const CollectionCard = ({
   return (
     <>
       <MoviePosterContainer role="button" onClick={toggleDetail}>
-        <MoviePosterStyle
-          src={picPath ? `${POSTER_PATH}${picPath}` : imageNotAvailable}
-          alt={title}
-        />
-        {views && (
+        <MoviePosterSpan>
+          <span>{views}</span>
+          <MoviePosterStyle
+            src={picPath ? `${POSTER_PATH}${picPath}` : imageNotAvailable}
+            alt={title}
+          />
+        </MoviePosterSpan>
+        {/* {views && (
           <p
             style={{
               position: "absolute",
@@ -36,7 +39,7 @@ export const CollectionCard = ({
           >
             {views}
           </p>
-        )}
+        )} */}
 
         <header className={`${title}-card-heading-small`}>
           <PosterHeadingStyle>

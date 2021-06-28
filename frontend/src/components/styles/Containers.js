@@ -29,6 +29,23 @@ export const MoviePosterContainer = styled(motion.article)`
   position: relative;
   text-align: center;
   cursor: pointer;
+  max-width: 200px;
+`;
+
+export const MoviePosterSpan = styled.span`
+  position: relative;
+  display: inline-block;
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3.3rem;
+    background-color: yellow;
+    padding: 5px;
+    border-top-left-radius: var(--cardBorderRadius);
+    border-bottom-right-radius: var(--cardBorderRadius);
+  }
 `;
 
 export const CardStyle = styled.div`
