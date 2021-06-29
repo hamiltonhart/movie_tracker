@@ -1,10 +1,11 @@
 from django.db import models
+from plant_type.models import PlantType
 
 
 class Plant(models.Model):
     name = models.CharField(max_length=100)
     sci_name = models.CharField(max_length=100, default="")
-    type = models.CharField(max_length=100)
+    types = models.ManyToManyField(PlantType)
     watering_instructions = models.TextField(default="")
     comments = models.TextField(default="")
 

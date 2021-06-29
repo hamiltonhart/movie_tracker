@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'plant',
     'plant_item',
     'image',
+    'plant_type',
 
     # THIRD PARTY
     "graphene_django",

@@ -5,6 +5,7 @@ from graphql_jwt.decorators import login_required
 
 from .models import PlantItem
 from plant.models import Plant
+from plant_type.models import PlantType
 
 
 class PlantItemType(DjangoObjectType):
@@ -27,11 +28,11 @@ class CreatePlantItem(graphene.Mutation):
         plant_id = graphene.Int()
         name = graphene.String(required=True)
         sci_name = graphene.String()
-        type = graphene.String(required=True)
+        types = graphene.String(required=True)
         location = graphene.String()
 
     @login_required
-    def mutate(self, info, name, type, plant_id=None, sci_name=None, location=None):
+    def mutate(self, info, name, types, plant_id=None, sci_name=None, location=None):
         user = info.context.user
 
         # Checks that a user is logged in
@@ -47,7 +48,22 @@ class CreatePlantItem(graphene.Mutation):
                 raise GraphQLError(
                     f"A valid Plant ID was not supplied. {plant_id} was provided.")
         else:
-            current_plant = Plant.objects.create(name=name, type=type)
+            plant_types = []
+            plant_string_types = [x.replace(" ", "").lower()
+                                  for x in types.split(",")]
+
+            for type_string in plant_string_types:
+                try:
+                    current_type = PlantType.objects.get(
+                        type_label=type_string)
+                    plant_types.append(current_type)
+                except:
+                    current_type = PlantType.objects.create(
+                        type_label=type_string)
+                    current_type.save()
+                    plant_types.append(current_type)
+
+            current_plant = Plant.objects.create(name=name, types=plant_types)
             if sci_name:
                 current_plant.sci_name = sci_name
             current_plant.save()

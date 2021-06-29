@@ -3,6 +3,7 @@ import graphql_jwt
 from graphene_django import DjangoObjectType
 
 # import app schemas
+import plant_type.schema
 import plant.schema
 import plant_item.schema
 import movie.schema
@@ -14,6 +15,7 @@ import users.schema
 
 
 class Query(
+    plant_type.schema.Query,
     plant.schema.Query,
     plant_item.schema.Query,
     movie.schema.Query,
