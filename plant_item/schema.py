@@ -28,11 +28,11 @@ class CreatePlantItem(graphene.Mutation):
         plant_id = graphene.Int()
         name = graphene.String(required=True)
         sci_name = graphene.String()
-        types = graphene.String(required=True)
+        types = graphene.String()
         location = graphene.String()
 
     @login_required
-    def mutate(self, info, name, types, plant_id=None, sci_name=None, location=None):
+    def mutate(self, info, name, types=None, plant_id=None, sci_name=None, location=None):
         user = info.context.user
 
         # Checks that a user is logged in
@@ -47,26 +47,36 @@ class CreatePlantItem(graphene.Mutation):
             except:
                 raise GraphQLError(
                     f"A valid Plant ID was not supplied. {plant_id} was provided.")
+        # If a plant_id is not provided, create a new Plant
         else:
+            current_plant = Plant.objects.create(name=name)
+
+        # If types (plant_types) are provided, parse the types by comma and cast them as lowercase.
+        # If the PlantType already exists, get that type and add it to the Plant, otherwise, create the PlantType and add it to the current plant
+        if types:
             plant_types = []
             plant_string_types = [x.replace(" ", "").lower()
                                   for x in types.split(",")]
 
             for type_string in plant_string_types:
-                try:
-                    current_type = PlantType.objects.get(
-                        type_label=type_string)
-                    plant_types.append(current_type)
-                except:
-                    current_type = PlantType.objects.create(
-                        type_label=type_string)
-                    current_type.save()
-                    plant_types.append(current_type)
+                if type_string == "" or type_string == " ":
+                    pass
+                else:
+                    try:
+                        current_type = PlantType.objects.get(
+                            type_label=type_string)
+                        plant_types.append(current_type)
+                    except:
+                        current_type = PlantType.objects.create(
+                            type_label=type_string)
+                        current_type.save()
+                        plant_types.append(current_type)
 
-            current_plant = Plant.objects.create(name=name, types=plant_types)
-            if sci_name:
-                current_plant.sci_name = sci_name
-            current_plant.save()
+            current_plant.types.set(plant_types)
+
+        if sci_name:
+            current_plant.sci_name = sci_name
+        current_plant.save()
 
         try:
             plant_item = PlantItem.objects.create(

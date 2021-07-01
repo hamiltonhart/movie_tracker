@@ -20,7 +20,7 @@ class Query(graphene.ObjectType):
     def resolve_plants(self, info):
         return Plant.objects.all()
 
-    def resolve_plant(self, info):
+    def resolve_plant(self, info, id):
         try:
             return Plant.objects.get(id=id)
         except:

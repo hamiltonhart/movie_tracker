@@ -8,6 +8,7 @@ import { useToggle } from "../components/utilities";
 
 import { SecondaryButton } from "../components/styles/Buttons";
 import { FlexContainer } from "../components/styles/Containers";
+import { Link } from "@reach/router";
 
 export const HomePage = () => {
   const { isShowing, toggle } = useToggle();
@@ -20,6 +21,7 @@ export const HomePage = () => {
         <CreateMovieCollection toggle={toggle} />
       )}
       <CollectionList />
+      <Link to="plants/">See Plants</Link>
     </FlexContainer>
   );
 };
