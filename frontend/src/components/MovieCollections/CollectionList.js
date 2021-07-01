@@ -10,7 +10,7 @@ export const CollectionList = () => {
   const { data, loading, error } = useQuery(MOVIE_COLLECTIONS);
 
   return (
-    <FlexContainer flexDirection="column">
+    <FlexContainer flexDirection="column" marginTop>
       {loading && <Loading />}
       {error && <Error message={error.message} />}
       {data && (

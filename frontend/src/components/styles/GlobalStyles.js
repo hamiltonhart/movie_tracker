@@ -76,6 +76,10 @@ export const GlobalStyle = createGlobalStyle`
         color: inherit;
     }
 
+    ol, ul {
+        list-style-type: none;
+    }
+
     button {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         border: none;

@@ -12,11 +12,20 @@ export const SimplePStyle = styled.p`
 `;
 
 export const PageHeadingStyle = styled.h1`
-  font-size: var(--mediumBig);
+  font-size: var(--big);
   font-weight: 800;
   padding: var(--medSpacing);
   color: var(--primary);
   text-align: center;
+  ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
+`;
+
+export const SectionHeadingStyle = styled.h2`
+  font-size: var(--mediumBig);
+  padding: var(--medSpacing) 0;
+  color: var(--primary);
+  ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
+  ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
 `;
 
 export const LinkHeadingStyle = styled.a`
@@ -56,4 +65,12 @@ export const CardSectionHeadingStyle = styled.h4`
   font-size: var(--normal);
   font-weight: 600px;
   margin-bottom: var(--smSpacing);
+`;
+
+export const TagStyle = styled(SimplePStyle)`
+  background-color: var(--primaryContrast);
+  border-radius: var(--cardBorderRadius);
+  color: var(--primary);
+  margin: 0 1rem;
+  padding: ${(props) => (props.padding ? props.padding : `0 var(--smSpacing)`)};
 `;

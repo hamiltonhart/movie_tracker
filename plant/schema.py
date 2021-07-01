@@ -18,7 +18,7 @@ class Query(graphene.ObjectType):
     plant = graphene.Field(PlantType, id=graphene.Int(required=True))
 
     def resolve_plants(self, info):
-        return Plant.objects.all()
+        return Plant.objects.all().order_by("name")
 
     def resolve_plant(self, info, id):
         try:

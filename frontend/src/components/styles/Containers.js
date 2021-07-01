@@ -17,6 +17,15 @@ export const FlexContainer = styled(motion.div)`
   ${(props) => props.overflow && `overflow: ${props.overflow}`};
   ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
   ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
+
+  ol li {
+    list-style-type: decimal;
+    margin-left: var(--medSpacing);
+  }
+
+  ol li::marker {
+    color: var(--darkGrey);
+  }
 `;
 
 export const GridContainer = styled.div`

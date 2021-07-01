@@ -8,7 +8,9 @@ export const Button = styled.button`
     props.size === "large" ? `var(--bitMore)` : `var(--normal)`};
   font-weight: 600;
   text-align: center;
-  ${(props) => props.fullwidth && `width: 100%`}
+  cursor: pointer;
+  ${(props) => props.fullwidth && `width: 100%;`}
+  ${(props) => props.margin && `margin: ${props.margin};`}
 `;
 
 export const PrimaryButton = styled(Button)`
@@ -37,7 +39,6 @@ export const NoBorderButton = styled(Button)`
   background: none;
   padding-left: var(--xsSpacing);
   padding-right: var(--xsSpacing);
-  cursor: pointer;
   &:visited {
     color: var(--primary);
   }

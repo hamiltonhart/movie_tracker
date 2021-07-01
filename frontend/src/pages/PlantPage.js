@@ -9,7 +9,12 @@ import { Loading, Error } from "../components/Global";
 import { useToggle, Search } from "../components/utilities";
 // import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
 import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
-import { PageHeadingStyle } from "../components/styles/Typography";
+import {
+  PageHeadingStyle,
+  SectionHeadingStyle,
+  SimplePStyle,
+  TagStyle,
+} from "../components/styles/Typography";
 import { FlexContainer } from "../components/styles/Containers";
 
 // export const CollectionContext = createContext({});
@@ -33,26 +38,64 @@ export const PlantPage = () => {
   // context.collectionItems = data && data.collectionItems;
 
   return (
-    <div>
+    <FlexContainer flexDirection="column">
       {loading && <Loading />}
       {error && <Error message={error.message} />}
       {data && (
-        <div>
-          <h1>{data.plant.name}</h1>
-          <h2>Type</h2>
-          <ul>
-            {data.plant.types.map((type) => (
-              <li key={type.typeLabel}>{type.typeLabel}</li>
-            ))}
-          </ul>
-          <h2>Locations</h2>
-          <ul>
-            {data.plant.plants.map((plant) => (
-              <li key={plant.id}>{plant.location}</li>
-            ))}
-          </ul>
-        </div>
+        <>
+          <PageHeadingStyle>{data.plant.name}</PageHeadingStyle>
+          <FlexContainer flexDirection="column" padding="0 var(--smSpacing)">
+            <section>
+              <FlexContainer as="ul" padding="0 var(--smSpacing)">
+                {data.plant.types.map((type) => (
+                  <li key={type.typeLabel}>
+                    <TagStyle>
+                      <a
+                        href={`https://en.wikipedia.org/wiki/${type.typeLabel}`}
+                        target="_blank"
+                        rel="noopener"
+                        title={`${type.typeLabel} on Wikipedia`}
+                      >
+                        {type.typeLabel}
+                      </a>
+                    </TagStyle>
+                  </li>
+                ))}
+              </FlexContainer>
+            </section>
+            <section marginTop flexDirection="column">
+              <SectionHeadingStyle marginTop>
+                Where Are They? ({data.plant.plants.length})
+              </SectionHeadingStyle>
+              <ol>
+                {data.plant.plants.map((plant) => (
+                  <li key={plant.id}>
+                    <SimplePStyle>{plant.location}</SimplePStyle>
+                  </li>
+                ))}
+              </ol>
+            </section>
+            <section>
+              <SectionHeadingStyle marginTop>
+                Water: When, Where How
+              </SectionHeadingStyle>
+              {data.plant.waterInstructions ? (
+                <SimplePStyle>{data.plant.waterInstructions}</SimplePStyle>
+              ) : (
+                <SimplePStyle>Nothing yet...</SimplePStyle>
+              )}
+            </section>
+            <section>
+              <SectionHeadingStyle marginTop>Comments</SectionHeadingStyle>
+              {data.plant.comments ? (
+                <SimplePStyle>{data.plant.comments}</SimplePStyle>
+              ) : (
+                <SimplePStyle>Nothing yet...</SimplePStyle>
+              )}
+            </section>
+          </FlexContainer>
+        </>
       )}
-    </div>
+    </FlexContainer>
   );
 };

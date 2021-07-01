@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { PrimaryButton } from "../styles/Buttons";
+import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 import { FlexContainer } from "../styles/Containers";
 import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 
-export const NewPlantForm = () => {
+export const NewPlantForm = ({ closePlantForm }) => {
   const [name, setName] = useState("");
   const [types, setTypes] = useState("");
   const [location, setLocation] = useState("");
@@ -39,8 +39,17 @@ export const NewPlantForm = () => {
           onChange={(e) => setLocation(e.target.value)}
         />
       </div>
-      <FlexContainer>
-        <PrimaryButton as="input" type="submit" value="Add Plant" />
+      <FlexContainer flexDirection="column">
+        <PrimaryButton
+          fullwidth
+          margin="0 0 var(--medSpacing) 0"
+          as="input"
+          type="submit"
+          value="Add Plant"
+        />
+        <NoBorderButton fullwidth onClick={closePlantForm}>
+          Cancel
+        </NoBorderButton>
       </FlexContainer>
     </FormStyle>
   );

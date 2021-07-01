@@ -5,7 +5,7 @@ import { LinkHeadingStyle } from "../styles/Typography";
 
 export const CollectionListItem = ({ id, title }) => {
   return (
-    <LinkHeadingStyle name={title} as={Link} to={`collections/${id}`}>
+    <LinkHeadingStyle name={title} as={Link} to={`/collections/${id}`}>
       {title}
     </LinkHeadingStyle>
   );
