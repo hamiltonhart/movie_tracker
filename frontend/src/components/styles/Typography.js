@@ -24,6 +24,7 @@ export const SectionHeadingStyle = styled.h2`
   font-size: var(--mediumBig);
   padding: var(--medSpacing) 0;
   color: var(--primary);
+  ${(props) => props.centerText && `text-align: center;`}
   ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
   ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
 `;

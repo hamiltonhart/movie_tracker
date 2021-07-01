@@ -17,6 +17,8 @@ import {
 } from "../components/styles/Typography";
 import { FlexContainer } from "../components/styles/Containers";
 
+import { NewPlantItemForm } from "../components/plants/NewPlantItemForm";
+
 // export const CollectionContext = createContext({});
 
 export const PlantPage = () => {
@@ -25,7 +27,7 @@ export const PlantPage = () => {
     variables: { id: params.plantId },
   });
 
-  // const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
+  const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   // const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
   // const context = useContext(CollectionContext);
@@ -45,7 +47,7 @@ export const PlantPage = () => {
         <>
           <PageHeadingStyle>{data.plant.name}</PageHeadingStyle>
           <FlexContainer flexDirection="column" padding="0 var(--smSpacing)">
-            <section>
+            <section className="plant-tags">
               <FlexContainer as="ul" padding="0 var(--smSpacing)">
                 {data.plant.types.map((type) => (
                   <li key={type.typeLabel}>
@@ -63,7 +65,7 @@ export const PlantPage = () => {
                 ))}
               </FlexContainer>
             </section>
-            <section marginTop flexDirection="column">
+            <section className="plant-locations">
               <SectionHeadingStyle marginTop>
                 Where Are They? ({data.plant.plants.length})
               </SectionHeadingStyle>
@@ -75,7 +77,7 @@ export const PlantPage = () => {
                 ))}
               </ol>
             </section>
-            <section>
+            <section className="plant-watering">
               <SectionHeadingStyle marginTop>
                 Water: When, Where How
               </SectionHeadingStyle>
@@ -85,7 +87,7 @@ export const PlantPage = () => {
                 <SimplePStyle>Nothing yet...</SimplePStyle>
               )}
             </section>
-            <section>
+            <section className="plant-comments">
               <SectionHeadingStyle marginTop>Comments</SectionHeadingStyle>
               {data.plant.comments ? (
                 <SimplePStyle>{data.plant.comments}</SimplePStyle>
@@ -93,6 +95,26 @@ export const PlantPage = () => {
                 <SimplePStyle>Nothing yet...</SimplePStyle>
               )}
             </section>
+            <FlexContainer
+              className="buttons-heading"
+              marginTop
+              flexDirection="column"
+            >
+              <PrimaryButton
+                onClick={toggleAdd}
+                margin="0 0 var(--medSpacing) 0"
+              >
+                {`Add a ${data.plant.name}`}
+              </PrimaryButton>
+              <NoBorderButton>{`Edit ${data.plant.name}`}</NoBorderButton>
+              {isShowingAdd && (
+                <NewPlantItemForm
+                  id={data.plant.id}
+                  plantName={data.plant.name}
+                  closePlantForm={toggleAdd}
+                />
+              )}
+            </FlexContainer>
           </FlexContainer>
         </>
       )}

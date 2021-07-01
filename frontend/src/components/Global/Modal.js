@@ -19,12 +19,14 @@ const ModalContainer = styled(motion.div)`
   justify-content: center;
   position: fixed;
   top: 5%;
-  /* width: 100%; */
+  width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 1000;
-  margin-left: var(--xsSpacing);
-  margin-right: var(--xsSpacing);
+  /* margin-left: var(--xsSpacing);
+  margin-right: var(--xsSpacing); */
+  > * {
+  }
 `;
 
 export const Modal = ({ children }) => {
