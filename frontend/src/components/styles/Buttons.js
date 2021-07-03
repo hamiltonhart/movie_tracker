@@ -16,6 +16,7 @@ export const Button = styled.button`
 export const PrimaryButton = styled(Button)`
   background-color: ${(props) =>
     props.delete ? `var(--red)` : `var(--primary)`};
+  background-color: ${(props) => props.disabled && `var(--grey)`};
   color: ${(props) =>
     props.delete ? `var(--redContrast)` : `var(--primaryContrast)`};
   &:visited {

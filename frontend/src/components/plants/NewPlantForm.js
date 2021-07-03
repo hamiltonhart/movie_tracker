@@ -46,6 +46,7 @@ export const NewPlantForm = ({ closePlantForm }) => {
           as="input"
           type="submit"
           value="Add Plant"
+          disabled={!name || !types || !location}
         />
         <NoBorderButton fullwidth onClick={closePlantForm}>
           Cancel

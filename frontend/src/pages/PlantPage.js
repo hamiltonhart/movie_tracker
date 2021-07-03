@@ -18,6 +18,7 @@ import {
 import { FlexContainer } from "../components/styles/Containers";
 
 import { NewPlantItemForm } from "../components/plants/NewPlantItemForm";
+import { UpdatePlantForm } from "../components/plants/UpdatePlantForm";
 
 // export const CollectionContext = createContext({});
 
@@ -28,7 +29,7 @@ export const PlantPage = () => {
   });
 
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
-  // const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
+  const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
 
   // const context = useContext(CollectionContext);
 
@@ -79,7 +80,7 @@ export const PlantPage = () => {
             </section>
             <section className="plant-watering">
               <SectionHeadingStyle marginTop>
-                Water: When, Where How
+                Water: When, Where, How?
               </SectionHeadingStyle>
               {data.plant.waterInstructions ? (
                 <SimplePStyle>{data.plant.waterInstructions}</SimplePStyle>
@@ -106,12 +107,23 @@ export const PlantPage = () => {
               >
                 {`Add a ${data.plant.name}`}
               </PrimaryButton>
-              <NoBorderButton>{`Edit ${data.plant.name}`}</NoBorderButton>
+              <NoBorderButton
+                onClick={toggleEdit}
+              >{`Edit ${data.plant.name}`}</NoBorderButton>
               {isShowingAdd && (
                 <NewPlantItemForm
                   id={data.plant.id}
                   plantName={data.plant.name}
                   closePlantForm={toggleAdd}
+                />
+              )}
+              {isShowingEdit && (
+                <UpdatePlantForm
+                  id={data.plant.id}
+                  plantName={data.plant.name}
+                  plantTypes={data.plant.types}
+                  plants={data.plant.plants}
+                  closePlantForm={toggleEdit}
                 />
               )}
             </FlexContainer>

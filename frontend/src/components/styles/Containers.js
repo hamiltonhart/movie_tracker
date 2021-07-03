@@ -10,6 +10,7 @@ export const FlexContainer = styled(motion.div)`
     props.justifyContent ? props.justifyContent : "center"};
   padding: ${(props) => (props.padding ? props.padding : `var(--smSpacing)`)};
   ${(props) => props.topBorder && `border-top: 2px solid var(--gray);`}
+  ${(props) => props.bottomBorder && `border-bottom: 2px solid var(--gray);`}
   ${(props) =>
     props.backgroundColor && `background-color: ${props.backgroundColor}`};
   ${(props) =>
@@ -17,6 +18,7 @@ export const FlexContainer = styled(motion.div)`
   ${(props) => props.overflow && `overflow: ${props.overflow}`};
   ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
   ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
+  margin: ${(props) => (props.margin ? props.margin : "0")};
 
   ol li {
     list-style-type: decimal;
@@ -25,6 +27,10 @@ export const FlexContainer = styled(motion.div)`
 
   ol li::marker {
     color: var(--darkGrey);
+  }
+
+  .margin-bottom {
+    margin-bottom: var(--medSpacing);
   }
 `;
 
