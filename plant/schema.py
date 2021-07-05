@@ -56,11 +56,11 @@ class CreatePlant(graphene.Mutation):
                 f"You must be logged in to add a plant.")
 
         try:
-            current_plant = Plant.objects.create(name=name)
-        except IntegrityError as e:
+            current_plant = Plant.objects.get(name__iexact=name)
+            new_plant = False
+        except:
             try:
-                current_plant = Plant.objects.get(name=name)
-                new_plant = False
+                current_plant = Plant.objects.create(name=name)
             except:
                 raise GraphQLError(f"Cannot create a plant called {name}.")
 
@@ -180,9 +180,6 @@ class UpdatePlant(graphene.Mutation):
             plant_string_types = [x.replace(" ", "").lower()
                                   for x in types.split(",")]
 
-            print("-----")
-            print(plant_types)
-            print(current_types)
             for type_string in plant_string_types:
                 move_to_next = False
                 if type_string == "" or type_string == " ":

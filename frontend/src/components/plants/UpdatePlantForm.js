@@ -92,7 +92,9 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
                   />
                 </div>
                 <div className="margin-bottom">
-                  <LabelStyle htmlFor="types">Type</LabelStyle>
+                  <LabelStyle htmlFor="types">
+                    Types (separate with commas)
+                  </LabelStyle>
                   <TextInputStyle
                     type="text"
                     name="types"

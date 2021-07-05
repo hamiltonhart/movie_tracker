@@ -39,7 +39,7 @@ export const NewPlantForm = ({ closePlantForm }) => {
         />
       </div>
       <div>
-        <LabelStyle htmlFor="types">Type</LabelStyle>
+        <LabelStyle htmlFor="types">Types (separate with commas)</LabelStyle>
         <TextInputStyle
           type="text"
           name="types"

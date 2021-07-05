@@ -12,13 +12,11 @@ import { useMutation } from "@apollo/client";
 export const NewPlantItemForm = ({ id, plantName, closePlantForm }) => {
   const [location, setLocation] = useState("");
 
-  const handleCompleted = () => {
-    console.log("Completed");
-  };
+  // const handleCompleted = () => {};
 
   const [createPlantItem, { error }] = useMutation(CREATE_PLANT_ITEM, {
     refetchQueries: [{ query: GET_PLANT, variables: { id } }],
-    onCompleted: handleCompleted,
+    // onCompleted: handleCompleted,
   });
 
   const handleSubmit = (e) => {
