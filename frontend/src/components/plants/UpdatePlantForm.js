@@ -12,39 +12,63 @@ import { SectionHeadingStyle } from "../styles/Typography";
 import { PlantModalContainerStyle } from "./styles/Containers";
 
 import { useParams } from "@reach/router";
-import { useQuery } from "@apollo/react-hooks";
-import { GET_PLANT } from "../../gql";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { GET_PLANT, UPDATE_PLANT } from "../../gql";
 
 import { Loading, Error } from "../Global";
 
 export const UpdatePlantForm = ({ closePlantForm }) => {
   const params = useParams();
+
+  // Query
   const { data, loading, error } = useQuery(GET_PLANT, {
     variables: { id: params.plantId },
   });
+
+  // State
   const [name, setName] = useState(data ? data.plant.name : "");
   const [types, setTypes] = useState(
     data
       ? data.plant.types.map((plantType) => plantType.typeLabel).join(",")
       : ""
   );
-  const [plants, setPlants] = useState(data ? data.plant.plants : []);
+  const [plants, setPlants] = useState(
+    data
+      ? data.plant.plants.map((plant) =>
+          Object.values(plant).map((item) => item.toString())
+        )
+      : []
+  );
   const [wateringInstructions, setWateringInstructions] = useState(
     data ? data.plant.wateringInstructions : ""
   );
   const [comments, setComments] = useState(data ? data.plant.comments : "");
 
+  // Update Mutation
+  const [updatePlant, { error: updateError }] = useMutation(UPDATE_PLANT, {
+    refetchQueries: { query: GET_PLANT, variables: { id: data.plant.id } },
+  });
+
   const handleLocationChange = (e, index) => {
     const tempList = [...plants];
-    const tempItem = { ...plants[index] };
-    tempItem.location = e.target.value;
+    const tempItem = [...plants[index]];
+    tempItem[1] = e.target.value;
     tempList[index] = tempItem;
     setPlants(tempList);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, types, plants);
+    updatePlant({
+      variables: {
+        id: data.plant.id,
+        name,
+        types,
+        comments,
+        plants,
+        wateringInstructions,
+      },
+    });
     closePlantForm();
   };
 
@@ -87,7 +111,7 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
                     <TextInputStyle
                       type="text"
                       name={`plant${index + 1}-location`}
-                      value={plant.location}
+                      value={plant[1]}
                       onChange={(e) => handleLocationChange(e, index)}
                     />
                   </div>

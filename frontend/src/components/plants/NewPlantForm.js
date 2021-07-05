@@ -3,18 +3,33 @@ import { NoBorderButton, PrimaryButton } from "../styles/Buttons";
 import { FlexContainer } from "../styles/Containers";
 import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 
+import { CREATE_PLANT, GET_ALL_PLANTS } from "../../gql/PlantsGQL";
+import { useMutation } from "@apollo/client";
+import { Error } from "../Global";
+import { navigate } from "@reach/router";
+
 export const NewPlantForm = ({ closePlantForm }) => {
   const [name, setName] = useState("");
   const [types, setTypes] = useState("");
   const [location, setLocation] = useState("");
 
+  const handleCompleted = ({ createPlant }) => {
+    navigate(`/plants/${createPlant.plant.id}`);
+  };
+
+  const [createPlant, { error }] = useMutation(CREATE_PLANT, {
+    onCompleted: handleCompleted,
+    refetchQueries: [{ query: GET_ALL_PLANTS }],
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name, types, location);
+    createPlant({ variables: { name, types, location } });
   };
 
   return (
     <FormStyle onSubmit={handleSubmit}>
+      {error && <Error message={error.message} />}
       <div>
         <LabelStyle htmlFor="name">Name</LabelStyle>
         <TextInputStyle

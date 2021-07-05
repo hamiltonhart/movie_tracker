@@ -6,13 +6,28 @@ import { FormStyle, LabelStyle, TextInputStyle } from "../styles/Forms";
 import { SectionHeadingStyle } from "../styles/Typography";
 import { PlantModalContainerStyle } from "./styles/Containers";
 
+import { CREATE_PLANT_ITEM, GET_PLANT } from "../../gql/PlantsGQL";
+import { useMutation } from "@apollo/client";
+
 export const NewPlantItemForm = ({ id, plantName, closePlantForm }) => {
   const [location, setLocation] = useState("");
 
+  const handleCompleted = () => {
+    console.log("Completed");
+  };
+
+  const [createPlantItem, { error }] = useMutation(CREATE_PLANT_ITEM, {
+    refetchQueries: [{ query: GET_PLANT, variables: { id } }],
+    onCompleted: handleCompleted,
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(id, plantName, location);
-    closePlantForm();
+    createPlantItem({ variables: { plantId: id, location } });
+    if (error) {
+    } else {
+      closePlantForm();
+    }
   };
 
   return (

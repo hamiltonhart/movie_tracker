@@ -30,31 +30,82 @@ export const GET_PLANT = gql`
 
 // Mutations
 export const CREATE_PLANT_ITEM = gql`
-  mutation createPlantItem(
-    $plantId: Int
+  mutation createPlantItem($plantId: Int!, $location: String!) {
+    createPlantItem(plantId: $plantId, location: $location) {
+      plantItem {
+        id
+        location
+      }
+    }
+  }
+`;
+
+export const CREATE_PLANT = gql`
+  mutation createPlant(
     $name: String!
     $sciName: String
-    $types: String
-    $location: String
+    $types: String!
+    $location: String!
   ) {
-    createPlantItem(
-      plantId: $plantId
+    createPlant(
       name: $name
       sciName: $sciName
       types: $types
       location: $location
     ) {
-      plantItem {
+      plant {
         id
-        location
-        plant {
+        name
+        sciName
+        comments
+        wateringInstructions
+        plants {
           id
-          name
-          sciName
-          types {
-            id
-            typeLabel
-          }
+          location
+        }
+        types {
+          id
+          typeLabel
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_PLANT = gql`
+  mutation updatePlant(
+    $id: Int!
+    $name: String
+    $sciName: String
+    $types: String
+    $deleteItems: [Int]
+    $comments: String
+    $plants: [[String]]
+    $wateringInstructions: String
+  ) {
+    updatePlant(
+      id: $id
+      name: $name
+      sciName: $sciName
+      types: $types
+      deleteItems: $deleteItems
+      comments: $comments
+      plants: $plants
+      wateringInstructions: $wateringInstructions
+    ) {
+      plant {
+        id
+        name
+        sciName
+        comments
+        wateringInstructions
+        plants {
+          id
+          location
+        }
+        types {
+          id
+          typeLabel
         }
       }
     }

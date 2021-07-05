@@ -82,8 +82,8 @@ export const PlantPage = () => {
               <SectionHeadingStyle marginTop>
                 Water: When, Where, How?
               </SectionHeadingStyle>
-              {data.plant.waterInstructions ? (
-                <SimplePStyle>{data.plant.waterInstructions}</SimplePStyle>
+              {data.plant.wateringInstructions ? (
+                <SimplePStyle>{data.plant.wateringInstructions}</SimplePStyle>
               ) : (
                 <SimplePStyle>Nothing yet...</SimplePStyle>
               )}
