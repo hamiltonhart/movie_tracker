@@ -4,10 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_PLANT } from "../gql";
 
 import { Loading, Error } from "../components/Global";
-// import { CollectionItemsList } from "../components/CollectionItems/CollectionItemsList";
-// import { EditCollection } from "../components/MovieCollections";
-import { useToggle, Search } from "../components/utilities";
-// import { CreateCollectionItemManual } from "../components/CollectionItems/CreateCollectionItemManual";
+import { useToggle } from "../components/utilities";
 import { NoBorderButton, PrimaryButton } from "../components/styles/Buttons";
 import {
   PageHeadingStyle,
@@ -20,8 +17,6 @@ import { FlexContainer } from "../components/styles/Containers";
 import { NewPlantItemForm } from "../components/plants/NewPlantItemForm";
 import { UpdatePlantForm } from "../components/plants/UpdatePlantForm";
 
-// export const CollectionContext = createContext({});
-
 export const PlantPage = () => {
   const params = useParams();
   const { data, loading, error } = useQuery(GET_PLANT, {
@@ -30,15 +25,6 @@ export const PlantPage = () => {
 
   const { isShowing: isShowingAdd, toggle: toggleAdd } = useToggle();
   const { isShowing: isShowingEdit, toggle: toggleEdit } = useToggle();
-
-  // const context = useContext(CollectionContext);
-
-  // context.isShowingAdd = isShowingAdd;
-  // context.toggleAdd = toggleAdd;
-  // context.isShowingEdit = isShowingEdit;
-  // context.toggleEdit = toggleEdit;
-  // context.collection = data && data.movieCollection;
-  // context.collectionItems = data && data.collectionItems;
 
   return (
     <FlexContainer flexDirection="column">
@@ -56,7 +42,7 @@ export const PlantPage = () => {
                       <a
                         href={`https://en.wikipedia.org/wiki/${type.typeLabel}`}
                         target="_blank"
-                        rel="noopener"
+                        rel="noopener noreferrer"
                         title={`${type.typeLabel} on Wikipedia`}
                       >
                         {type.typeLabel}
@@ -91,7 +77,7 @@ export const PlantPage = () => {
             <section className="plant-comments">
               <SectionHeadingStyle marginTop>Comments</SectionHeadingStyle>
               {data.plant.comments ? (
-                <SimplePStyle>{data.plant.comments}</SimplePStyle>
+                <SimplePStyle showBreaks>{data.plant.comments}</SimplePStyle>
               ) : (
                 <SimplePStyle>Nothing yet...</SimplePStyle>
               )}

@@ -8,7 +8,6 @@ import { useToggle } from "../components/utilities";
 
 import { SecondaryButton } from "../components/styles/Buttons";
 import { FlexContainer } from "../components/styles/Containers";
-import { Link } from "@reach/router";
 import { PageHeadingStyle } from "../components/styles/Typography";
 
 export const MoviesPage = () => {

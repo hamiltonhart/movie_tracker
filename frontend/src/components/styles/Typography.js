@@ -9,6 +9,7 @@ export const SimplePStyle = styled.p`
   text-align: ${(props) => (props.textAlign ? props.textAlign : "left")};
   font-size: ${(props) => (props.fontSize ? props.fontSize : `var(--normal)`)};
   padding: ${(props) => (props.padding ? props.padding : `var(--xsSpacing)`)};
+  ${(props) => props.showBreaks && `white-space: pre-line;`}
 `;
 
 export const PageHeadingStyle = styled.h1`

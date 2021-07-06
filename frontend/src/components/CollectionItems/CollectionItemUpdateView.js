@@ -5,6 +5,7 @@ import { NoBorderButton } from "../styles/Buttons";
 import { CollectionContext } from "../../pages/CollectionPage";
 import { CollectionListContext } from "./CollectionItemsList";
 import { movieSortingABC } from "../../utilities";
+import { Error } from "../Global";
 
 // Using the collectionItemId provided, the CollectionItem view count is incremented by one.
 export const CollectionItemUpdateView = ({
@@ -33,8 +34,11 @@ export const CollectionItemUpdateView = ({
     updateCollectionItem();
   };
   return (
-    <NoBorderButton onClick={() => handleUpdateClick()}>
-      Add View
-    </NoBorderButton>
+    <>
+      {error && <Error message={error.message} />}
+      <NoBorderButton onClick={() => handleUpdateClick()}>
+        Add View
+      </NoBorderButton>
+    </>
   );
 };

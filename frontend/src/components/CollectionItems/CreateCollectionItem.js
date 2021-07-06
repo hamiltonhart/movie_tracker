@@ -56,10 +56,10 @@ export const CreateCollectionItem = ({
     { update: handleUpdateCache, onCompleted: handleCompleted }
   );
 
-  const [
-    updateCollectionItem,
-    { error: updateError },
-  ] = useMutation(UPDATE_COLLECTION_ITEM, { onCompleted: handleCompleted });
+  const [updateCollectionItem, { error: updateError }] = useMutation(
+    UPDATE_COLLECTION_ITEM,
+    { onCompleted: handleCompleted }
+  );
 
   const handleClick = () => {
     const matchFound = findMatch({
@@ -89,6 +89,7 @@ export const CreateCollectionItem = ({
         Add
       </PrimaryButton>
       {error && <Error message={error.message} />}
+      {updateError && <Error message={updateError.message} />}
     </div>
   );
 };

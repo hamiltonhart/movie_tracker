@@ -141,28 +141,24 @@ class UpdatePlant(graphene.Mutation):
         # Checks that there are plants provided
         # If the plant id is in the delete_items list provided, the PlantItem with that ID is deleted and the id is removed from the delete_items list for efficiency
         # If the plant id is NOT in the delete_items list, the plant item will be retrieved and the location on the db will match what is provided.
+        if len(delete_items) > 0:
+            for delete_id in delete_items:
+                try:
+                    item_to_delete = PlantItem.objects.get(id=delete_id)
+                    item_to_delete.delete()
+                except:
+                    print(f"Could not delete Plant Item with ID {delete_id}.")
+
         if len(plants) > 0:
             for plant_item in plants:
-                if len(delete_items) > 0:
-                    for delete_id in delete_items:
-                        if plant_item[0] == str(delete_id):
-                            try:
-                                item_to_delete = PlantItem.objects.get(
-                                    id=delete_id)
-                                item_to_delete.delete()
-                                delete_items.remove(delete_id)
-                            except:
-                                print(
-                                    f"Could not delete Plant Item with ID {plant_item[0]}. Delete ID given is {delete_id}.")
-                else:
-                    try:
-                        plant_to_update = PlantItem.objects.get(
-                            id=int(plant_item[0]))
-                        plant_to_update.location = plant_item[1]
-                        plant_to_update.save()
-                    except:
-                        print(
-                            f"Could not update location of Plant Item with ID {plant_item[0]}.")
+                try:
+                    plant_to_update = PlantItem.objects.get(
+                        id=int(plant_item[0]))
+                    plant_to_update.location = plant_item[1]
+                    plant_to_update.save()
+                except:
+                    print(
+                        f"Could not update location of Plant Item with ID {plant_item[0]}.")
 
         # for item_id in delete_items:
         #     try:

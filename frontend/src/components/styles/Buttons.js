@@ -56,3 +56,15 @@ export const CloseButtonStyle = styled.button`
   top: 1.2rem;
   right: 1.2rem;
 `;
+
+export const IconButtonStyle = styled.button`
+  padding: 0.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: unset;
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;

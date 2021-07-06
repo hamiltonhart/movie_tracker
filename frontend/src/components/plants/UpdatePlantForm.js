@@ -16,6 +16,8 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PLANT, UPDATE_PLANT } from "../../gql";
 
 import { Loading, Error } from "../Global";
+import { IconButton } from "../Global/IconButton";
+import trashIcon from "../../images/icon-trash.svg";
 
 export const UpdatePlantForm = ({ closePlantForm }) => {
   const params = useParams();
@@ -43,6 +45,7 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
     data ? data.plant.wateringInstructions : ""
   );
   const [comments, setComments] = useState(data ? data.plant.comments : "");
+  const [deleteItems, setDeleteItems] = useState([]);
 
   // Update Mutation
   const [updatePlant, { error: updateError }] = useMutation(UPDATE_PLANT, {
@@ -57,6 +60,19 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
     setPlants(tempList);
   };
 
+  const handleRemovePlantItem = (e, id, index) => {
+    e.preventDefault();
+    // Add item ID to the deleteItems state
+    const tempDeleteList = [...deleteItems];
+    tempDeleteList.push(id);
+    setDeleteItems(tempDeleteList);
+
+    // Remove item with index from plants state
+    const tempPlantList = [...plants];
+    tempPlantList.splice(index, 1);
+    setPlants(tempPlantList);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     updatePlant({
@@ -67,6 +83,7 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
         comments,
         plants,
         wateringInstructions,
+        deleteItems,
       },
     });
     closePlantForm();
@@ -80,6 +97,7 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
         {error && <Error message={error.message} />}
         {data && (
           <>
+            {updateError && <Error message={error.message} />}
             <FormStyle onSubmit={handleSubmit}>
               <FlexContainer flexDirection="column" bottomBorder>
                 <div className="margin-bottom">
@@ -110,12 +128,21 @@ export const UpdatePlantForm = ({ closePlantForm }) => {
                     <LabelStyle
                       htmlFor={`plant${index + 1}-location`}
                     >{`Plant ${index + 1} Location`}</LabelStyle>
-                    <TextInputStyle
-                      type="text"
-                      name={`plant${index + 1}-location`}
-                      value={plant[1]}
-                      onChange={(e) => handleLocationChange(e, index)}
-                    />
+                    <FlexContainer padding="0" justifyContent="space-between">
+                      <TextInputStyle
+                        type="text"
+                        name={`plant${index + 1}-location`}
+                        value={plant[1]}
+                        onChange={(e) => handleLocationChange(e, index)}
+                      />
+                      <IconButton
+                        src={trashIcon}
+                        alt="Trash Icon"
+                        onClick={(e) =>
+                          handleRemovePlantItem(e, plant[0], index)
+                        }
+                      />
+                    </FlexContainer>
                   </div>
                 ))}
               </FlexContainer>

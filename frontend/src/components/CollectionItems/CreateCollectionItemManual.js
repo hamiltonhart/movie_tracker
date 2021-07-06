@@ -59,10 +59,10 @@ export const CreateCollectionItemManual = ({ movieCollectionId }) => {
     { update: handleUpdateCache, onCompleted: handleCompleted }
   );
 
-  const [
-    updateCollectionItem,
-    { error: updateError },
-  ] = useMutation(UPDATE_COLLECTION_ITEM, { onCompleted: handleCompleted });
+  const [updateCollectionItem, { error: updateError }] = useMutation(
+    UPDATE_COLLECTION_ITEM,
+    { onCompleted: handleCompleted }
+  );
 
   // Calls the createCollectionItem mutation
   const handleSubmit = (e) => {
@@ -149,6 +149,7 @@ export const CreateCollectionItemManual = ({ movieCollectionId }) => {
         </NoBorderButton>
       </FormStyle>
       {error && <Error message={error.message} />}
+      {updateError && <Error message={updateError.message} />}
     </FlexContainer>
   );
 };
