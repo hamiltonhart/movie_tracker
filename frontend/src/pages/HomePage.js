@@ -21,20 +21,10 @@ export const HomePage = () => {
         (And also plants...)
       </SectionHeadingStyle>
       <FlexContainer flexDirection="column">
-        <OutlineButton
-          raiseHover
-          margin="var(--medSpacing)"
-          as={Link}
-          to="collections/"
-        >
+        <OutlineButton margin="var(--medSpacing)" as={Link} to="collections/">
           Movies
         </OutlineButton>
-        <OutlineButton
-          raiseHover
-          margin="var(--medSpacing)"
-          as={Link}
-          to="plants/"
-        >
+        <OutlineButton margin="var(--medSpacing)" as={Link} to="plants/">
           Plants
         </OutlineButton>
       </FlexContainer>
