@@ -35,6 +35,22 @@ export const SecondaryButton = styled(Button)`
   }
 `;
 
+export const OutlineButton = styled(Button)`
+  color: var(--primary);
+  border: 3px solid var(--primary);
+  background: none;
+  padding-left: var(--xsSpacing);
+  padding-right: var(--xsSpacing);
+  font-weight: 700;
+  &:visited {
+    color: var(--primary);
+  }
+  :hover {
+    color: var(--primaryContrast);
+    background-color: var(--primary);
+  }
+`;
+
 export const NoBorderButton = styled(Button)`
   color: var(--primary);
   background: none;

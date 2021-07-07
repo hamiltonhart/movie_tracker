@@ -22,9 +22,11 @@ export const PageHeadingStyle = styled.h1`
 `;
 
 export const SectionHeadingStyle = styled.h2`
-  font-size: var(--mediumBig);
-  padding: var(--medSpacing) 0;
-  color: var(--primary);
+  font-size: ${(props) =>
+    props.fontSize ? props.fontSize : "var(--mediumBig)"};
+  padding: ${(props) =>
+    props.padding ? props.padding : "var(--medSpacing) 0"};
+  color: ${(props) => (props.color ? props.color : "var(--primary)")};
   ${(props) => props.centerText && `text-align: center;`}
   ${(props) => props.marginBottom && `margin-bottom: var(--lgSpacing);`}
   ${(props) => props.marginTop && `margin-top: var(--lgSpacing);`}
