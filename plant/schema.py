@@ -214,7 +214,6 @@ class DeletePlant(graphene.Mutation):
 
     @ login_required
     def mutate(self, info, id):
-        print("At delete")
         try:
             plant = Plant.objects.get(id=id)
         except:
