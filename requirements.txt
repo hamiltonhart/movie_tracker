@@ -18,7 +18,7 @@ lazy-object-proxy==1.4.3; python_version >= '2.7' and python_version not in '3.0
 mccabe==0.6.1
 promise==2.3
 psycopg2-binary==2.8.5
-pyjwt==1.7.1
+pyjwt==2.4.0
 pylint==2.5.3
 pytz==2020.1
 rx==1.6.1
